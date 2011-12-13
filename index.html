@@ -50,7 +50,37 @@
 
     <script type="text/javascript">
         // Example
-        var viewer = new OpenSeadragon.Viewer("contentDiv");
+        var viewer = new OpenSeadragon.Viewer({
+            id: "contentDiv",
+            config: {
+                navImages: {
+                    zoomIn: {
+                        REST:   'images/zoomin_rest.png',
+                        GROUP:  'images/zoomin_grouphover.png',
+                        HOVER:  'images/zoomin_hover.png',
+                        DOWN:   'images/zoomin_pressed.png'
+                    },
+                    zoomOut: {
+                        REST:   'images/zoomout_rest.png',
+                        GROUP:  'images/zoomout_grouphover.png',
+                        HOVER:  'images/zoomout_hover.png',
+                        DOWN:   'images/zoomout_pressed.png'
+                    },
+                    home: {
+                        REST:   'images/home_rest.png',
+                        GROUP:  'images/home_grouphover.png',
+                        HOVER:  'images/home_hover.png',
+                        DOWN:   'images/home_pressed.png'
+                    },
+                    fullpage: {
+                        REST:   'images/fullpage_rest.png',
+                        GROUP:  'images/fullpage_grouphover.png',
+                        HOVER:  'images/fullpage_hover.png',
+                        DOWN:   'images/fullpage_pressed.png'
+                    }
+                }
+            }
+        });
         viewer.openDzi("examples/highsmith/highsmith.dzi");
     </script>
     
