@@ -3,7 +3,7 @@
  * (c) 2010 OpenSeadragon
  * (c) 2010 CodePlex Foundation
  *
- * OpenSeadragon 0.8.09
+ * OpenSeadragon 0.8.10
  * ----------------------------------------------------------------------------
  * 
  *  License: New BSD License (BSD)
@@ -745,65 +745,19 @@ $.Utils = new $.Utils();
 }( OpenSeadragon ));
 (function( $ ){
 
+    //Ensures we dont break existing instances of mousetracker if we are dumb
+    //enough to load openseadragon.js onto the page twice.  I don't know how
+    //useful this pattern is, but if we decide to use it we should use it 
+    //everywhere
     if ($.MouseTracker) {
         return;
     }
 
-
-    var isIE = $.Utils.getBrowser() == $.Browser.IE;
-
-
-    var buttonDownAny = false;
-
-    var ieCapturingAny = false;
-    var ieTrackersActive = {};      // dictionary from hash to MouseTracker
-    var ieTrackersCapturing = [];   // list of trackers interested in capture
-
-
-    function getMouseAbsolute(event) {
-        return $.Utils.getMousePosition(event);
-    }
-
-    function getMouseRelative(event, elmt) {
-        var mouse = $.Utils.getMousePosition(event);
-        var offset = $.Utils.getElementPosition(elmt);
-
-        return mouse.minus(offset);
-    }
-
-    /**
-    * Returns true if elmtB is a child node of elmtA, or if they're equal.
-    */
-    function isChild(elmtA, elmtB) {
-        var body = document.body;
-        while (elmtB && elmtA != elmtB && body != elmtB) {
-            try {
-                elmtB = elmtB.parentNode;
-            } catch (e) {
-                return false;
-            }
-        }
-        return elmtA == elmtB;
-    }
-
-    function onGlobalMouseDown() {
-        buttonDownAny = true;
-    }
-
-    function onGlobalMouseUp() {
-        buttonDownAny = false;
-    }
-
-
-    (function () {
-        if (isIE) {
-            $.Utils.addEvent(document, "mousedown", onGlobalMouseDown, false);
-            $.Utils.addEvent(document, "mouseup", onGlobalMouseUp, false);
-        } else {
-            $.Utils.addEvent(window, "mousedown", onGlobalMouseDown, true);
-            $.Utils.addEvent(window, "mouseup", onGlobalMouseUp, true);
-        }
-    })();
+    var isIE                = $.Utils.getBrowser() == $.Browser.IE,
+        buttonDownAny       = false,
+        ieCapturingAny      = false,
+        ieTrackersActive    = {},   // dictionary from hash to MouseTracker
+        ieTrackersCapturing = [];   // list of trackers interested in capture
 
 
     $.MouseTracker = function (elmt, clickTimeThreshold, clickDistThreshold) {
@@ -812,34 +766,55 @@ $.Utils = new $.Utils();
         //               -       of Viewers has less memory impact.  Also use 
         //               -       prototype pattern instead of Singleton pattern.
         //End Thatcher
-        var self = this;
-        var ieSelf = null;
+        var self    = this,
+            ieSelf  = null,
 
-        var hash = Math.random();     // a unique hash for this tracker
-        var elmt = $.Utils.getElement(elmt);
+            hash = Math.random(), // a unique hash for this tracker
+            elmt = $.Utils.getElement(elmt),
 
-        var tracking = false;
-        var capturing = false;
-        var buttonDownElmt = false;
-        var insideElmt = false;
+            tracking        = false,
+            capturing       = false,
+            buttonDownElmt  = false,
+            insideElmt      = false,
 
-        var lastPoint = null;           // position of last mouse down/move
-        var lastMouseDownTime = null;   // time of last mouse down
-        var lastMouseDownPoint = null;  // position of last mouse down
-        var clickTimeThreshold = clickTimeThreshold;
-        var clickDistThreshold = clickDistThreshold;
+            lastPoint           = null, // position of last mouse down/move
+            lastMouseDownTime   = null, // time of last mouse down
+            lastMouseDownPoint  = null, // position of last mouse down
+            clickTimeThreshold  = clickTimeThreshold,
+            clickDistThreshold  = clickDistThreshold;
 
 
-        this.target = elmt;
-        this.enterHandler = null;       // function(tracker, position, buttonDownElmt, buttonDownAny)
-        this.exitHandler = null;        // function(tracker, position, buttonDownElmt, buttonDownAny)
-        this.pressHandler = null;       // function(tracker, position)
+        this.target         = elmt;
+        this.enterHandler   = null;     // function(tracker, position, buttonDownElmt, buttonDownAny)
+        this.exitHandler    = null;     // function(tracker, position, buttonDownElmt, buttonDownAny)
+        this.pressHandler   = null;     // function(tracker, position)
         this.releaseHandler = null;     // function(tracker, position, insideElmtPress, insideElmtRelease)
-        this.scrollHandler = null;      // function(tracker, position, scroll, shift)
-        this.clickHandler = null;       // function(tracker, position, quick, shift)
-        this.dragHandler = null;        // function(tracker, position, delta, shift)
+        this.scrollHandler  = null;     // function(tracker, position, scroll, shift)
+        this.clickHandler   = null;     // function(tracker, position, quick, shift)
+        this.dragHandler    = null;     // function(tracker, position, delta, shift)
+
+        (function () {
+            ieSelf = {
+                hasMouse: hasMouse,
+                onMouseOver: onMouseOver,
+                onMouseOut: onMouseOut,
+                onMouseUp: onMouseUp,
+                onMouseMove: onMouseMove
+            };
+        })();
 
 
+        this.isTracking = function () {
+            return tracking;
+        };
+
+        this.setTracking = function (track) {
+            if (track) {
+                startTracking();
+            } else {
+                stopTracking();
+            }
+        };
 
         function startTracking() {
             if (!tracking) {
@@ -1169,73 +1144,53 @@ $.Utils = new $.Utils();
             $.Utils.stopEvent(event);
         }
 
+    };
 
-        (function () {
-            ieSelf = {
-                hasMouse: hasMouse,
-                onMouseOver: onMouseOver,
-                onMouseOut: onMouseOut,
-                onMouseUp: onMouseUp,
-                onMouseMove: onMouseMove
-            };
-        })();
+    function getMouseAbsolute( event ) {
+        return $.Utils.getMousePosition(event);
+    }
 
+    function getMouseRelative( event, elmt ) {
+        var mouse = $.Utils.getMousePosition(event);
+        var offset = $.Utils.getElementPosition(elmt);
 
-        this.isTracking = function () {
-            return tracking;
-        };
+        return mouse.minus(offset);
+    }
 
-        this.setTracking = function (track) {
-            if (track) {
-                startTracking();
-            } else {
-                stopTracking();
+    /**
+    * Returns true if elmtB is a child node of elmtA, or if they're equal.
+    */
+    function isChild( elmtA, elmtB ) {
+        var body = document.body;
+        while (elmtB && elmtA != elmtB && body != elmtB) {
+            try {
+                elmtB = elmtB.parentNode;
+            } catch (e) {
+                return false;
             }
-        };
+        }
+        return elmtA == elmtB;
+    }
 
-    };
+    function onGlobalMouseDown() {
+        buttonDownAny = true;
+    }
 
+    function onGlobalMouseUp() {
+        buttonDownAny = false;
+    }
+
+
+    (function () {
+        if (isIE) {
+            $.Utils.addEvent(document, "mousedown", onGlobalMouseDown, false);
+            $.Utils.addEvent(document, "mouseup", onGlobalMouseUp, false);
+        } else {
+            $.Utils.addEvent(window, "mousedown", onGlobalMouseDown, true);
+            $.Utils.addEvent(window, "mouseup", onGlobalMouseUp, true);
+        }
+    })();
     
-}( OpenSeadragon ));
-
-(function( $ ){
-    
-
-    $.ControlAnchor = function() {
-        throw Error.invalidOperation();
-    };
-
-    $.ControlAnchor = {
-        NONE: 0,
-        TOP_LEFT: 1,
-        TOP_RIGHT: 2,
-        BOTTOM_RIGHT: 3,
-        BOTTOM_LEFT: 4
-    };
-    
-    $.ControlAnchor = $.ControlAnchor;
-
-}( OpenSeadragon ));
-
-
-(function( $ ){
-    
-    $.OverlayPlacement = function() {
-        throw Error.invalidOperation();
-    };
-
-    $.OverlayPlacement = {
-        CENTER: 0,
-        TOP_LEFT: 1,
-        TOP: 2,
-        TOP_RIGHT: 3,
-        RIGHT: 4,
-        BOTTOM_RIGHT: 5,
-        BOTTOM: 6,
-        BOTTOM_LEFT: 7,
-        LEFT: 8
-    };
-
 }( OpenSeadragon ));
 
 (function( $ ){
@@ -1401,6 +1356,14 @@ $.NavControl.prototype = {
 (function( $ ){
     
 
+$.ControlAnchor = {
+    NONE: 0,
+    TOP_LEFT: 1,
+    TOP_RIGHT: 2,
+    BOTTOM_RIGHT: 3,
+    BOTTOM_LEFT: 4
+};
+
 $.Control = function (elmt, anchor, container) {
     this.elmt = elmt;
     this.anchor = anchor;
@@ -1408,11 +1371,14 @@ $.Control = function (elmt, anchor, container) {
     this.wrapper = $.Utils.makeNeutralElement("span");
     this.wrapper.style.display = "inline-block";
     this.wrapper.appendChild(this.elmt);
+
     if (this.anchor == $.ControlAnchor.NONE) {
-        this.wrapper.style.width = this.wrapper.style.height = "100%";    // IE6 fix
+        // IE6 fix
+        this.wrapper.style.width = this.wrapper.style.height = "100%";    
     }
 
-    if (this.anchor == $.ControlAnchor.TOP_RIGHT || this.anchor == $.ControlAnchor.BOTTOM_RIGHT) {
+    if ( this.anchor == $.ControlAnchor.TOP_RIGHT || 
+         this.anchor == $.ControlAnchor.BOTTOM_RIGHT ) {
         this.container.insertBefore(this.wrapper, this.container.firstChild);
     } else {
         this.container.appendChild(this.wrapper);
@@ -1636,11 +1602,12 @@ $.Viewer = function( options ) {
         }
     }
 
+    this.navControl = null;
     if ( this.config.showNavigationControl ) {
-        navControl = (new $.NavControl(this)).elmt;
-        navControl.style.marginRight = "4px";
-        navControl.style.marginBottom = "4px";
-        this.addControl(navControl, $.ControlAnchor.BOTTOM_RIGHT);
+        this.navControl = (new $.NavControl(this)).elmt;
+        this.navControl.style.marginRight = "4px";
+        this.navControl.style.marginBottom = "4px";
+        this.addControl(this.navControl, $.ControlAnchor.BOTTOM_RIGHT);
     }
 
     for ( i = 0; i < this.customControls.length; i++ ) {
@@ -1723,9 +1690,6 @@ $.Viewer.prototype = {
         this.profiler.endUpdate();
     },
 
-    getNavControl: function () {
-        return this._navControl;
-    },
     add_open: function (handler) {
         this.events.addHandler("open", handler);
     },
@@ -2282,8 +2246,6 @@ $.Strings = {
 
 };
 
-$.Strings = $.Strings;
-
 }( OpenSeadragon ));
 
 (function( $ ){
@@ -2458,79 +2420,88 @@ $.Profiler.prototype = {
 
 (function( $ ){
     
-$.Job = function(src, callback) {
-    this._image = null;
-    this._timeout = null;
-    this._src = src;
-    this._callback = callback;
+$.Job = function( src, callback ) {
+    this.image = null;
+    this.timeout = null;
+    this.src = src;
+    this.callback = callback;
+    //TODO: make TIMEOUT configurable
     this.TIMEOUT = 5000;
 };
 
 $.Job.prototype = {
-    _finish: function(success) {
-        this._image.onload = null;
-        this._image.onabort = null;
-        this._image.onerror = null;
-
-
-        if (this._timeout) {
-            window.clearTimeout(this._timeout);
-        }
-
-        var image = this._image;
-        var callback = this._callback;
-        window.setTimeout(function() {
-            callback(this._src, success ? image : null);
-        }, 1);
-    },
-    _onloadHandler: function() {
-        this._finish(true);
-    },
-    _onerrorHandler: function() {
-        this._finish(false);
-    },
     start: function() {
-        this._image = new Image();
-        this._image.onload = $.delegate(this, this._onloadHandler);
-        this._image.onabort = $.delegate(this, this._onerrorHandler);
-        this._image.onerror = $.delegate(this, this._onerrorHandler);
+        var _this = this;
+        this.image = new Image();
+        this.image.onload = function(){
+            finish( _this, true );
+        };
+        this.image.onabort = this.image.onerror = function(){
+            finish( _this, false );
+        };
+        this.timeout = window.setTimeout( function(){
+            onerror( _this );
+        }, this.TIMEOUT );
 
-        this._timeout = window.setTimeout($.delegate(this, this._onerrorHandler), this.TIMEOUT);
-
-        this._image.src = this._src;
+        this.image.src = this.src;
     }
+};
+
+function onload( job ){
+    finish( job, true );
+};
+
+function onerror( job ){
+    finish( job, false )
+};
+
+function finish( job, success ){
+    var image    = job.image,
+        callback = job.callback;
+
+    image.onload = null;
+    image.onabort = null;
+    image.onerror = null;
+
+    if ( job.timeout ) {
+        window.clearTimeout( job.timeout );
+    }
+    window.setTimeout( function() {
+        callback(job.src, success ? image : null);
+    }, 1 );
+
 };
 
 }( OpenSeadragon ));
 
 (function( $ ){
     
-$.ImageLoader = function(imageLoaderLimit) {
-    this._downloading = 0;
+$.ImageLoader = function( imageLoaderLimit ) {
+    this.downloading = 0;
     this.imageLoaderLimit = imageLoaderLimit;
 };
 
 $.ImageLoader.prototype = {
-    _onComplete: function(callback, src, image) {
-        this._downloading--;
-        if (typeof (callback) == "function") {
-            try {
-                callback(image);
-            } catch (e) {
-                $.Debug.error(e.name + " while executing " + src +
-                            " callback: " + e.message, e);
-            }
-        }
-    },
     loadImage: function(src, callback) {
-        if (this._downloading >= this.imageLoaderLimit) {
+        var _this = this;
+        if (this.downloading >= this.imageLoaderLimit) {
             return false;
         }
 
-        var func = $.Utils.createCallback(null, $.delegate(this, this._onComplete), callback);
-        var job = new $.Job(src, func);
+        var job = new $.Job(src, function(src, image){
+            
+            _this.downloading--;
+            if (typeof (callback) == "function") {
+                try {
+                    callback(image);
+                } catch (e) {
+                    $.Debug.error(e.name + " while executing " + src +
+                                " callback: " + e.message, e);
+                }
+            }
+        });
 
-        this._downloading++;
+        this.downloading++;
         job.start();
 
         return true;
@@ -2597,27 +2568,20 @@ $.TileSource.prototype = {
         return new $.Rect(px * scale, py * scale, sx * scale, sy * scale);
     },
 
-    getTileUrl: function(level, x, y) {
+    getTileUrl: function( level, x, y ) {
         throw new Error("Method not implemented.");
     },
 
-    tileExists: function(level, x, y) {
-        var numTiles = this.getNumTiles(level);
-        return level >= this.minLevel && level <= this.maxLevel &&
-                x >= 0 && y >= 0 && x < numTiles.x && y < numTiles.y;
+    tileExists: function( level, x, y ) {
+        var numTiles = this.getNumTiles( level );
+        return  level >= this.minLevel && 
+                level <= this.maxLevel &&
+                x >= 0 && 
+                y >= 0 && 
+                x < numTiles.x && 
+                y < numTiles.y;
     }
 };
-
-}( OpenSeadragon ));
-
-(function( $ ){
-    
-$.DziError = function(message) {
-    Error.apply(this, arguments);
-    this.message = message;
-};
-$.DziError.prototype = new Error();
-$.DziError.constructor = $.DziError;
 
 }( OpenSeadragon ));
 
@@ -2632,71 +2596,62 @@ $.DziTileSource = function(width, height, tileSize, tileOverlap, tilesUrl, fileF
 
     this.fileFormat = fileFormat;
     this.displayRects = displayRects;
-    this.initialize();
-};
-
-$.DziTileSource.prototype = new $.TileSource();
-
-$.DziTileSource.prototype.constructor = $.DziTileSource;
-
-$.DziTileSource.prototype.initialize = function() {
-    if (!this.displayRects) {
-        return;
-    }
-
-    for (var i = this.displayRects.length - 1; i >= 0; i--) {
-        var rect = this.displayRects[i];
-        for (var level = rect.minLevel; level <= rect.maxLevel; level++) {
-            if (!this._levelRects[level]) {
-                this._levelRects[level] = [];
+    
+    if ( this.displayRects ) {
+        for (var i = this.displayRects.length - 1; i >= 0; i--) {
+            var rect = this.displayRects[i];
+            for (var level = rect.minLevel; level <= rect.maxLevel; level++) {
+                if (!this._levelRects[level]) {
+                    this._levelRects[level] = [];
+                }
+                this._levelRects[level].push(rect);
             }
-            this._levelRects[level].push(rect);
         }
     }
+
 };
 
-$.DziTileSource.prototype.getTileUrl = function(level, x, y) {
-    return [this.tilesUrl, level, '/', x, '_', y, '.', this.fileFormat].join('');
-};
+$.extend( $.DziTileSource.prototype, $.TileSource.prototype, {
 
-$.DziTileSource.prototype.tileExists = function(level, x, y) {
-    var rects = this._levelRects[level];
+    getTileUrl: function(level, x, y) {
+        return [this.tilesUrl, level, '/', x, '_', y, '.', this.fileFormat].join('');
+    },
 
-    if (!rects || !rects.length) {
-        return true;
-    }
+    tileExists: function(level, x, y) {
+        var rects = this._levelRects[level];
 
-    for (var i = rects.length - 1; i >= 0; i--) {
-        var rect = rects[i];
-
-        if (level < rect.minLevel || level > rect.maxLevel) {
-            continue;
-        }
-
-        var scale = this.getLevelScale(level);
-        var xMin = rect.x * scale;
-        var yMin = rect.y * scale;
-        var xMax = xMin + rect.width * scale;
-        var yMax = yMin + rect.height * scale;
-
-        xMin = Math.floor(xMin / this.tileSize);
-        yMin = Math.floor(yMin / this.tileSize);
-        xMax = Math.ceil(xMax / this.tileSize);
-        yMax = Math.ceil(yMax / this.tileSize);
-
-        if (xMin <= x && x < xMax && yMin <= y && y < yMax) {
+        if (!rects || !rects.length) {
             return true;
         }
+
+        for (var i = rects.length - 1; i >= 0; i--) {
+            var rect = rects[i];
+
+            if (level < rect.minLevel || level > rect.maxLevel) {
+                continue;
+            }
+
+            var scale = this.getLevelScale(level);
+            var xMin = rect.x * scale;
+            var yMin = rect.y * scale;
+            var xMax = xMin + rect.width * scale;
+            var yMax = yMin + rect.height * scale;
+
+            xMin = Math.floor(xMin / this.tileSize);
+            yMin = Math.floor(yMin / this.tileSize);
+            xMax = Math.ceil(xMax / this.tileSize);
+            yMax = Math.ceil(yMax / this.tileSize);
+
+            if (xMin <= x && x < xMax && yMin <= y && y < yMax) {
+                return true;
+            }
+        }
+
+        return false;
     }
+});
 
-    return false;
-};
-
-$._DziTileSourceHelper = function() {
-
-};
-
-$._DziTileSourceHelper.prototype = {
+$.DziTileSourceHelper = {
     createFromXml: function(xmlUrl, xmlString, callback) {
         var async = typeof (callback) == "function";
         var error = null;
@@ -2709,7 +2664,7 @@ $._DziTileSourceHelper.prototype = {
                 }, 1);
                 return null;
             }
-            throw new $.DziError(error);
+            throw new Error(error);
         }
 
         var urlParts = xmlUrl.split('/');
@@ -2726,12 +2681,9 @@ $._DziTileSourceHelper.prototype = {
                 return func(obj, tilesUrl);
             } catch (e) {
                 if (async) {
-                    //Start Thatcher - Throwable doesnt have getError
-                    //error = this.getError(e).message;
                     return null;
-                    //End Thatcher
                 } else {
-                    throw this.getError(e);
+                    throw e;
                 }
             }
         }
@@ -2761,11 +2713,11 @@ $._DziTileSourceHelper.prototype = {
     },
     processResponse: function(xhr, tilesUrl) {
         if (!xhr) {
-            throw new $.DziError($.Strings.getString("Errors.Security"));
+            throw new Error($.Strings.getString("Errors.Security"));
         } else if (xhr.status !== 200 && xhr.status !== 0) {
             var status = xhr.status;
             var statusText = (status == 404) ? "Not Found" : xhr.statusText;
-            throw new $.DziError($.Strings.getString("Errors.Status", status, statusText));
+            throw new Error($.Strings.getString("Errors.Status", status, statusText));
         }
 
         var doc = null;
@@ -2781,7 +2733,7 @@ $._DziTileSourceHelper.prototype = {
 
     processXml: function(xmlDoc, tilesUrl) {
         if (!xmlDoc || !xmlDoc.documentElement) {
-            throw new $.DziError($.Strings.getString("Errors.Xml"));
+            throw new Error($.Strings.getString("Errors.Xml"));
         }
 
         var root = xmlDoc.documentElement;
@@ -2792,22 +2744,22 @@ $._DziTileSourceHelper.prototype = {
                 return this.processDzi(root, tilesUrl);
             } catch (e) {
                 var defMsg = $.Strings.getString("Errors.Dzi");
-                throw (e instanceof $.DziError) ? e : new $.DziError(defMsg);
+                throw (e instanceof Error) ? e : new Error(defMsg);
             }
         } else if (rootName == "Collection") {
-            throw new $.DziError($.Strings.getString("Errors.Dzc"));
+            throw new Error($.Strings.getString("Errors.Dzc"));
         } else if (rootName == "Error") {
             return this.processError(root);
         }
 
-        throw new $.DziError($.Strings.getString("Errors.Dzi"));
+        throw new Error($.Strings.getString("Errors.Dzi"));
     },
 
     processDzi: function(imageNode, tilesUrl) {
         var fileFormat = imageNode.getAttribute("Format");
 
         if (!$.Utils.imageFormatSupported(fileFormat)) {
-            throw new $.DziError($.Strings.getString("Errors.ImageFormat",
+            throw new Error($.Strings.getString("Errors.ImageFormat",
                     fileFormat.toUpperCase()));
         }
 
@@ -2841,18 +2793,10 @@ $._DziTileSourceHelper.prototype = {
         var messageNode = errorNode.getElementsByTagName("Message")[0];
         var message = messageNode.firstChild.nodeValue;
 
-        throw new $.DziError(message);
-    },
-    getError: function(e) {
-        if (!(e instanceof DziError)) {
-            $.Debug.error(e.name + " while creating DZI from XML: " + e.message);
-            e = new $.DziError($.Strings.getString("Errors.Unknown"));
-        }
-
+        throw new Error(message);
     }
 };
 
-$.DziTileSourceHelper = new $._DziTileSourceHelper();
 
 }( OpenSeadragon ));
 
@@ -3206,8 +3150,6 @@ $.ButtonGroup.prototype = {
 
 }( OpenSeadragon ));
 
-
-
 (function( $ ){
     
 $.Rect = function(x, y, width, height) {
@@ -3417,108 +3359,124 @@ $.Tile.prototype = {
 
 (function( $ ){
     
-$.Overlay = function(elmt, loc, placement) {
-    this.elmt = elmt;
-    this.scales = (loc instanceof $.Rect);
-    this.bounds = new $.Rect(loc.x, loc.y, loc.width, loc.height);
-    this.placement = loc instanceof $.Point ? placement : $.OverlayPlacement.TOP_LEFT;    // rects are always top-left
-    this.position = new $.Point(loc.x, loc.y);
-    this.size = new $.Point(loc.width, loc.height);
-    this.style = elmt.style;
-};
 
-$.Overlay.prototype = {
+    $.OverlayPlacement = {
+        CENTER: 0,
+        TOP_LEFT: 1,
+        TOP: 2,
+        TOP_RIGHT: 3,
+        RIGHT: 4,
+        BOTTOM_RIGHT: 5,
+        BOTTOM: 6,
+        BOTTOM_LEFT: 7,
+        LEFT: 8
+    };
 
-    adjust: function(position, size) {
-        switch (this.placement) {
-            case $.OverlayPlacement.TOP_LEFT:
-                break;
-            case $.OverlayPlacement.TOP:
-                position.x -= size.x / 2;
-                break;
-            case $.OverlayPlacement.TOP_RIGHT:
-                position.x -= size.x;
-                break;
-            case $.OverlayPlacement.RIGHT:
-                position.x -= size.x;
-                position.y -= size.y / 2;
-                break;
-            case $.OverlayPlacement.BOTTOM_RIGHT:
-                position.x -= size.x;
-                position.y -= size.y;
-                break;
-            case $.OverlayPlacement.BOTTOM:
-                position.x -= size.x / 2;
-                position.y -= size.y;
-                break;
-            case $.OverlayPlacement.BOTTOM_LEFT:
-                position.y -= size.y;
-                break;
-            case $.OverlayPlacement.LEFT:
-                position.y -= size.y / 2;
-                break;
-            case $.OverlayPlacement.CENTER:
-            default:
-                position.x -= size.x / 2;
-                position.y -= size.y / 2;
-                break;
+    $.Overlay = function(elmt, loc, placement) {
+        this.elmt       = elmt;
+        this.scales     = (loc instanceof $.Rect);
+        this.bounds     = new $.Rect(loc.x, loc.y, loc.width, loc.height);
+        this.position   = new $.Point(loc.x, loc.y);
+        this.size       = new $.Point(loc.width, loc.height);
+        this.style      = elmt.style;
+        // rects are always top-left
+        this.placement  = loc instanceof $.Point ? 
+            placement : 
+            $.OverlayPlacement.TOP_LEFT;    
+    };
+
+    $.Overlay.prototype = {
+
+        adjust: function(position, size) {
+            switch (this.placement) {
+                case $.OverlayPlacement.TOP_LEFT:
+                    break;
+                case $.OverlayPlacement.TOP:
+                    position.x -= size.x / 2;
+                    break;
+                case $.OverlayPlacement.TOP_RIGHT:
+                    position.x -= size.x;
+                    break;
+                case $.OverlayPlacement.RIGHT:
+                    position.x -= size.x;
+                    position.y -= size.y / 2;
+                    break;
+                case $.OverlayPlacement.BOTTOM_RIGHT:
+                    position.x -= size.x;
+                    position.y -= size.y;
+                    break;
+                case $.OverlayPlacement.BOTTOM:
+                    position.x -= size.x / 2;
+                    position.y -= size.y;
+                    break;
+                case $.OverlayPlacement.BOTTOM_LEFT:
+                    position.y -= size.y;
+                    break;
+                case $.OverlayPlacement.LEFT:
+                    position.y -= size.y / 2;
+                    break;
+                case $.OverlayPlacement.CENTER:
+                default:
+                    position.x -= size.x / 2;
+                    position.y -= size.y / 2;
+                    break;
+            }
+        },
+        destroy: function() {
+            var elmt = this.elmt;
+            var style = this.style;
+
+            if (elmt.parentNode) {
+                elmt.parentNode.removeChild(elmt);
+            }
+
+            style.top = "";
+            style.left = "";
+            style.position = "";
+
+            if (this.scales) {
+                style.width = "";
+                style.height = "";
+            }
+        },
+        drawHTML: function(container) {
+            var elmt = this.elmt;
+            var style = this.style;
+            var scales = this.scales;
+
+            if (elmt.parentNode != container) {
+                container.appendChild(elmt);
+            }
+
+            if (!scales) {
+                this.size = $.Utils.getElementSize(elmt);
+            }
+
+            var position = this.position;
+            var size = this.size;
+
+            this.adjust(position, size);
+
+            position = position.apply(Math.floor);
+            size = size.apply(Math.ceil);
+
+            style.left = position.x + "px";
+            style.top = position.y + "px";
+            style.position = "absolute";
+
+            if (scales) {
+                style.width = size.x + "px";
+                style.height = size.y + "px";
+            }
+        },
+        update: function(loc, placement) {
+            this.scales = (loc instanceof $.Rect);
+            this.bounds = new $.Rect(loc.x, loc.y, loc.width, loc.height);
+            this.placement = loc instanceof $.Point ?
+                    placement : $.OverlayPlacement.TOP_LEFT;    // rects are always top-left
         }
-    },
-    destroy: function() {
-        var elmt = this.elmt;
-        var style = this.style;
 
-        if (elmt.parentNode) {
-            elmt.parentNode.removeChild(elmt);
-        }
-
-        style.top = "";
-        style.left = "";
-        style.position = "";
-
-        if (this.scales) {
-            style.width = "";
-            style.height = "";
-        }
-    },
-    drawHTML: function(container) {
-        var elmt = this.elmt;
-        var style = this.style;
-        var scales = this.scales;
-
-        if (elmt.parentNode != container) {
-            container.appendChild(elmt);
-        }
-
-        if (!scales) {
-            this.size = $.Utils.getElementSize(elmt);
-        }
-
-        var position = this.position;
-        var size = this.size;
-
-        this.adjust(position, size);
-
-        position = position.apply(Math.floor);
-        size = size.apply(Math.ceil);
-
-        style.left = position.x + "px";
-        style.top = position.y + "px";
-        style.position = "absolute";
-
-        if (scales) {
-            style.width = size.x + "px";
-            style.height = size.y + "px";
-        }
-    },
-    update: function(loc, placement) {
-        this.scales = (loc instanceof $.Rect);
-        this.bounds = new $.Rect(loc.x, loc.y, loc.width, loc.height);
-        this.placement = loc instanceof $.Point ?
-                placement : $.OverlayPlacement.TOP_LEFT;    // rects are always top-left
-    }
-
-};
+    };
 
 }( OpenSeadragon ));
 
@@ -3573,18 +3531,16 @@ $.Drawer = function(source, viewport, elmt) {
     this.elmt = this._container;
 
 
-    this._init();
+    
+    this._canvas.style.width = "100%";
+    this._canvas.style.height = "100%";
+    this._canvas.style.position = "absolute";
+    this._container.style.textAlign = "left";    // explicit left-align
+    this._container.appendChild(this._canvas);
 };
 
 $.Drawer.prototype = {
 
-    _init: function() {
-        this._canvas.style.width = "100%";
-        this._canvas.style.height = "100%";
-        this._canvas.style.position = "absolute";
-        this._container.style.textAlign = "left";    // explicit left-align
-        this._container.appendChild(this._canvas);
-    },
     _compareTiles: function(prevBest, tile) {
         if (!prevBest) {
             return tile;
