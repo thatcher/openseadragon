@@ -3,7 +3,7 @@
  * (c) 2010 OpenSeadragon
  * (c) 2010 CodePlex Foundation
  *
- * OpenSeadragon 0.8.13
+ * OpenSeadragon 0.8.14
  * ----------------------------------------------------------------------------
  * 
  *  License: New BSD License (BSD)
@@ -210,45 +210,51 @@ OpenSeadragon = window.OpenSeadragon || (function(){
 
     $.EventHandler.prototype = {
 
-        addHandler: function(id, handler) {
+        addHandler: function( id, handler ) {
             var events = this.events[ id ];
             if( !events ){
                 this.events[ id ] = events = [];
             }
-            events[events.length] = handler;
+            events[ events.length ] = handler;
         },
 
-        removeHandler: function(id, handler) {
+        removeHandler: function( id, handler ) {
             //Start Thatcher - unneccessary indirection.  Also, because events were
             //               - not actually being removed, we need to add the code
             //               - to do the removal ourselves. TODO
-            var evt = this.events[ id ];
-            if (!evt) return;
+            var events = this.events[ id ];
+            if ( !events ){ 
+                return; 
+            }
             //End Thatcher
         },
 
-        getHandler: function(id) {
-            var evt = this.events[ id ]; 
-            if (!evt || !evt.length) return null;
-            evt = evt.length === 1 ? 
-                [evt[0]] : 
-                Array.apply( null, evt );
-            return function(source, args) {
-                for (var i = 0, l = evt.length; i < l; i++) {
-                    evt[i](source, args);
+        getHandler: function( id ) {
+            var events = this.events[ id ]; 
+            if ( !events || !events.length ){ 
+                return null; 
+            }
+            events = events.length === 1 ? 
+                [ events[ 0 ] ] : 
+                Array.apply( null, events );
+            return function( source, args ) {
+                var i, 
+                    l = events.length;
+                for ( i = 0; i < l; i++ ) {
+                    events[ i ]( source, args );
                 }
             };
         },
 
-        raiseEvent: function(eventName, eventArgs) {
+        raiseEvent: function( eventName, eventArgs ) {
             var handler = this.getHandler( eventName );
 
-            if (handler) {
-                if (!eventArgs) {
+            if ( handler ) {
+                if ( !eventArgs ) {
                     eventArgs = new Object();
                 }
 
-                handler(this, eventArgs);
+                handler( this, eventArgs );
             }
         }
     };
@@ -782,7 +788,7 @@ $.Utils = new $.Utils();
 
     $.MouseTracker = function (elmt, clickTimeThreshold, clickDistThreshold) {
         //Start Thatcher - TODO: remove local function definitions in favor of 
-        //               -       a global closre for MouseTracker so the number
+        //               -       a global closure for MouseTracker so the number
         //               -       of Viewers has less memory impact.  Also use 
         //               -       prototype pattern instead of Singleton pattern.
         //End Thatcher
@@ -2767,6 +2773,8 @@ $.ButtonState = {
 
 $.Button = function( options ) {
 
+    var _this = this;
+
     $.EventHandler.call( this );
 
     this.tooltip   = options.tooltip;
@@ -2853,50 +2861,48 @@ $.Button = function( options ) {
             styleDown.top = "";
     }
 
-    this.tracker.enterHandler   = $.delegate( this, this._enterHandler );
-    this.tracker.exitHandler    = $.delegate( this, this._exitHandler );
-    this.tracker.pressHandler   = $.delegate( this, this._pressHandler );
-    this.tracker.releaseHandler = $.delegate( this, this._releaseHandler );
-    this.tracker.clickHandler   = $.delegate( this, this._clickHandler );
+    //TODO - refactor mousetracer next to avoid this extension
+    $.extend( this.tracker, {
+        enterHandler: function(tracker, position, buttonDownElmt, buttonDownAny) {
+            if ( buttonDownElmt ) {
+                inTo( _this, $.ButtonState.DOWN );
+                _this.raiseEvent( "onEnter", _this );
+            } else if ( !buttonDownAny ) {
+                inTo( _this, $.ButtonState.HOVER );
+            }
+        },
+        exitHandler: function(tracker, position, buttonDownElmt, buttonDownAny) {
+            outTo( _this, $.ButtonState.GROUP );
+            if ( buttonDownElmt ) {
+                _this.raiseEvent( "onExit", _this );
+            }
+        },
+        pressHandler: function(tracker, position) {
+            inTo( _this, $.ButtonState.DOWN );
+            _this.raiseEvent( "onPress", _this );
+        },
+        releaseHandler: function(tracker, position, insideElmtPress, insideElmtRelease) {
+            if ( insideElmtPress && insideElmtRelease ) {
+                outTo( _this, $.ButtonState.HOVER );
+                _this.raiseEvent( "onRelease", _this );
+            } else if ( insideElmtPress ) {
+                outTo( _this, $.ButtonState.GROUP );
+            } else {
+                inTo( _this, $.ButtonState.HOVER );
+            }
+        },
+        clickHandler: function(tracker, position, quick, shift) {
+            if ( quick ) {
+                _this.raiseEvent("onClick", _this);
+            }
+        }
+    });
 
     this.tracker.setTracking( true );
     outTo( this, $.ButtonState.REST );
 };
 
 $.extend( $.Button.prototype, $.EventHandler.prototype, {
-    _enterHandler: function(tracker, position, buttonDownElmt, buttonDownAny) {
-        if ( buttonDownElmt ) {
-            inTo( this, $.ButtonState.DOWN );
-            this.raiseEvent( "onEnter", this );
-        } else if ( !buttonDownAny ) {
-            inTo( this, $.ButtonState.HOVER );
-        }
-    },
-    _exitHandler: function(tracker, position, buttonDownElmt, buttonDownAny) {
-        outTo( this, $.ButtonState.GROUP );
-        if ( buttonDownElmt ) {
-            this.raiseEvent( "onExit", this );
-        }
-    },
-    _pressHandler: function(tracker, position) {
-        inTo( this, $.ButtonState.DOWN );
-        this.raiseEvent( "onPress", this );
-    },
-    _releaseHandler: function(tracker, position, insideElmtPress, insideElmtRelease) {
-        if ( insideElmtPress && insideElmtRelease ) {
-            outTo( this, $.ButtonState.HOVER );
-            this.raiseEvent( "onRelease", this );
-        } else if ( insideElmtPress ) {
-            outTo( this, $.ButtonState.GROUP );
-        } else {
-            inTo( this, $.ButtonState.HOVER );
-        }
-    },
-    _clickHandler: function(tracker, position, quick, shift) {
-        if ( quick ) {
-            this.raiseEvent("onClick", this);
-        }
-    },
     notifyGroupEnter: function() {
         inTo( this, $.ButtonState.GROUP );
     },
@@ -2970,8 +2976,8 @@ function outTo( button, newState ) {
     }
 
     if ( newState <= $.ButtonState.GROUP && button.currentState == $.ButtonState.HOVER ) {
-        this.imgHover.style.visibility = "hidden";
-        this.currentState = $.ButtonState.GROUP;
+        button.imgHover.style.visibility = "hidden";
+        button.currentState = $.ButtonState.GROUP;
     }
 
     if ( button.newState <= $.ButtonState.REST && button.currentState == $.ButtonState.GROUP ) {
