@@ -3,7 +3,7 @@
  * (c) 2010 OpenSeadragon
  * (c) 2010 CodePlex Foundation
  *
- * OpenSeadragon 0.8.14
+ * OpenSeadragon 0.8.15
  * ----------------------------------------------------------------------------
  * 
  *  License: New BSD License (BSD)
@@ -1221,149 +1221,11 @@ $.Utils = new $.Utils();
 
 (function( $ ){
     
-$.NavControl = function(viewer) {
-    this._group = null;
-    this._zooming = false;    // whether we should be continuously zooming
-    this._zoomFactor = null;  // how much we should be continuously zooming by
-    this._lastZoomTime = null;
-    this._viewer = viewer;
-    this.config = this._viewer.config;
-
-    this.elmt = null;
-    this.initialize();
+$.NavControl = function( viewer ) {
 };
 
 $.NavControl.prototype = {
-    initialize: function() {
-        var beginZoomingInHandler = $.delegate(this, this._beginZoomingIn);
-        var endZoomingHandler = $.delegate(this, this._endZooming);
-        var doSingleZoomInHandler = $.delegate(this, this._doSingleZoomIn);
-        var beginZoomingOutHandler = $.delegate(this, this._beginZoomingOut);
-        var doSingleZoomOutHandler = $.delegate(this, this._doSingleZoomOut);
-        var onHomeHandler = $.delegate(this, this._onHome);
-        var onFullPageHandler = $.delegate(this, this._onFullPage);
 
-        var navImages = this._viewer.config.navImages;
-
-        var zoomIn = new $.Button({ 
-            config: this._viewer.config, 
-            tooltip: $.Strings.getString("Tooltips.ZoomIn"), 
-            srcRest: this._resolveUrl(navImages.zoomIn.REST), 
-            srcGroup: this._resolveUrl(navImages.zoomIn.GROUP), 
-            srcHover: this._resolveUrl(navImages.zoomIn.HOVER), 
-            srcDown: this._resolveUrl(navImages.zoomIn.DOWN),
-            onPress: beginZoomingInHandler, 
-            onRelease: endZoomingHandler, 
-            onClick: doSingleZoomInHandler, 
-            onEnter: beginZoomingInHandler, 
-            onExit: endZoomingHandler 
-        });
-        var zoomOut = new $.Button({ 
-            config: this._viewer.config, 
-            tooltip: $.Strings.getString("Tooltips.ZoomOut"), 
-            srcRest: this._resolveUrl(navImages.zoomOut.REST), 
-            srcGroup: this._resolveUrl(navImages.zoomOut.GROUP), 
-            srcHover: this._resolveUrl(navImages.zoomOut.HOVER), 
-            srcDown: this._resolveUrl(navImages.zoomOut.DOWN),
-            onPress: beginZoomingOutHandler, 
-            onRelease: endZoomingHandler, 
-            onClick: doSingleZoomOutHandler, 
-            onEnter: beginZoomingOutHandler, 
-            onExit: endZoomingHandler 
-        });
-        var goHome = new $.Button({ 
-            config: this._viewer.config, 
-            tooltip: $.Strings.getString("Tooltips.Home"), 
-            srcRest: this._resolveUrl(navImages.home.REST), 
-            srcGroup: this._resolveUrl(navImages.home.GROUP), 
-            srcHover: this._resolveUrl(navImages.home.HOVER), 
-            srcDown: this._resolveUrl(navImages.home.DOWN),
-            onRelease: onHomeHandler 
-        });
-        var fullPage = new $.Button({ 
-            config: this._viewer.config, 
-            tooltip: $.Strings.getString("Tooltips.FullPage"), 
-            srcRest: this._resolveUrl(navImages.fullpage.REST), 
-            srcGroup: this._resolveUrl(navImages.fullpage.GROUP), 
-            srcHover: this._resolveUrl(navImages.fullpage.HOVER), 
-            srcDown: this._resolveUrl(navImages.fullpage.DOWN),
-            onRelease: onFullPageHandler 
-        });
-        this._group = new $.ButtonGroup({ 
-            config: this._viewer.config, 
-            buttons: [zoomIn, zoomOut, goHome, fullPage] 
-        });
-
-        this.elmt = this._group.element;
-        this.elmt[$.SIGNAL] = true;   // hack to get our controls to fade
-        this._viewer.addHandler('open', $.delegate(this, this._lightUp));
-    },
-    _resolveUrl: function(url) {
-        var prefix = this._viewer.prefixUrl;
-        return prefix ? prefix + url : url;
-    },
-    _beginZoomingIn: function() {
-        this._lastZoomTime = new Date().getTime();
-        this._zoomFactor = this.config.zoomPerSecond;
-        this._zooming = true;
-        this._scheduleZoom();
-    },
-    _beginZoomingOut: function() {
-        this._lastZoomTime = new Date().getTime();
-        this._zoomFactor = 1.0 / this.config.zoomPerSecond;
-        this._zooming = true;
-        this._scheduleZoom();
-    },
-
-    _endZooming: function() {
-        this._zooming = false;
-    },
-    _scheduleZoom: function() {
-        window.setTimeout($.delegate(this, this._doZoom), 10);
-    },
-    _doZoom: function() {
-        if (this._zooming && this._viewer.viewport) {
-            var currentTime = new Date().getTime();
-            var deltaTime = currentTime - this._lastZoomTime;
-            var adjustedFactor = Math.pow(this._zoomFactor, deltaTime / 1000);
-
-            this._viewer.viewport.zoomBy(adjustedFactor);
-            this._viewer.viewport.applyConstraints();
-            this._lastZoomTime = currentTime;
-            this._scheduleZoom();
-        }
-    },
-    _doSingleZoomIn: function() {
-        if (this._viewer.viewport) {
-            this._zooming = false;
-            this._viewer.viewport.zoomBy(this.config.zoomPerClick / 1.0);
-            this._viewer.viewport.applyConstraints();
-        }
-    },
-    _doSingleZoomOut: function() {
-        if (this._viewer.viewport) {
-            this._zooming = false;
-            this._viewer.viewport.zoomBy(1.0 / this.config.zoomPerClick);
-            this._viewer.viewport.applyConstraints();
-        }
-    },
-    _lightUp: function() {
-        this._group.emulateEnter();
-        this._group.emulateExit();
-    },
-    _onHome: function() {
-        if (this._viewer.viewport) {
-            this._viewer.viewport.goHome();
-        }
-    },
-    _onFullPage: function() {
-        this._viewer.setFullPage(!this._viewer.isFullPage());
-        this._group.emulateExit();  // correct for no mouseout event on change
-
-        if (this._viewer.viewport) {
-            this._viewer.viewport.applyConstraints();
-        }
-    }
 };
 
 }( OpenSeadragon ));
@@ -1549,7 +1411,7 @@ $.Viewer = function( options ) {
     this.container      = $.Utils.makeNeutralElement("div");
     this.canvas         = $.Utils.makeNeutralElement("div");
 
-    this._fsBoundsDelta = new $.Point(1, 1);
+    this._fsBoundsDelta     = new $.Point( 1, 1 );
     this._prevContainerSize = null;
     this._lastOpenStartTime = 0;
     this._lastOpenEndTime   = 0;
@@ -1618,9 +1480,82 @@ $.Viewer = function( options ) {
         }
     }
 
-    this.navControl = null;
+    //////////////////////////////////////////////////////////////////////////
+    // Navigation Controls
+    //////////////////////////////////////////////////////////////////////////
+    this._group = null;
+    this._zooming = false;    // whether we should be continuously zooming
+    this._zoomFactor = null;  // how much we should be continuously zooming by
+    this._lastZoomTime = null;
+
+    this.elmt = null;
+    
+    var beginZoomingInHandler   = $.delegate(this, beginZoomingIn);
+    var endZoomingHandler       = $.delegate(this, endZooming);
+    var doSingleZoomInHandler   = $.delegate(this, doSingleZoomIn);
+    var beginZoomingOutHandler  = $.delegate(this, beginZoomingOut);
+    var doSingleZoomOutHandler  = $.delegate(this, doSingleZoomOut);
+    var onHomeHandler           = $.delegate(this, onHome);
+    var onFullPageHandler       = $.delegate(this, onFullPage);
+
+    var navImages = this.config.navImages;
+
+    var zoomIn = new $.Button({ 
+        config:     this.config, 
+        tooltip:    $.Strings.getString("Tooltips.ZoomIn"), 
+        srcRest:    resolveUrl(this.urlPrefix, navImages.zoomIn.REST), 
+        srcGroup:   resolveUrl(this.urlPrefix, navImages.zoomIn.GROUP), 
+        srcHover:   resolveUrl(this.urlPrefix, navImages.zoomIn.HOVER), 
+        srcDown:    resolveUrl(this.urlPrefix, navImages.zoomIn.DOWN),
+        onPress:    beginZoomingInHandler, 
+        onRelease:  endZoomingHandler, 
+        onClick:    doSingleZoomInHandler, 
+        onEnter:    beginZoomingInHandler, 
+        onExit:     endZoomingHandler 
+    });
+
+    var zoomOut = new $.Button({ 
+        config:     this.config, 
+        tooltip:    $.Strings.getString("Tooltips.ZoomOut"), 
+        srcRest:    resolveUrl(this.urlPrefix, navImages.zoomOut.REST), 
+        srcGroup:   resolveUrl(this.urlPrefix, navImages.zoomOut.GROUP), 
+        srcHover:   resolveUrl(this.urlPrefix, navImages.zoomOut.HOVER), 
+        srcDown:    resolveUrl(this.urlPrefix, navImages.zoomOut.DOWN),
+        onPress:    beginZoomingOutHandler, 
+        onRelease:  endZoomingHandler, 
+        onClick:    doSingleZoomOutHandler, 
+        onEnter:    beginZoomingOutHandler, 
+        onExit:     endZoomingHandler 
+    });
+    var goHome = new $.Button({ 
+        config:     this.config, 
+        tooltip:    $.Strings.getString("Tooltips.Home"), 
+        srcRest:    resolveUrl(this.urlPrefix, navImages.home.REST), 
+        srcGroup:   resolveUrl(this.urlPrefix, navImages.home.GROUP), 
+        srcHover:   resolveUrl(this.urlPrefix, navImages.home.HOVER), 
+        srcDown:    resolveUrl(this.urlPrefix, navImages.home.DOWN),
+        onRelease:  onHomeHandler 
+    });
+    var fullPage = new $.Button({ 
+        config:     this.config, 
+        tooltip:    $.Strings.getString("Tooltips.FullPage"), 
+        srcRest:    resolveUrl(this.urlPrefix, navImages.fullpage.REST), 
+        srcGroup:   resolveUrl(this.urlPrefix, navImages.fullpage.GROUP), 
+        srcHover:   resolveUrl(this.urlPrefix, navImages.fullpage.HOVER), 
+        srcDown:    resolveUrl(this.urlPrefix, navImages.fullpage.DOWN),
+        onRelease:  onFullPageHandler 
+    });
+
+    this._group = new $.ButtonGroup({ 
+        config:     this.config, 
+        buttons:    [ zoomIn, zoomOut, goHome, fullPage ] 
+    });
+
+    this.navControl  = this._group.element;
+    this.navControl[ $.SIGNAL ] = true;   // hack to get our controls to fade
+    this.addHandler( 'open', $.delegate( this, lightUp ) );
+
     if ( this.config.showNavigationControl ) {
-        this.navControl = (new $.NavControl(this)).elmt;
         this.navControl.style.marginRight = "4px";
         this.navControl.style.marginBottom = "4px";
         this.addControl(this.navControl, $.ControlAnchor.BOTTOM_RIGHT);
@@ -1650,62 +1585,6 @@ $.Viewer = function( options ) {
 };
 
 $.extend($.Viewer.prototype, $.EventHandler.prototype, {
-    
-    _updateMulti: function () {
-        if (!this.source) {
-            return;
-        }
-
-        var beginTime = new Date().getTime();
-
-        this._updateOnce();
-        scheduleUpdate( this, arguments.callee, beginTime );
-    },
-
-    _updateOnce: function () {
-        if ( !this.source ) {
-            return;
-        }
-
-        this.profiler.beginUpdate();
-
-        var containerSize = $.Utils.getElementSize( this.container );
-
-        if ( !containerSize.equals( this._prevContainerSize ) ) {
-            this.viewport.resize( containerSize, true ); // maintain image position
-            this._prevContainerSize = containerSize;
-            this.raiseEvent( "resize" );
-        }
-
-        var animated = this.viewport.update();
-
-        if ( !this._animating && animated ) {
-            this.raiseEvent( "animationstart" );
-            abortControlsAutoHide( this );
-        }
-
-        if ( animated ) {
-            this.drawer.update();
-            this.raiseEvent( "animation" );
-        } else if ( this._forceRedraw || this.drawer.needsUpdate() ) {
-            this.drawer.update();
-            this._forceRedraw = false;
-        } else {
-            this.drawer.idle();
-        }
-
-        if ( this._animating && !animated ) {
-            this.raiseEvent( "animationfinish" );
-
-            if ( !this._mouseInside ) {
-                beginControlsAutoHide( this );
-            }
-        }
-
-        this._animating = animated;
-
-        this.profiler.endUpdate();
-    },
 
     addControl: function ( elmt, anchor ) {
         var elmt = $.Utils.getElement( elmt ),
@@ -1744,9 +1623,11 @@ $.extend($.Viewer.prototype, $.EventHandler.prototype, {
         );
         elmt.style.display = "inline-block";
     },
+
     isOpen: function () {
         return !!this.source;
     },
+
     openDzi: function (xmlUrl, xmlString) {
         var _this = this;
         $.DziTileSourceHelper.createFromXml(
@@ -1757,12 +1638,14 @@ $.extend($.Viewer.prototype, $.EventHandler.prototype, {
             }
         );
     },
+
     openTileSource: function ( tileSource ) {
         var _this = this;
         window.setTimeout( function () {
             _this.open( tileSource );
-        }, 1);
+        }, 1 );
     },
+
     open: function( source ) {
         var _this = this;
 
@@ -1806,7 +1689,7 @@ $.extend($.Viewer.prototype, $.EventHandler.prototype, {
 
         this._animating = false;
         this._forceRedraw = true;
-        scheduleUpdate( this, this._updateMulti );
+        scheduleUpdate( this, updateMulti );
 
         for ( var i = 0; i < this.overlayControls.length; i++ ) {
             var overlay = this.overlayControls[ i ];
@@ -1969,7 +1852,7 @@ $.extend($.Viewer.prototype, $.EventHandler.prototype, {
 
             this._forceRedraw = true;
             this.raiseEvent( "resize", this );
-            this._updateOnce();
+            updateOnce( this );
         }
     },
 
@@ -1989,15 +1872,13 @@ $.extend($.Viewer.prototype, $.EventHandler.prototype, {
 
 function scheduleUpdate( viewer, updateFunc, prevUpdateTime ){
     var currentTime,
-        prevUpdateTime,
         targetTime,
         deltaTime;
 
     if (this._animating) {
-        return window.setTimeout(
-            $.delegate(viewer, updateFunc), 
-            1
-        );
+        return window.setTimeout( function(){
+            updateFunc( viewer );
+        }, 1 );
     }
 
     currentTime     = +new Date();
@@ -2005,7 +1886,9 @@ function scheduleUpdate( viewer, updateFunc, prevUpdateTime ){
     targetTime      = prevUpdateTime + 1000 / 60;    // 60 fps ideal
     deltaTime       = Math.max(1, targetTime - currentTime);
     
-    return window.setTimeout($.delegate(viewer, updateFunc), deltaTime);
+    return window.setTimeout( function(){
+        updateFunc( viewer );
+    }, deltaTime );
 };
 
 //provides a sequence in the fade animation
@@ -2141,8 +2024,145 @@ function getControlIndex( viewer, elmt ) {
 // Page update routines ( aka Views - for future reference )
 ///////////////////////////////////////////////////////////////////////////////
 
+function updateMulti( viewer ) {
+    if (!viewer.source) {
+        return;
+    }
+
+    var beginTime = new Date().getTime();
+
+    updateOnce( viewer );
+    scheduleUpdate( viewer, arguments.callee, beginTime );
+};
+
+function updateOnce( viewer ) {
+    if ( !viewer.source ) {
+        return;
+    }
+
+    viewer.profiler.beginUpdate();
+
+    var containerSize = $.Utils.getElementSize( viewer.container );
+
+    if ( !containerSize.equals( viewer._prevContainerSize ) ) {
+        viewer.viewport.resize( containerSize, true ); // maintain image position
+        viewer._prevContainerSize = containerSize;
+        viewer.raiseEvent( "resize" );
+    }
+
+    var animated = viewer.viewport.update();
+
+    if ( !viewer._animating && animated ) {
+        viewer.raiseEvent( "animationstart" );
+        abortControlsAutoHide( viewer );
+    }
+
+    if ( animated ) {
+        viewer.drawer.update();
+        viewer.raiseEvent( "animation" );
+    } else if ( viewer._forceRedraw || viewer.drawer.needsUpdate() ) {
+        viewer.drawer.update();
+        viewer._forceRedraw = false;
+    } else {
+        viewer.drawer.idle();
+    }
+
+    if ( viewer._animating && !animated ) {
+        viewer.raiseEvent( "animationfinish" );
+
+        if ( !viewer._mouseInside ) {
+            beginControlsAutoHide( viewer );
+        }
+    }
+
+    viewer._animating = animated;
+
+    viewer.profiler.endUpdate();
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// Navigation Controls
+///////////////////////////////////////////////////////////////////////////////
+
+function resolveUrl( prefix, url ) {
+    return prefix ? prefix + url : url;
+};
 
 
+function beginZoomingIn() {
+    this._lastZoomTime = +new Date();
+    this._zoomFactor = this.config.zoomPerSecond;
+    this._zooming = true;
+    scheduleZoom( this );
+}
+
+function beginZoomingOut() {
+    this._lastZoomTime = +new Date();
+    this._zoomFactor = 1.0 / this.config.zoomPerSecond;
+    this._zooming = true;
+    scheduleZoom( this );
+}
+
+function endZooming() {
+    this._zooming = false;
+}
+
+function scheduleZoom( viewer ) {
+    window.setTimeout($.delegate(viewer, doZoom), 10);
+}
+
+function doZoom() {
+    if (this._zooming && this.viewport) {
+        var currentTime = +new Date();
+        var deltaTime = currentTime - this._lastZoomTime;
+        var adjustedFactor = Math.pow(this._zoomFactor, deltaTime / 1000);
+
+        this.viewport.zoomBy(adjustedFactor);
+        this.viewport.applyConstraints();
+        this._lastZoomTime = currentTime;
+        scheduleZoom( this );
+    }
+};
+
+function doSingleZoomIn() {
+    if (this.viewport) {
+        this._zooming = false;
+        this.viewport.zoomBy( 
+            this.config.zoomPerClick / 1.0 
+        );
+        this.viewport.applyConstraints();
+    }
+};
+
+function doSingleZoomOut() {
+    if (this.viewport) {
+        this._zooming = false;
+        this.viewport.zoomBy(
+            1.0 / this.config.zoomPerClick
+        );
+        this.viewport.applyConstraints();
+    }
+};
+
+function lightUp() {
+    this._group.emulateEnter();
+    this._group.emulateExit();
+};
+
+function onHome() {
+    if (this.viewport) {
+        this.viewport.goHome();
+    }
+};
+
+function onFullPage() {
+    this.setFullPage( !this.isFullPage() );
+    this._group.emulateExit();  // correct for no mouseout event on change
+
+    if (this.viewport) {
+        this.viewport.applyConstraints();
+    }
+};
 
 }( OpenSeadragon ));
 
