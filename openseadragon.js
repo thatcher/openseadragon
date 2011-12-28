@@ -3,7 +3,7 @@
  * (c) 2010 OpenSeadragon
  * (c) 2010 CodePlex Foundation
  *
- * OpenSeadragon 0.8.15
+ * OpenSeadragon 0.8.16
  * ----------------------------------------------------------------------------
  * 
  *  License: New BSD License (BSD)
@@ -1221,17 +1221,6 @@ $.Utils = new $.Utils();
 
 (function( $ ){
     
-$.NavControl = function( viewer ) {
-};
-
-$.NavControl.prototype = {
-
-};
-
-}( OpenSeadragon ));
-
-(function( $ ){
-    
 
 $.ControlAnchor = {
     NONE: 0,
@@ -1348,7 +1337,7 @@ $.Viewer = function( options ) {
             maxZoomPixelRatio:  2,
             visibilityRatio:    0.5,
             springStiffness:    5.0,
-            imageLoaderLimit:   2,
+            imageLoaderLimit:   0,
             clickTimeThreshold: 200,
             clickDistThreshold: 5,
             zoomPerClick:       2.0,
@@ -2063,9 +2052,7 @@ function updateOnce( viewer ) {
     } else if ( viewer._forceRedraw || viewer.drawer.needsUpdate() ) {
         viewer.drawer.update();
         viewer._forceRedraw = false;
-    } else {
-        viewer.drawer.idle();
-    }
+    } 
 
     if ( viewer._animating && !animated ) {
         viewer.raiseEvent( "animationfinish" );
@@ -2232,7 +2219,7 @@ $.Strings = {
 
 (function( $ ){
 
-$.Point=$.Point = function(x, y) {
+$.Point = function(x, y) {
     this.x = typeof (x) == "number" ? x : 0;
     this.y = typeof (y) == "number" ? y : 0;
 };
@@ -2395,98 +2382,6 @@ $.Profiler.prototype = {
         this._minIdleTime = Infinity;
         this._avgIdleTime = 0;
         this._maxIdleTime = 0;
-    }
-};
-
-}( OpenSeadragon ));
-
-(function( $ ){
-    
-$.Job = function( src, callback ) {
-    this.image = null;
-    this.timeout = null;
-    this.src = src;
-    this.callback = callback;
-    //TODO: make TIMEOUT configurable
-    this.TIMEOUT = 5000;
-};
-
-$.Job.prototype = {
-    start: function() {
-        var _this = this;
-        this.image = new Image();
-        this.image.onload = function(){
-            finish( _this, true );
-        };
-        this.image.onabort = this.image.onerror = function(){
-            finish( _this, false );
-        };
-        this.timeout = window.setTimeout( function(){
-            onerror( _this );
-        }, this.TIMEOUT );
-
-        this.image.src = this.src;
-    }
-};
-
-function onload( job ){
-    finish( job, true );
-};
-
-function onerror( job ){
-    finish( job, false )
-};
-
-function finish( job, success ){
-    var image    = job.image,
-        callback = job.callback;
-
-    image.onload = null;
-    image.onabort = null;
-    image.onerror = null;
-
-    if ( job.timeout ) {
-        window.clearTimeout( job.timeout );
-    }
-    window.setTimeout( function() {
-        callback(job.src, success ? image : null);
-    }, 1 );
-
-};
-
-}( OpenSeadragon ));
-
-(function( $ ){
-    
-$.ImageLoader = function( imageLoaderLimit ) {
-    this.downloading = 0;
-    this.imageLoaderLimit = imageLoaderLimit;
-};
-
-$.ImageLoader.prototype = {
-    loadImage: function(src, callback) {
-        var _this = this;
-        if (this.downloading >= this.imageLoaderLimit) {
-            return false;
-        }
-
-        var job = new $.Job(src, function(src, image){
-            
-            _this.downloading--;
-            if (typeof (callback) == "function") {
-                try {
-                    callback(image);
-                } catch (e) {
-                    $.Debug.error(e.name + " while executing " + src +
-                                " callback: " + e.message, e);
-                }
-            }
-        });
-
-        this.downloading++;
-        job.start();
-
-        return true;
     }
 };
 
@@ -3426,6 +3321,9 @@ $.Tile.prototype = {
 var QUOTA = 100;    // the max number of images we should keep in memory
 var MIN_PIXEL_RATIO = 0.5;  // the most shrunk a tile should be
 
+//TODO: make TIMEOUT configurable
+var TIMEOUT = 5000;
+
 var browser = $.Utils.getBrowser();
 var browserVer = $.Utils.getBrowserVersion();
 
@@ -3447,7 +3345,9 @@ $.Drawer = function(source, viewport, elmt) {
     this._source = source;
     this.config = this._viewport.config;
 
-    this._imageLoader = new $.ImageLoader(this.config.imageLoaderLimit);
+    this.downloading = 0;
+    this.imageLoaderLimit = this.config.imageLoaderLimit;
+
     this._profiler = new $.Profiler();
 
     this._minLevel = source.minLevel;
@@ -3543,8 +3443,15 @@ $.Drawer.prototype = {
     },
 
     _loadTile: function(tile, time) {
-        tile.loading = this._imageLoader.loadImage(tile.url,
-                    $.Utils.createCallback(null, $.delegate(this, this._onTileLoad), tile, time));
+        tile.loading = this.loadImage(
+            tile.url,
+            $.Utils.createCallback(
+                null, 
+                $.delegate(this, this._onTileLoad), 
+                tile, 
+                time
+            )
+        );
     },
 
     _onTileLoad: function(tile, time, image) {
@@ -3993,8 +3900,66 @@ $.Drawer.prototype = {
         this._profiler.endUpdate();
     },
 
-    idle: function() {
+    loadImage: function(src, callback) {
+        var _this = this,
+            loading = false,
+            image,
+            jobid,
+            complete;
+
+        if ( !this.imageLoaderLimit || this.downloading < this.imageLoaderLimit ) {
+            
+            this.downloading++;
+
+            image = new Image();
+
+            complete = function( imagesrc ){
+                _this.downloading--;
+                if (typeof ( callback ) == "function") {
+                    try {
+                        callback( image );
+                    } catch ( e ) {
+                        $.Debug.error(
+                            e.name + " while executing " + src +" callback: " + e.message, 
+                            e
+                        );
+                    }
+                }
+            };
+
+            image.onload = function(){
+                finishLoadingImage( image, complete, true );
+            };
+
+            image.onabort = image.onerror = function(){
+                finishLoadingImage( image, complete, false );
+            };
+
+            jobid = window.setTimeout( function(){
+                finishLoadingImage( image, complete, false, jobid );
+            }, TIMEOUT );
+
+            loading   = true;
+            image.src = src;
+        }
+
+        return loading;
     }
+};
+
+function finishLoadingImage( image, callback, successful, jobid ){
+
+    image.onload = null;
+    image.onabort = null;
+    image.onerror = null;
+
+    if ( jobid ) {
+        window.clearTimeout( jobid );
+    }
+    window.setTimeout( function() {
+        callback( image.src, successful ? image : null);
+    }, 1 );
+
 };
 
 }( OpenSeadragon ));
