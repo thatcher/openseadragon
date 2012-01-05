@@ -3,7 +3,7 @@
  * (c) 2010 OpenSeadragon
  * (c) 2010 CodePlex Foundation
  *
- * OpenSeadragon 0.8.16
+ * OpenSeadragon 0.8.17
  * ----------------------------------------------------------------------------
  * 
  *  License: New BSD License (BSD)
@@ -2029,7 +2029,7 @@ function updateOnce( viewer ) {
         return;
     }
 
-    viewer.profiler.beginUpdate();
+    //viewer.profiler.beginUpdate();
 
     var containerSize = $.Utils.getElementSize( viewer.container );
 
@@ -2064,7 +2064,7 @@ function updateOnce( viewer ) {
 
     viewer._animating = animated;
 
-    viewer.profiler.endUpdate();
+    //viewer.profiler.endUpdate();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2226,38 +2226,53 @@ $.Point = function(x, y) {
 
 $.Point.prototype = {
 
-    plus: function(point) {
-        return new $.Point(this.x + point.x, this.y + point.y);
+    plus: function( point ) {
+        return new $.Point(
+            this.x + point.x, 
+            this.y + point.y
+        );
     },
 
-    minus: function(point) {
-        return new $.Point(this.x - point.x, this.y - point.y);
+    minus: function( point ) {
+        return new $.Point(
+            this.x - point.x, 
+            this.y - point.y
+        );
     },
 
-    times: function(factor) {
-        return new $.Point(this.x * factor, this.y * factor);
+    times: function( factor ) {
+        return new $.Point(
+            this.x * factor, 
+            this.y * factor
+        );
     },
 
-    divide: function(factor) {
-        return new $.Point(this.x / factor, this.y / factor);
+    divide: function( factor ) {
+        return new $.Point(
+            this.x / factor, 
+            this.y / factor
+        );
     },
 
     negate: function() {
-        return new $.Point(-this.x, -this.y);
+        return new $.Point( -this.x, -this.y );
     },
 
-    distanceTo: function(point) {
-        return Math.sqrt(Math.pow(this.x - point.x, 2) +
-                        Math.pow(this.y - point.y, 2));
+    distanceTo: function( point ) {
+        return Math.sqrt(
+            Math.pow( this.x - point.x, 2 ) +
+            Math.pow( this.y - point.y, 2 )
+        );
     },
 
-    apply: function(func) {
-        return new $.Point(func(this.x), func(this.y));
+    apply: function( func ) {
+        return new $.Point( func(this.x), func(this.y) );
     },
 
-    equals: function(point) {
-        return (point instanceof $.Point) &&
-                (this.x === point.x) && (this.y === point.y);
+    equals: function( point ) {
+        return  ( point instanceof $.Point ) &&
+                ( this.x === point.x ) && 
+                ( this.y === point.y );
     },
 
     toString: function() {
@@ -2271,117 +2286,82 @@ $.Point.prototype = {
 
 $.Profiler = function() {
 
-    this._midUpdate = false;
-    this._numUpdates = 0;
+    this.midUpdate = false;
+    this.numUpdates = 0;
 
-    this._lastBeginTime = null;
-    this._lastEndTime = null;
+    this.lastBeginTime = null;
+    this.lastEndTime = null;
 
-    this._minUpdateTime = Infinity;
-    this._avgUpdateTime = 0;
-    this._maxUpdateTime = 0;
+    this.minUpdateTime = Infinity;
+    this.avgUpdateTime = 0;
+    this.maxUpdateTime = 0;
 
-    this._minIdleTime = Infinity;
-    this._avgIdleTime = 0;
-    this._maxIdleTime = 0;
+    this.minIdleTime = Infinity;
+    this.avgIdleTime = 0;
+    this.maxIdleTime = 0;
 };
 
 $.Profiler.prototype = {
 
-    getAvgUpdateTime: function() {
-        return this._avgUpdateTime;
-    },
-
-    getMinUpdateTime: function() {
-        return this._minUpdateTime;
-    },
-
-    getMaxUpdateTime: function() {
-        return this._maxUpdateTime;
-    },
-
-
-    getAvgIdleTime: function() {
-        return this._avgIdleTime;
-    },
-
-    getMinIdleTime: function() {
-        return this._minIdleTime;
-    },
-
-    getMaxIdleTime: function() {
-        return this._maxIdleTime;
-    },
-
-
-    isMidUpdate: function() {
-        return this._midUpdate;
-    },
-
-    getNumUpdates: function() {
-        return this._numUpdates;
-    },
-
-
     beginUpdate: function() {
-        if (this._midUpdate) {
+        if (this.midUpdate) {
             this.endUpdate();
         }
 
-        this._midUpdate = true;
-        this._lastBeginTime = new Date().getTime();
+        this.midUpdate = true;
+        this.lastBeginTime = new Date().getTime();
 
-        if (this._numUpdates < 1) {
+        if (this.numUpdates < 1) {
             return;     // this is the first update
         }
 
-        var time = this._lastBeginTime - this._lastEndTime;
+        var time = this.lastBeginTime - this.lastEndTime;
 
-        this._avgIdleTime = (this._avgIdleTime * (this._numUpdates - 1) + time) / this._numUpdates;
+        this.avgIdleTime = (this.avgIdleTime * (this.numUpdates - 1) + time) / this.numUpdates;
 
-        if (time < this._minIdleTime) {
-            this._minIdleTime = time;
+        if (time < this.minIdleTime) {
+            this.minIdleTime = time;
         }
-        if (time > this._maxIdleTime) {
-            this._maxIdleTime = time;
+        if (time > this.maxIdleTime) {
+            this.maxIdleTime = time;
         }
     },
 
     endUpdate: function() {
-        if (!this._midUpdate) {
+        if (!this.midUpdate) {
             return;
         }
 
-        this._lastEndTime = new Date().getTime();
-        this._midUpdate = false;
+        this.lastEndTime = new Date().getTime();
+        this.midUpdate = false;
 
-        var time = this._lastEndTime - this._lastBeginTime;
+        var time = this.lastEndTime - this.lastBeginTime;
 
-        this._numUpdates++;
-        this._avgUpdateTime = (this._avgUpdateTime * (this._numUpdates - 1) + time) / this._numUpdates;
+        this.numUpdates++;
+        this.avgUpdateTime = (this.avgUpdateTime * (this.numUpdates - 1) + time) / this.numUpdates;
 
-        if (time < this._minUpdateTime) {
-            this._minUpdateTime = time;
+        if (time < this.minUpdateTime) {
+            this.minUpdateTime = time;
         }
-        if (time > this._maxUpdateTime) {
-            this._maxUpdateTime = time;
+        if (time > this.maxUpdateTime) {
+            this.maxUpdateTime = time;
         }
     },
 
     clearProfile: function() {
-        this._midUpdate = false;
-        this._numUpdates = 0;
+        this.midUpdate = false;
+        this.numUpdates = 0;
 
-        this._lastBeginTime = null;
-        this._lastEndTime = null;
+        this.lastBeginTime = null;
+        this.lastEndTime = null;
 
-        this._minUpdateTime = Infinity;
-        this._avgUpdateTime = 0;
-        this._maxUpdateTime = 0;
+        this.minUpdateTime = Infinity;
+        this.avgUpdateTime = 0;
+        this.maxUpdateTime = 0;
 
-        this._minIdleTime = Infinity;
-        this._avgIdleTime = 0;
-        this._maxIdleTime = 0;
+        this.minIdleTime = Infinity;
+        this.avgIdleTime = 0;
+        this.maxIdleTime = 0;
     }
 };
 
@@ -2988,11 +2968,11 @@ $.ButtonGroup.prototype = {
 
 (function( $ ){
     
-$.Rect = function(x, y, width, height) {
-    this.x = typeof (x) == "number" ? x : 0;
-    this.y = typeof (y) == "number" ? y : 0;
-    this.width = typeof (width) == "number" ? width : 0;
-    this.height = typeof (height) == "number" ? height : 0;
+$.Rect = function( x, y, width, height ) {
+    this.x = typeof ( x ) == "number" ? x : 0;
+    this.y = typeof ( y ) == "number" ? y : 0;
+    this.width  = typeof ( width )  == "number" ? width : 0;
+    this.height = typeof ( height ) == "number" ? height : 0;
 };
 
 $.Rect.prototype = {
@@ -3001,31 +2981,43 @@ $.Rect.prototype = {
     },
 
     getTopLeft: function() {
-    return new $.Point(this.x, this.y);
+        return new $.Point( this.x, this.y );
     },
 
     getBottomRight: function() {
-    return new $.Point(this.x + this.width, this.y + this.height);
+        return new $.Point(
+            this.x + this.width, 
+            this.y + this.height
+        );
     },
 
     getCenter: function() {
-    return new $.Point(this.x + this.width / 2.0,
-                        this.y + this.height / 2.0);
+        return new $.Point(
+            this.x + this.width / 2.0,
+            this.y + this.height / 2.0
+        );
     },
 
     getSize: function() {
-    return new $.Point(this.width, this.height);
+        return new $.Point( this.width, this.height );
     },
 
     equals: function(other) {
-        return (other instanceof $.Rect) &&
-                (this.x === other.x) && (this.y === other.y) &&
-                (this.width === other.width) && (this.height === other.height);
+        return 
+            ( other instanceof $.Rect ) &&
+            ( this.x === other.x ) && 
+            ( this.y === other.y ) &&
+            ( this.width === other.width ) && 
+            ( this.height === other.height );
     },
 
     toString: function() {
-        return "[" + this.x + "," + this.y + "," + this.width + "x" +
-                this.height + "]";
+        return "[" + 
+            this.x + "," + 
+            this.y + "," + 
+            this.width + "x" +
+            this.height + 
+        "]";
     }
 };
 
@@ -3046,56 +3038,86 @@ $.DisplayRect.prototype.constructor = $.DisplayRect;
 
 (function( $ ){
     
-$.Spring = function(initialValue, config) {
-    this._currentValue = typeof (initialValue) == "number" ? initialValue : 0;
-    this._startValue = this._currentValue;
-    this._targetValue = this._currentValue;
-    this.config = config;
+$.Spring = function( options ) {
+    var args = arguments;
 
-    this._currentTime = new Date().getTime(); // always work in milliseconds
-    this._startTime = this._currentTime;
-    this._targetTime = this._currentTime;
+    if( typeof( options ) != 'object' ){
+        //allows backward compatible use of ( initialValue, config ) as 
+        //constructor parameters
+        options = {
+            initial: args.length && typeof ( args[ 0 ] ) == "number" ? 
+                args[ 0 ] : 
+                0,
+            springStiffness: args.length > 1 ? 
+                args[ 1 ].springStiffness : 
+                5.0,
+            animationTime: args.length > 1 ? 
+                args[ 1 ].animationTime : 
+                1.5,
+        };
+    }
+
+    $.extend( true, this, options);
+
+
+    this.current = {
+        value: typeof ( this.initial ) == "number" ? 
+            this.initial : 
+            0,
+        time:  new Date().getTime() // always work in milliseconds
+    };
+
+    this.start = {
+        value: this.current.value,
+        time:  this.current.time
+    };
+
+    this.target = {
+        value: this.current.value,
+        time:  this.current.time
+    };
 };
 
 $.Spring.prototype = {
-    _transform: function(x) {
-        var s = this.config.springStiffness;
-        return (1.0 - Math.exp(-x * s)) / (1.0 - Math.exp(-s));
-    },
-    getCurrent: function() {
-        return this._currentValue;
+
+    resetTo: function( target ) {
+        this.target.value = target;
+        this.target.time  = this.current.time;
+        this.start.value  = this.target.value;
+        this.start.time   = this.target.time;
     },
 
-    getTarget: function() {
-        return this._targetValue;
+    springTo: function( target ) {
+        this.start.value  = this.current.value;
+        this.start.time   = this.current.time;
+        this.target.value = target;
+        this.target.time  = this.start.time + 1000 * this.animationTime;
     },
 
-    resetTo: function(target) {
-        this._targetValue = target;
-        this._targetTime = this._currentTime;
-        this._startValue = this._targetValue;
-        this._startTime = this._targetTime;
-    },
-
-    springTo: function(target) {
-        this._startValue = this._currentValue;
-        this._startTime = this._currentTime;
-        this._targetValue = target;
-        this._targetTime = this._startTime + 1000 * this.config.animationTime;
-    },
-
-    shiftBy: function(delta) {
-        this._startValue += delta;
-        this._targetValue += delta;
+    shiftBy: function( delta ) {
+        this.start.value  += delta;
+        this.target.value += delta;
     },
 
     update: function() {
-        this._currentTime = new Date().getTime();
-        this._currentValue = (this._currentTime >= this._targetTime) ? this._targetValue :
-                this._startValue + (this._targetValue - this._startValue) *
-                this._transform((this._currentTime - this._startTime) / (this._targetTime - this._startTime));
+        this.current.time  = new Date().getTime();
+        this.current.value = (this.current.time >= this.target.time) ? 
+            this.target.value :
+            this.start.value + 
+                ( this.target.value - this.start.value ) *
+                transform( 
+                    this.springStiffness, 
+                    ( this.current.time - this.start.time ) / 
+                    ( this.target.time  - this.start.time )
+                );
     }
 }
+
+
+function transform( stiffness, x ) {
+    return ( 1.0 - Math.exp( stiffness * -x ) ) / 
+        ( 1.0 - Math.exp( -stiffness ) );
+};
 
 }( OpenSeadragon ));
 
@@ -3194,7 +3216,6 @@ $.Tile.prototype = {
 }( OpenSeadragon ));
 
 (function( $ ){
-    
 
     $.OverlayPlacement = {
         CENTER: 0,
@@ -3208,15 +3229,26 @@ $.Tile.prototype = {
         LEFT: 8
     };
 
-    $.Overlay = function(elmt, loc, placement) {
+    $.Overlay = function(elmt, location, placement) {
         this.elmt       = elmt;
-        this.scales     = (loc instanceof $.Rect);
-        this.bounds     = new $.Rect(loc.x, loc.y, loc.width, loc.height);
-        this.position   = new $.Point(loc.x, loc.y);
-        this.size       = new $.Point(loc.width, loc.height);
+        this.scales     = location instanceof $.Rect;
+        this.bounds     = new $.Rect(
+            location.x, 
+            location.y,
+            location.width, 
+            location.height)
+        ;
+        this.position   = new $.Point(
+            location.x, 
+            location.y
+        );
+        this.size       = new $.Point(
+            location.width, 
+            location.height
+        );
         this.style      = elmt.style;
         // rects are always top-left
-        this.placement  = loc instanceof $.Point ? 
+        this.placement  = location instanceof $.Point ? 
             placement : 
             $.OverlayPlacement.TOP_LEFT;    
     };
@@ -3275,41 +3307,45 @@ $.Tile.prototype = {
                 style.height = "";
             }
         },
-        drawHTML: function(container) {
-            var elmt = this.elmt;
-            var style = this.style;
-            var scales = this.scales;
+        drawHTML: function( container ) {
+            var elmt    = this.elmt,
+                style   = this.style,
+                scales  = this.scales,
+                position,
+                size;
 
-            if (elmt.parentNode != container) {
-                container.appendChild(elmt);
+            if ( elmt.parentNode != container ) {
+                container.appendChild( elmt );
             }
 
-            if (!scales) {
-                this.size = $.Utils.getElementSize(elmt);
+            if ( !scales ) {
+                this.size = $.Utils.getElementSize( elmt );
             }
 
-            var position = this.position;
-            var size = this.size;
+            position = this.position;
+            size     = this.size;
 
-            this.adjust(position, size);
+            this.adjust( position, size );
 
-            position = position.apply(Math.floor);
-            size = size.apply(Math.ceil);
+            position = position.apply( Math.floor );
+            size     = size.apply( Math.ceil );
 
-            style.left = position.x + "px";
-            style.top = position.y + "px";
+            style.left     = position.x + "px";
+            style.top      = position.y + "px";
             style.position = "absolute";
 
-            if (scales) {
-                style.width = size.x + "px";
+            if ( scales ) {
+                style.width  = size.x + "px";
                 style.height = size.y + "px";
             }
         },
-        update: function(loc, placement) {
-            this.scales = (loc instanceof $.Rect);
-            this.bounds = new $.Rect(loc.x, loc.y, loc.width, loc.height);
-            this.placement = loc instanceof $.Point ?
-                    placement : $.OverlayPlacement.TOP_LEFT;    // rects are always top-left
+        update: function( loc, placement ) {
+            this.scales     = ( loc instanceof $.Rect );
+            this.bounds     = new $.Rect(loc.x, loc.y, loc.width, loc.height);
+            // rects are always top-left
+            this.placement  = loc instanceof $.Point ?
+                    placement : 
+                    $.OverlayPlacement.TOP_LEFT;    
         }
 
     };
@@ -3893,11 +3929,11 @@ $.Drawer.prototype = {
     },
 
     update: function() {
-        this._profiler.beginUpdate();
+        //this._profiler.beginUpdate();
         this._midUpdate = true;
         this._updateActual();
         this._midUpdate = false;
-        this._profiler.endUpdate();
+        //this._profiler.endUpdate();
     },
 
     loadImage: function(src, callback) {
@@ -3967,62 +4003,96 @@ function finishLoadingImage( image, callback, successful, jobid ){
 (function( $ ){
     
 $.Viewport = function(containerSize, contentSize, config) {
-    this.zoomPoint = null;
+    //TODO: this.config is something that should go away but currently the 
+    //      Drawer references the viewport.config
     this.config = config;
-    this._containerSize = containerSize;
-    this._contentSize = contentSize;
-    this._contentAspect = contentSize.x / contentSize.y;
-    this._contentHeight = contentSize.y / contentSize.x;
-    this._centerSpringX = new $.Spring(0, this.config);
-    this._centerSpringY = new $.Spring(0, this.config);
-    this._zoomSpring = new $.Spring(1, this.config);
-    this._homeBounds = new $.Rect(0, 0, 1, this._contentHeight);
-    this.goHome(true);
+    this.zoomPoint = null;
+    this.containerSize = containerSize;
+    this.contentSize   = contentSize;
+    this.contentAspect = contentSize.x / contentSize.y;
+    this.contentHeight = contentSize.y / contentSize.x;
+    this.centerSpringX = new $.Spring({
+        initial: 0, 
+        springStiffness: config.springStiffness,
+        animationTime:   config.animationTime
+    });
+    this.centerSpringY = new $.Spring({
+        initial: 0, 
+        springStiffness: config.springStiffness,
+        animationTime:   config.animationTime
+    });
+    this.zoomSpring = new $.Spring({
+        initial: 1, 
+        springStiffness: config.springStiffness,
+        animationTime:   config.animationTime
+    });
+    this.minZoomImageRatio = config.minZoomImageRatio;
+    this.maxZoomPixelRatio = config.maxZoomPixelRatio;
+    this.visibilityRatio   = config.visibilityRatio;
+    this.wrapHorizontal    = config.wrapHorizontal;
+    this.wrapVertical      = config.wrapVertical;
+    this.homeBounds = new $.Rect( 0, 0, 1, this.contentHeight );
+    this.goHome( true );
     this.update();
 };
 
 $.Viewport.prototype = {
-    _getHomeZoom: function() {
-        var aspectFactor = this._contentAspect / this.getAspectRatio();
+    getHomeZoom: function() {
+        var aspectFactor = this.contentAspect / this.getAspectRatio();
         return (aspectFactor >= 1) ? 1 : aspectFactor;
     },
 
-    _getMinZoom: function() {
-        var homeZoom = this._getHomeZoom();
-        var zoom = this.config.minZoomImageRatio * homeZoom;
+    getMinZoom: function() {
+        var homeZoom = this.getHomeZoom()
+            zoom = this.minZoomImageRatio * homeZoom;
 
         return Math.min(zoom, homeZoom);
     },
 
-    _getMaxZoom: function() {
-        var zoom = this._contentSize.x * this.config.maxZoomPixelRatio / this._containerSize.x;
-        return Math.max(zoom, this._getHomeZoom());
+    getMaxZoom: function() {
+        var zoom = this.contentSize.x * 
+            this.maxZoomPixelRatio / this.containerSize.x;
+        return Math.max(zoom, this.getHomeZoom());
     },
+
     getAspectRatio: function() {
-        return this._containerSize.x / this._containerSize.y;
+        return this.containerSize.x / this.containerSize.y;
     },
+
     getContainerSize: function() {
-        return new $.Point(this._containerSize.x, this._containerSize.y);
+        return new $.Point(this.containerSize.x, this.containerSize.y);
     },
 
-    getBounds: function(current) {
-        var center = this.getCenter(current);
-        var width = 1.0 / this.getZoom(current);
-        var height = width / this.getAspectRatio();
+    getBounds: function( current ) {
+        var center = this.getCenter(current),
+            width  = 1.0 / this.getZoom(current),
+            height = width / this.getAspectRatio();
 
-        return new $.Rect(center.x - width / 2.0, center.y - height / 2.0,
-            width, height);
+        return new $.Rect(
+            center.x - width / 2.0, 
+            center.y - height / 2.0,
+            width, 
+            height
+        );
     },
 
-    getCenter: function(current) {
+    getCenter: function( current ) {
         var centerCurrent = new $.Point(
-            this._centerSpringX.getCurrent(),
-            this._centerSpringY.getCurrent()
-        );
-        var centerTarget = new $.Point(
-            this._centerSpringX.getTarget(),
-            this._centerSpringY.getTarget()
-        );
+                this.centerSpringX.current.value,
+                this.centerSpringY.current.value
+            ),
+            centerTarget = new $.Point(
+                this.centerSpringX.target.value,
+                this.centerSpringY.target.value
+            ),
+            oldZoomPixel,
+            zoom,
+            width,
+            height,
+            bounds,
+            newZoomPixel,
+            deltaZoomPixels,
+            deltaZoomPoints;
 
         if (current) {
             return centerCurrent;
@@ -4030,163 +4100,200 @@ $.Viewport.prototype = {
             return centerTarget;
         }
 
-        var oldZoomPixel = this.pixelFromPoint(this.zoomPoint, true);
+        oldZoomPixel = this.pixelFromPoint(this.zoomPoint, true);
 
-        var zoom = this.getZoom();
-        var width = 1.0 / zoom;
-        var height = width / this.getAspectRatio();
-        var bounds = new $.Rect(centerCurrent.x - width / 2.0,
-                centerCurrent.y - height / 2.0, width, height);
+        zoom    = this.getZoom();
+        width   = 1.0 / zoom;
+        height  = width / this.getAspectRatio();
+        bounds  = new $.Rect(
+            centerCurrent.x - width / 2.0,
+            centerCurrent.y - height / 2.0, 
+            width, 
+            height
+        );
 
-        var newZoomPixel = this.zoomPoint.minus(bounds.getTopLeft()).times(this._containerSize.x / bounds.width);
-        var deltaZoomPixels = newZoomPixel.minus(oldZoomPixel);
-        var deltaZoomPoints = deltaZoomPixels.divide(this._containerSize.x * zoom);
+        newZoomPixel    = this.zoomPoint.minus(
+            bounds.getTopLeft()
+        ).times(
+            this.containerSize.x / bounds.width
+        );
+        deltaZoomPixels = newZoomPixel.minus( oldZoomPixel );
+        deltaZoomPoints = deltaZoomPixels.divide( this.containerSize.x * zoom );
 
-        return centerTarget.plus(deltaZoomPoints);
+        return centerTarget.plus( deltaZoomPoints );
     },
 
-    getZoom: function(current) {
-        if (current) {
-            return this._zoomSpring.getCurrent();
+    getZoom: function( current ) {
+        if ( current ) {
+            return this.zoomSpring.current.value;
         } else {
-            return this._zoomSpring.getTarget();
+            return this.zoomSpring.target.value;
         }
     },
 
 
-    applyConstraints: function(immediately) {
-        var actualZoom = this.getZoom();
-        var constrainedZoom = Math.max(Math.min(actualZoom, this._getMaxZoom()), this._getMinZoom());
-        if (actualZoom != constrainedZoom) {
-            this.zoomTo(constrainedZoom, this.zoomPoint, immediately);
+    applyConstraints: function( immediately ) {
+        var actualZoom = this.getZoom(),
+            constrainedZoom = Math.max(
+                Math.min( actualZoom, this.getMaxZoom() ), 
+                this.getMinZoom()
+            ),
+            bounds,
+            horizontalThreshold,
+            verticalThreshold,
+            left,
+            right,
+            top,
+            bottom,
+            dx = 0,
+            dy = 0;
+
+        if ( actualZoom != constrainedZoom ) {
+            this.zoomTo( constrainedZoom, this.zoomPoint, immediately );
         }
 
-        var bounds = this.getBounds();
-        var visibilityRatio = this.config.visibilityRatio;
+        bounds = this.getBounds();
 
-        var horThres = visibilityRatio * bounds.width;
-        var verThres = visibilityRatio * bounds.height;
+        horizontalThreshold = this.visibilityRatio * bounds.width;
+        verticalThreshold   = this.visibilityRatio * bounds.height;
 
-        var left = bounds.x + bounds.width;
-        var right = 1 - bounds.x;
-        var top = bounds.y + bounds.height;
-        var bottom = this._contentHeight - bounds.y;
+        left   = bounds.x + bounds.width;
+        right  = 1 - bounds.x;
+        top    = bounds.y + bounds.height;
+        bottom = this.contentHeight - bounds.y;
 
-        var dx = 0;
-        if (this.config.wrapHorizontal) {
-        } else if (left < horThres) {
-            dx = horThres - left;
-        } else if (right < horThres) {
-            dx = right - horThres;
+        if ( this.wrapHorizontal ) {
+            //do nothing
+        } else if ( left < horizontalThreshold ) {
+            dx = horizontalThreshold - left;
+        } else if ( right < horizontalThreshold ) {
+            dx = right - horizontalThreshold;
         }
 
-        var dy = 0;
-        if (this.config.wrapVertical) {
-        } else if (top < verThres) {
-            dy = verThres - top;
-        } else if (bottom < verThres) {
-            dy = bottom - verThres;
+        if ( this.wrapVertical ) {
+            //do nothing
+        } else if ( top < verticalThreshold ) {
+            dy = verticalThreshold - top;
+        } else if ( bottom < verticalThreshold ) {
+            dy = bottom - verticalThreshold;
         }
 
-        if (dx || dy) {
+        if ( dx || dy ) {
             bounds.x += dx;
             bounds.y += dy;
-            this.fitBounds(bounds, immediately);
+            this.fitBounds( bounds, immediately );
         }
     },
 
-    ensureVisible: function(immediately) {
-        this.applyConstraints(immediately);
+    ensureVisible: function( immediately ) {
+        this.applyConstraints( immediately );
     },
 
-    fitBounds: function(bounds, immediately) {
-        var aspect = this.getAspectRatio();
-        var center = bounds.getCenter();
+    fitBounds: function( bounds, immediately ) {
+        var aspect = this.getAspectRatio(),
+            center = bounds.getCenter(),
+            newBounds = new $.Rect(
+                bounds.x, 
+                bounds.y, 
+                bounds.width, 
+                bounds.height
+            ),
+            oldBounds,
+            oldZoom,
+            newZoom,
+            referencePoint;
 
-        var newBounds = new $.Rect(bounds.x, bounds.y, bounds.width, bounds.height);
         if (newBounds.getAspectRatio() >= aspect) {
             newBounds.height = bounds.width / aspect;
-            newBounds.y = center.y - newBounds.height / 2;
+            newBounds.y      = center.y - newBounds.height / 2;
         } else {
             newBounds.width = bounds.height * aspect;
-            newBounds.x = center.x - newBounds.width / 2;
+            newBounds.x     = center.x - newBounds.width / 2;
         }
 
         this.panTo(this.getCenter(true), true);
         this.zoomTo(this.getZoom(true), null, true);
 
-        var oldBounds = this.getBounds();
-        var oldZoom = this.getZoom();
-
-        var newZoom = 1.0 / newBounds.width;
+        oldBounds = this.getBounds();
+        oldZoom   = this.getZoom();
+        newZoom   = 1.0 / newBounds.width;
         if (newZoom == oldZoom || newBounds.width == oldBounds.width) {
-            this.panTo(center, immediately);
+            this.panTo( center, immediately );
             return;
         }
 
-        var refPoint = oldBounds.getTopLeft().times(this._containerSize.x / oldBounds.width).minus(
-                newBounds.getTopLeft().times(this._containerSize.x / newBounds.width)).divide(
-                this._containerSize.x / oldBounds.width - this._containerSize.x / newBounds.width);
+        referencePoint = oldBounds.getTopLeft().times( 
+            this.containerSize.x / oldBounds.width 
+        ).minus(
+            newBounds.getTopLeft().times( 
+                this.containerSize.x / newBounds.width 
+            )
+        ).divide(
+            this.containerSize.x / oldBounds.width - 
+            this.containerSize.x / newBounds.width
+        );
 
 
-        this.zoomTo(newZoom, refPoint, immediately);
+        this.zoomTo( newZoom, referencePoint, immediately );
     },
 
     goHome: function(immediately) {
         var center = this.getCenter();
 
-        if (this.config.wrapHorizontal) {
+        if ( this.wrapHorizontal ) {
             center.x = (1 + (center.x % 1)) % 1;
-            this._centerSpringX.resetTo(center.x);
-            this._centerSpringX.update();
+            this.centerSpringX.resetTo(center.x);
+            this.centerSpringX.update();
         }
 
-        if (this.config.wrapVertical) {
-            center.y = (this._contentHeight + (center.y % this._contentHeight)) % this._contentHeight;
-            this._centerSpringY.resetTo(center.y);
-            this._centerSpringY.update();
+        if ( this.wrapVertical ) {
+            center.y = (this.contentHeight + (center.y % this.contentHeight)) % this.contentHeight;
+            this.centerSpringY.resetTo(center.y);
+            this.centerSpringY.update();
         }
 
-        this.fitBounds(this._homeBounds, immediately);
+        this.fitBounds(this.homeBounds, immediately);
     },
 
     panBy: function(delta, immediately) {
-        var center = new $.Point(this._centerSpringX.getTarget(),
-                this._centerSpringY.getTarget());
-        this.panTo(center.plus(delta), immediately);
+        var center = new $.Point(
+            this.centerSpringX.target.value,
+            this.centerSpringY.target.value
+        );
+        this.panTo( center.plus( delta ), immediately );
     },
 
     panTo: function(center, immediately) {
         if (immediately) {
-            this._centerSpringX.resetTo(center.x);
-            this._centerSpringY.resetTo(center.y);
+            this.centerSpringX.resetTo(center.x);
+            this.centerSpringY.resetTo(center.y);
         } else {
-            this._centerSpringX.springTo(center.x);
-            this._centerSpringY.springTo(center.y);
+            this.centerSpringX.springTo(center.x);
+            this.centerSpringY.springTo(center.y);
         }
     },
 
     zoomBy: function(factor, refPoint, immediately) {
-        this.zoomTo(this._zoomSpring.getTarget() * factor, refPoint, immediately);
+        this.zoomTo(this.zoomSpring.target.value * factor, refPoint, immediately);
     },
 
     zoomTo: function(zoom, refPoint, immediately) {
 
         if (immediately) {
-            this._zoomSpring.resetTo(zoom);
+            this.zoomSpring.resetTo(zoom);
         } else {        
-            this._zoomSpring.springTo(zoom);
+            this.zoomSpring.springTo(zoom);
         }
 
         this.zoomPoint = refPoint instanceof $.Point ? refPoint : null;
     },
 
     resize: function(newContainerSize, maintain) {
-        var oldBounds = this.getBounds();
-        var newBounds = oldBounds;
-        var widthDeltaFactor = newContainerSize.x / this._containerSize.x;
+        var oldBounds = this.getBounds(),
+            newBounds = oldBounds,
+            widthDeltaFactor = newContainerSize.x / this.containerSize.x;
 
-        this._containerSize = new $.Point(newContainerSize.x, newContainerSize.y);
+        this.containerSize = new $.Point(newContainerSize.x, newContainerSize.y);
 
         if (maintain) {
             newBounds.width = oldBounds.width * widthDeltaFactor;
@@ -4197,52 +4304,68 @@ $.Viewport.prototype = {
     },
 
     update: function() {
-        var oldCenterX = this._centerSpringX.getCurrent();
-        var oldCenterY = this._centerSpringY.getCurrent();
-        var oldZoom = this._zoomSpring.getCurrent();
+        var oldCenterX = this.centerSpringX.current.value,
+            oldCenterY = this.centerSpringY.current.value,
+            oldZoom    = this.zoomSpring.current.value,
+            oldZoomPixel,
+            newZoomPixel,
+            deltaZoomPixels,
+            deltaZoomPoints;
 
         if (this.zoomPoint) {
-            var oldZoomPixel = this.pixelFromPoint(this.zoomPoint, true);
+            oldZoomPixel = this.pixelFromPoint(this.zoomPoint, true);
         }
 
-        this._zoomSpring.update();
+        this.zoomSpring.update();
 
-        if (this.zoomPoint && this._zoomSpring.getCurrent() != oldZoom) {
-            var newZoomPixel = this.pixelFromPoint(this.zoomPoint, true);
-            var deltaZoomPixels = newZoomPixel.minus(oldZoomPixel);
-            var deltaZoomPoints = this.deltaPointsFromPixels(deltaZoomPixels, true);
+        if (this.zoomPoint && this.zoomSpring.current.value != oldZoom) {
+            newZoomPixel    = this.pixelFromPoint( this.zoomPoint, true );
+            deltaZoomPixels = newZoomPixel.minus( oldZoomPixel);
+            deltaZoomPoints = this.deltaPointsFromPixels( deltaZoomPixels, true );
 
-            this._centerSpringX.shiftBy(deltaZoomPoints.x);
-            this._centerSpringY.shiftBy(deltaZoomPoints.y);
+            this.centerSpringX.shiftBy( deltaZoomPoints.x );
+            this.centerSpringY.shiftBy( deltaZoomPoints.y );
         } else {
             this.zoomPoint = null;
         }
 
-        this._centerSpringX.update();
-        this._centerSpringY.update();
+        this.centerSpringX.update();
+        this.centerSpringY.update();
 
-        return this._centerSpringX.getCurrent() != oldCenterX ||
-                this._centerSpringY.getCurrent() != oldCenterY ||
-                this._zoomSpring.getCurrent() != oldZoom;
+        return this.centerSpringX.current.value != oldCenterX ||
+            this.centerSpringY.current.value != oldCenterY ||
+            this.zoomSpring.current.value != oldZoom;
     },
 
 
     deltaPixelsFromPoints: function(deltaPoints, current) {
-        return deltaPoints.times(this._containerSize.x * this.getZoom(current));
+        return deltaPoints.times(
+            this.containerSize.x * this.getZoom( current )
+        );
     },
 
     deltaPointsFromPixels: function(deltaPixels, current) {
-        return deltaPixels.divide(this._containerSize.x * this.getZoom(current));
+        return deltaPixels.divide(
+            this.containerSize.x * this.getZoom( current )
+        );
     },
 
     pixelFromPoint: function(point, current) {
-        var bounds = this.getBounds(current);
-        return point.minus(bounds.getTopLeft()).times(this._containerSize.x / bounds.width);
+        var bounds = this.getBounds( current );
+        return point.minus(
+            bounds.getTopLeft()
+        ).times(
+            this.containerSize.x / bounds.width
+        );
     },
 
     pointFromPixel: function(pixel, current) {
-        var bounds = this.getBounds(current);
-        return pixel.divide(this._containerSize.x / bounds.width).plus(bounds.getTopLeft());
+        var bounds = this.getBounds( current );
+        return pixel.divide(
+            this.containerSize.x / bounds.width
+        ).plus(
+            bounds.getTopLeft()
+        );
     }
 };
 
