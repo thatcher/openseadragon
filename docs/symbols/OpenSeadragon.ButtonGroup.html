@@ -81,7 +81,7 @@
 			Documentation generator: <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0<br />
 			Template: <a href="http://www.thebrightlines.com/2010/05/06/new-template-for-jsdoctoolkit-codeview/" target="_blank">Codeview</a> 1.2<br />
 			Generated on:
-			<time datetime='2012-0-25' pubdate>2012-0-25 14:06</time>
+			<time datetime='2012-0-31' pubdate>2012-0-31 8:28</time>
 		</footer>
 	</div>
 </div>
@@ -99,16 +99,7 @@
 				
 				<div class="intro">
 					<p class="description summary">
-						Manages events on groups of buttons.
-   
-options: {
-    buttons: Array of buttons * required,
-    group:   Element to use as the container,
-    config:  Object with Viewer settings ( TODO: is this actually used anywhere? )
-    enter:   Function callback for when the mouse enters group
-    exit:    Function callback for when mouse leaves the group
-    release: Function callback for when mouse is released
-}
+						
 					</p>
 						
 					
@@ -142,7 +133,7 @@ options: {
 										<div class="fixedFont">
 											<b><a href="../symbols/OpenSeadragon.ButtonGroup.html#constructor">OpenSeadragon.ButtonGroup</a></b>(options)
 										</div>
-										<div class="description"></div>
+										<div class="description">Manages events on groups of buttons.</div>
 									</td>
 								</tr>
 							</tbody>
@@ -152,9 +143,128 @@ options: {
 			
 			
 			
+				
+				<section>
+					
+						<nav>
+							<div class="props">
+								<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class OpenSeadragon.ButtonGroup.">
+									<caption class="sectionTitle">Field Summary</caption>
+									
+									<thead>
+										<tr>
+											<th scope="col">Field Attributes</th>
+											<th scope="col">Field Name and Description</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/OpenSeadragon.ButtonGroup.html#buttons">buttons</a></b>
+													</div>
+													<div class="description">- An array containing the buttons themselves.</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/OpenSeadragon.ButtonGroup.html#config">config</a></b>
+													</div>
+													<div class="description">- Configurable settings for the group of buttons.</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/OpenSeadragon.ButtonGroup.html#element">element</a></b>
+													</div>
+													<div class="description">- The shared container for the buttons.</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/OpenSeadragon.ButtonGroup.html#tracker">tracker</a></b>
+													</div>
+													<div class="description">- Tracks mouse events accross
+ the group of buttons.</div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</div>
+						</nav>
+					
+					
+					
+				</section>
+			
 	<!--
 	#### METHODS SUMMARY
 	-->
+			
+				<section>
+					
+					
+					<div class="props">
+						<h2 class="sectionTitle">Method Summary</h2>
+						
+						
+							<nav>
+								<table class="summaryTable" id="MethodsList" cellspacing="0" summary="A summary of the methods documented in the class OpenSeadragon.ButtonGroup.">
+									<thead>
+										<tr>
+											<th scope="col">Method Attributes</th>
+											<th scope="col">Method Name and Description</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+										
+											<tr
+												 class='item0'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.ButtonGroup.html#emulateEnter">emulateEnter</a></b>()
+													</div>
+													<div class="description">TODO: Figure out why this is used on the public API and if a more useful
+api can be created.</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item1'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.ButtonGroup.html#emulateExit">emulateExit</a></b>()
+													</div>
+													<div class="description">TODO: Figure out why this is used on the public API and if a more useful
+api can be created.</div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</nav>
+						
+					
+						
+					</div>
+				</section>
 			
 			
 	<!--
@@ -177,7 +287,7 @@ options: {
 							</div>
 							
 							<div class="description">
-								
+								Manages events on groups of buttons.
 								
 							</div>
 							
@@ -188,10 +298,51 @@ options: {
 									<dt class="heading">Parameters:</dt>
 									
 										<dt>
-											 <b>options</b>
+											<span class="light fixedFont">{Object}</span>  <b>options</b>
 											
 										</dt>
-										<dd></dd>
+										<dd>- a dictionary of settings applied against the entire 
+group of buttons</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Array}</span>  <b>options.buttons</b>
+											
+										</dt>
+										<dd>Array of buttons</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Element}</span>  <b>options.group</b>
+											<i>Optional</i>
+										</dt>
+										<dd>Element to use as the container,</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Object}</span>  <b>options.config</b>
+											
+										</dt>
+										<dd>Object with Viewer settings ( TODO: is 
+ this actually used anywhere? )</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Function}</span>  <b>options.enter</b>
+											<i>Optional</i>
+										</dt>
+										<dd>Function callback for when the mouse 
+ enters group</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Function}</span>  <b>options.exit</b>
+											<i>Optional</i>
+										</dt>
+										<dd>Function callback for when mouse leaves 
+ the group</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Function}</span>  <b>options.release</b>
+											<i>Optional</i>
+										</dt>
+										<dd>Function callback for when mouse is 
+ released</dd>
 									
 								</dl>
 							
@@ -205,9 +356,185 @@ options: {
 	#### FIELD DETAILS
 	-->
 			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								Field Detail
+							</h2>
+							
+							
+								<div class="fixedFont heading" id="buttons">
+									<span class='lighter'>
+									
+									</span>
+									
+									<span class="light">{Array}</span>
+									
+									<b>buttons</b>							
+								</div>
+								
+								<div class="description">
+									- An array containing the buttons themselves.
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="config">
+									<span class='lighter'>
+									
+									</span>
+									
+									<span class="light">{Object}</span>
+									
+									<b>config</b>							
+								</div>
+								
+								<div class="description">
+									- Configurable settings for the group of buttons.
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="element">
+									<span class='lighter'>
+									
+									</span>
+									
+									<span class="light">{Element}</span>
+									
+									<b>element</b>							
+								</div>
+								
+								<div class="description">
+									- The shared container for the buttons.
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="tracker">
+									<span class='lighter'>
+									
+									</span>
+									
+									<span class="light">{<a href="../symbols/OpenSeadragon.MouseTracker.html">OpenSeadragon.MouseTracker</a>}</span>
+									
+									<b>tracker</b>							
+								</div>
+								
+								<div class="description">
+									- Tracks mouse events accross
+ the group of buttons.
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								
+							
+						</div>
+					</div>
+				</section>
+			
 	<!--
 	#### METHOD DETAILS
 	-->		
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								Method Detail
+							</h2>
+							
+							<ul class="methodDetail" id="MethodDetail">
+								
+								
+									<li 
+										 class='item0'
+									>
+										<div class="fixedFont heading" id="emulateEnter">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>emulateEnter</b>()
+										</div>
+										
+										<div class="description">
+											TODO: Figure out why this is used on the public API and if a more useful
+api can be created.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item1'
+									>
+										<div class="fixedFont heading" id="emulateExit">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>emulateExit</b>()
+										</div>
+										
+										<div class="description">
+											TODO: Figure out why this is used on the public API and if a more useful
+api can be created.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										
+									</li>
+								
+							</ul>
+						</div>
+					</div>
+				</section>
 			
 			
 	<!--

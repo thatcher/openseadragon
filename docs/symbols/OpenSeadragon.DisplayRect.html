@@ -81,7 +81,7 @@
 			Documentation generator: <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0<br />
 			Template: <a href="http://www.thebrightlines.com/2010/05/06/new-template-for-jsdoctoolkit-codeview/" target="_blank">Codeview</a> 1.2<br />
 			Generated on:
-			<time datetime='2012-0-25' pubdate>2012-0-25 14:06</time>
+			<time datetime='2012-0-31' pubdate>2012-0-31 8:28</time>
 		</footer>
 	</div>
 </div>
@@ -109,6 +109,8 @@
 							
 								<li>Defined in: <a href="../symbols/src/openseadragon.js.html">openseadragon.js</a></li>
 							
+							<li>Extends <span class="fixedFont">
+								<a href="../symbols/OpenSeadragon.Rect.html">OpenSeadragon.Rect</a></span></li>
 							
 						</ul>
 					
@@ -133,7 +135,9 @@
 										<div class="fixedFont">
 											<b><a href="../symbols/OpenSeadragon.DisplayRect.html#constructor">OpenSeadragon.DisplayRect</a></b>(x, y, width, height, minLevel, maxLevel)
 										</div>
-										<div class="description"></div>
+										<div class="description">A display rectanlge is very similar to the OpenSeadragon.Rect but adds two
+fields, 'minLevel' and 'maxLevel' which denote the supported zoom levels
+for this rectangle.</div>
 									</td>
 								</tr>
 							</tbody>
@@ -143,9 +147,79 @@
 			
 			
 			
+				
+				<section>
+					
+						<nav>
+							<div class="props">
+								<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class OpenSeadragon.DisplayRect.">
+									<caption class="sectionTitle">Field Summary</caption>
+									
+									<thead>
+										<tr>
+											<th scope="col">Field Attributes</th>
+											<th scope="col">Field Name and Description</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/OpenSeadragon.DisplayRect.html#maxLevel">maxLevel</a></b>
+													</div>
+													<div class="description">The highest zoom level supported.</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/OpenSeadragon.DisplayRect.html#minLevel">minLevel</a></b>
+													</div>
+													<div class="description">The lowest zoom level supported.</div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</div>
+						</nav>
+					
+					
+					
+						<nav>
+							<dl class="inheritsList">
+							<dt>Fields borrowed from class <a href="../symbols/OpenSeadragon.Rect.html">OpenSeadragon.Rect</a>: </dt><dd><a href="../symbols/OpenSeadragon.Rect.html#height">height</a>, <a href="../symbols/OpenSeadragon.Rect.html#width">width</a>, <a href="../symbols/OpenSeadragon.Rect.html#x">x</a>, <a href="../symbols/OpenSeadragon.Rect.html#y">y</a></dd>
+							</dl>
+						</nav>
+					
+				</section>
+			
 	<!--
 	#### METHODS SUMMARY
 	-->
+			
+				<section>
+					
+					
+					<div class="props">
+						<h2 class="sectionTitle">Method Summary</h2>
+						
+						
+					
+						
+							<nav>
+								<dl class="inheritsList" id="MethodsListInherited">
+								<dt>Methods borrowed from class <span class='fixedFont'><a href="../symbols/OpenSeadragon.Rect.html">OpenSeadragon.Rect</a></span>: </dt><dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Rect.html#equals">equals</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Rect.html#getAspectRatio">getAspectRatio</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Rect.html#getBottomRight">getBottomRight</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Rect.html#getCenter">getCenter</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Rect.html#getSize">getSize</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Rect.html#getTopLeft">getTopLeft</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Rect.html#toString">toString</a></span></dd>
+								</dl>
+							</nav>
+						
+					</div>
+				</section>
 			
 			
 	<!--
@@ -168,7 +242,9 @@
 							</div>
 							
 							<div class="description">
-								
+								A display rectanlge is very similar to the OpenSeadragon.Rect but adds two
+fields, 'minLevel' and 'maxLevel' which denote the supported zoom levels
+for this rectangle.
 								
 							</div>
 							
@@ -179,40 +255,40 @@
 									<dt class="heading">Parameters:</dt>
 									
 										<dt>
-											 <b>x</b>
+											<span class="light fixedFont">{Number}</span>  <b>x</b>
 											
 										</dt>
-										<dd></dd>
+										<dd>The vector component 'x'.</dd>
 									
 										<dt>
-											 <b>y</b>
+											<span class="light fixedFont">{Number}</span>  <b>y</b>
 											
 										</dt>
-										<dd></dd>
+										<dd>The vector component 'y'.</dd>
 									
 										<dt>
-											 <b>width</b>
+											<span class="light fixedFont">{Number}</span>  <b>width</b>
 											
 										</dt>
-										<dd></dd>
+										<dd>The vector component 'height'.</dd>
 									
 										<dt>
-											 <b>height</b>
+											<span class="light fixedFont">{Number}</span>  <b>height</b>
 											
 										</dt>
-										<dd></dd>
+										<dd>The vector component 'width'.</dd>
 									
 										<dt>
-											 <b>minLevel</b>
+											<span class="light fixedFont">{Number}</span>  <b>minLevel</b>
 											
 										</dt>
-										<dd></dd>
+										<dd>The lowest zoom level supported.</dd>
 									
 										<dt>
-											 <b>maxLevel</b>
+											<span class="light fixedFont">{Number}</span>  <b>maxLevel</b>
 											
 										</dt>
-										<dd></dd>
+										<dd>The highest zoom level supported.</dd>
 									
 								</dl>
 							
@@ -225,6 +301,62 @@
 	<!--
 	#### FIELD DETAILS
 	-->
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								Field Detail
+							</h2>
+							
+							
+								<div class="fixedFont heading" id="maxLevel">
+									<span class='lighter'>
+									
+									</span>
+									
+									<span class="light">{Number}</span>
+									
+									<b>maxLevel</b>							
+								</div>
+								
+								<div class="description">
+									The highest zoom level supported.
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="minLevel">
+									<span class='lighter'>
+									
+									</span>
+									
+									<span class="light">{Number}</span>
+									
+									<b>minLevel</b>							
+								</div>
+								
+								<div class="description">
+									The lowest zoom level supported.
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								
+							
+						</div>
+					</div>
+				</section>
 			
 	<!--
 	#### METHOD DETAILS

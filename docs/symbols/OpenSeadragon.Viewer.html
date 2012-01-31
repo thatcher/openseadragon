@@ -81,7 +81,7 @@
 			Documentation generator: <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0<br />
 			Template: <a href="http://www.thebrightlines.com/2010/05/06/new-template-for-jsdoctoolkit-codeview/" target="_blank">Codeview</a> 1.2<br />
 			Generated on:
-			<time datetime='2012-0-25' pubdate>2012-0-25 14:06</time>
+			<time datetime='2012-0-31' pubdate>2012-0-31 8:28</time>
 		</footer>
 	</div>
 </div>
@@ -99,22 +99,7 @@
 				
 				<div class="intro">
 					<p class="description summary">
-						The main point of entry into creating a zoomable image on the page.
-
- We have provided an idiomatic javascript constructor which takes
- a single object, but still support the legacy positional arguments.
-
- The options below are given in order that they appeared in the constructor
- as arguments and we translate a positional call into an idiomatic call.
-
- options:{
-     element:    String id of Element to attach to,
-     xmlPath:    String xpath ( TODO: not sure! ),
-     prefixUrl:  String url used to prepend to paths, eg button images,
-     controls:   Array of Seadragon.Controls,
-     overlays:   Array of Seadragon.Overlays,
-     overlayControls: An Array of ( TODO: not sure! )
- }
+						
 					</p>
 						
 					
@@ -124,6 +109,8 @@
 							
 								<li>Defined in: <a href="../symbols/src/openseadragon.js.html">openseadragon.js</a></li>
 							
+							<li>Extends <span class="fixedFont">
+								<a href="../symbols/OpenSeadragon.EventHandler.html">OpenSeadragon.EventHandler</a></span></li>
 							
 						</ul>
 					
@@ -148,7 +135,7 @@
 										<div class="fixedFont">
 											<b><a href="../symbols/OpenSeadragon.Viewer.html#constructor">OpenSeadragon.Viewer</a></b>(options)
 										</div>
-										<div class="description"></div>
+										<div class="description">The main point of entry into creating a zoomable image on the page.</div>
 									</td>
 								</tr>
 							</tbody>
@@ -161,6 +148,218 @@
 	<!--
 	#### METHODS SUMMARY
 	-->
+			
+				<section>
+					
+					
+					<div class="props">
+						<h2 class="sectionTitle">Method Summary</h2>
+						
+						
+							<nav>
+								<table class="summaryTable" id="MethodsList" cellspacing="0" summary="A summary of the methods documented in the class OpenSeadragon.Viewer.">
+									<thead>
+										<tr>
+											<th scope="col">Method Attributes</th>
+											<th scope="col">Method Name and Description</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+										
+											<tr
+												 class='item0'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#addControl">addControl</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item1'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#clearControls">clearControls</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item2'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#close">close</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item3'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#isDashboardEnabled">isDashboardEnabled</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item4'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#isFullPage">isFullPage</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item5'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#isMouseNavEnabled">isMouseNavEnabled</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item6'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#isOpen">isOpen</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item7'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#isVisible">isVisible</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item8'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#open">open</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item9'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#openDzi">openDzi</a></b>(dzi)
+													</div>
+													<div class="description">If the string is xml is simply parsed and opened, otherwise the string 
+is treated as an URL and an xml document is requested via ajax, parsed 
+and then opened in the viewer.</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item10'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#openTileSource">openTileSource</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item11'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#removeControl">removeControl</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item12'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#setDashboardEnabled">setDashboardEnabled</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item13'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#setFullPage">setFullPage</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item14'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#setMouseNavEnabled">setMouseNavEnabled</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item15'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Viewer.html#setVisible">setVisible</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</nav>
+						
+					
+						
+							<nav>
+								<dl class="inheritsList" id="MethodsListInherited">
+								
+								</dl>
+							</nav>
+						
+					</div>
+				</section>
 			
 			
 	<!--
@@ -183,7 +382,13 @@
 							</div>
 							
 							<div class="description">
-								
+								The main point of entry into creating a zoomable image on the page.
+
+We have provided an idiomatic javascript constructor which takes
+a single object, but still support the legacy positional arguments.
+
+The options below are given in order that they appeared in the constructor
+as arguments and we translate a positional call into an idiomatic call.
 								
 							</div>
 							
@@ -194,10 +399,48 @@
 									<dt class="heading">Parameters:</dt>
 									
 										<dt>
-											 <b>options</b>
+											<span class="light fixedFont">{Object}</span>  <b>options</b>
 											
 										</dt>
 										<dd></dd>
+									
+										<dt>
+											<span class="light fixedFont">{String}</span>  <b>options.element</b>
+											
+										</dt>
+										<dd>Id of Element to attach to,</dd>
+									
+										<dt>
+											<span class="light fixedFont">{String}</span>  <b>options.xmlPath</b>
+											
+										</dt>
+										<dd>Xpath ( TODO: not sure! ),</dd>
+									
+										<dt>
+											<span class="light fixedFont">{String}</span>  <b>options.prefixUrl</b>
+											
+										</dt>
+										<dd>Url used to prepend to paths, eg button 
+ images, etc.</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Seadragon.Controls[]}</span>  <b>options.controls</b>
+											
+										</dt>
+										<dd>Array of Seadragon.Controls,</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Seadragon.Overlays[]}</span>  <b>options.overlays</b>
+											
+										</dt>
+										<dd>Array of Seadragon.Overlays,</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Seadragon.Controls[]}</span>  <b>options.overlayControls</b>
+											
+										</dt>
+										<dd>An Array of ( TODO: 
+ not sure! )</dd>
 									
 								</dl>
 							
@@ -214,6 +457,498 @@
 	<!--
 	#### METHOD DETAILS
 	-->		
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								Method Detail
+							</h2>
+							
+							<ul class="methodDetail" id="MethodDetail">
+								
+								
+									<li 
+										 class='item0'
+									>
+										<div class="fixedFont heading" id="addControl">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>addControl</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item1'
+									>
+										<div class="fixedFont heading" id="clearControls">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>clearControls</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item2'
+									>
+										<div class="fixedFont heading" id="close">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>close</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item3'
+									>
+										<div class="fixedFont heading" id="isDashboardEnabled">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>isDashboardEnabled</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item4'
+									>
+										<div class="fixedFont heading" id="isFullPage">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>isFullPage</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item5'
+									>
+										<div class="fixedFont heading" id="isMouseNavEnabled">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>isMouseNavEnabled</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item6'
+									>
+										<div class="fixedFont heading" id="isOpen">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>isOpen</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item7'
+									>
+										<div class="fixedFont heading" id="isVisible">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>isVisible</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item8'
+									>
+										<div class="fixedFont heading" id="open">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>open</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item9'
+									>
+										<div class="fixedFont heading" id="openDzi">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>openDzi</b>(dzi)
+										</div>
+										
+										<div class="description">
+											If the string is xml is simply parsed and opened, otherwise the string 
+is treated as an URL and an xml document is requested via ajax, parsed 
+and then opened in the viewer.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{String}</span> <b>dzi</b>
+														
+													</dt>
+													<dd>and xml string or the url to a DZI xml document.</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item10'
+									>
+										<div class="fixedFont heading" id="openTileSource">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>openTileSource</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item11'
+									>
+										<div class="fixedFont heading" id="removeControl">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>removeControl</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item12'
+									>
+										<div class="fixedFont heading" id="setDashboardEnabled">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setDashboardEnabled</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item13'
+									>
+										<div class="fixedFont heading" id="setFullPage">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setFullPage</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item14'
+									>
+										<div class="fixedFont heading" id="setMouseNavEnabled">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setMouseNavEnabled</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item15'
+									>
+										<div class="fixedFont heading" id="setVisible">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setVisible</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										
+									</li>
+								
+							</ul>
+						</div>
+					</div>
+				</section>
 			
 			
 	<!--

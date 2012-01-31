@@ -81,7 +81,7 @@
 			Documentation generator: <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0<br />
 			Template: <a href="http://www.thebrightlines.com/2010/05/06/new-template-for-jsdoctoolkit-codeview/" target="_blank">Codeview</a> 1.2<br />
 			Generated on:
-			<time datetime='2012-0-25' pubdate>2012-0-25 14:06</time>
+			<time datetime='2012-0-31' pubdate>2012-0-31 8:28</time>
 		</footer>
 	</div>
 </div>
@@ -218,16 +218,6 @@ including NONE, TOP_LEFT, TOP_RIGHT, BOTTOM_RIGHT, and BOTTOM_LEFT.</div>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
 													<div class="fixedFont">
-													OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.DziTileSourceHelper">DziTileSourceHelper</a></b>
-													</div>
-													<div class="description"></div>
-												</td>
-											</tr>
-										
-											<tr>
-												<td class="attributes">&lt;static&gt; &nbsp;</td>
-												<td class="nameDescription">
-													<div class="fixedFont">
 													OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.OverlayPlacement">OverlayPlacement</a></b>
 													</div>
 													<div class="description">An enumeration of positions that an overlay may be assigned relative
@@ -275,7 +265,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 												<td class="nameDescription">
 													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.addEvent">addEvent</a></b>(element, eventName, handler, useCapture)
 													</div>
-													<div class="description"></div>
+													<div class="description">Adds an event listener for the given element, eventName and handler.</div>
 												</td>
 											</tr>
 										
@@ -286,7 +276,8 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 												<td class="nameDescription">
 													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.cancelEvent">cancelEvent</a></b>(event)
 													</div>
-													<div class="description"></div>
+													<div class="description">Cancels the default browser behavior had the event propagated all
+the way up the DOM to the window object.</div>
 												</td>
 											</tr>
 										
@@ -297,12 +288,26 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 												<td class="nameDescription">
 													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.createCallback">createCallback</a></b>(object, method, args)
 													</div>
-													<div class="description"></div>
+													<div class="description">Similar to OpenSeadragon.delegate, but it does not immediately call 
+the method on the object, returning a function which can be called
+repeatedly to delegate the method.</div>
 												</td>
 											</tr>
 										
 											<tr
 												 class='item3'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.createFromDZI">createFromDZI</a></b>(xmlUrl, xmlString, callback)
+													</div>
+													<div class="description">Loads a Deep Zoom Image description from a url or XML string and
+provides a callback hook for the resulting Document</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item4'
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
@@ -313,7 +318,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											</tr>
 										
 											<tr
-												 class='item4'
+												 class='item5'
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
@@ -324,7 +329,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											</tr>
 										
 											<tr
-												 class='item5'
+												 class='item6'
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
@@ -335,24 +340,13 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											</tr>
 										
 											<tr
-												 class='item6'
+												 class='item7'
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
 													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.getElementPosition">getElementPosition</a></b>(element)
 													</div>
-													<div class="description"></div>
-												</td>
-											</tr>
-										
-											<tr
-												 class='item7'
-											>
-												<td class="attributes">&lt;static&gt; &nbsp;</td>
-												<td class="nameDescription">
-													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.getElementSize">getElementSize</a></b>(element)
-													</div>
-													<div class="description"></div>
+													<div class="description">Determines the position of the upper-left corner of the element.</div>
 												</td>
 											</tr>
 										
@@ -361,9 +355,9 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.getElementStyle">getElementStyle</a></b>(element)
+													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.getElementSize">getElementSize</a></b>(element)
 													</div>
-													<div class="description"></div>
+													<div class="description">Determines the height and width of the given element.</div>
 												</td>
 											</tr>
 										
@@ -372,9 +366,9 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.getEvent">getEvent</a></b>(event)
+													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.getElementStyle">getElementStyle</a></b>(element)
 													</div>
-													<div class="description"></div>
+													<div class="description">Returns the CSSStyle object for the given element.</div>
 												</td>
 											</tr>
 										
@@ -383,9 +377,10 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.getMousePosition">getMousePosition</a></b>(event)
+													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.getEvent">getEvent</a></b>(event)
 													</div>
-													<div class="description"></div>
+													<div class="description">Gets the latest event, really only useful internally since its 
+specific to IE behavior.</div>
 												</td>
 											</tr>
 										
@@ -394,9 +389,9 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.getOffsetParent">getOffsetParent</a></b>(element, isFixed)
+													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.getMousePosition">getMousePosition</a></b>(event)
 													</div>
-													<div class="description"></div>
+													<div class="description">Gets the position of the mouse on the screen for a given event.</div>
 												</td>
 											</tr>
 										
@@ -407,7 +402,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 												<td class="nameDescription">
 													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.getPageScroll">getPageScroll</a></b>()
 													</div>
-													<div class="description"></div>
+													<div class="description">Determines the pages current scroll position.</div>
 												</td>
 											</tr>
 										
@@ -418,7 +413,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 												<td class="nameDescription">
 													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.getUrlParameter">getUrlParameter</a></b>(key)
 													</div>
-													<div class="description"></div>
+													<div class="description">Retreives the value of a url parameter from the window.location string.</div>
 												</td>
 											</tr>
 										
@@ -429,7 +424,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 												<td class="nameDescription">
 													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.getWindowSize">getWindowSize</a></b>()
 													</div>
-													<div class="description"></div>
+													<div class="description">Determines the size of the browsers window.</div>
 												</td>
 											</tr>
 										
@@ -438,9 +433,9 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.imageFormatSupported">imageFormatSupported</a></b>(extension)
+													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.makeAjaxRequest">makeAjaxRequest</a></b>(url, callback)
 													</div>
-													<div class="description"></div>
+													<div class="description">Makes an AJAX request.</div>
 												</td>
 											</tr>
 										
@@ -449,9 +444,10 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.makeAjaxRequest">makeAjaxRequest</a></b>(url, callback)
+													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.makeCenteredNode">makeCenteredNode</a></b>(element)
 													</div>
-													<div class="description"></div>
+													<div class="description">Wraps the given element in a nest of divs so that the element can
+be easily centered.</div>
 												</td>
 											</tr>
 										
@@ -460,9 +456,10 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.makeCenteredNode">makeCenteredNode</a></b>(element)
+													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.makeNeutralElement">makeNeutralElement</a></b>(tagName)
 													</div>
-													<div class="description"></div>
+													<div class="description">Creates an easily positionable element of the given type that therefor
+serves as an excellent container element.</div>
 												</td>
 											</tr>
 										
@@ -471,9 +468,9 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.makeNeutralElement">makeNeutralElement</a></b>(tagName)
+													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.makeTransparentImage">makeTransparentImage</a></b>(src)
 													</div>
-													<div class="description"></div>
+													<div class="description">Ensures an image is loaded correctly to support alpha transparency.</div>
 												</td>
 											</tr>
 										
@@ -482,9 +479,10 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.makeTransparentImage">makeTransparentImage</a></b>(src)
+													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.removeEvent">removeEvent</a></b>(element, eventName, handler, useCapture)
 													</div>
-													<div class="description"></div>
+													<div class="description">Remove a given event listener for the given element, event type and 
+handler.</div>
 												</td>
 											</tr>
 										
@@ -493,9 +491,9 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.parseXml">parseXml</a></b>(string)
+													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.setElementOpacity">setElementOpacity</a></b>(element, opacity, usesAlpha)
 													</div>
-													<div class="description">Parses an XML string into a DOM Document.</div>
+													<div class="description">Sets the opacity of the specified element.</div>
 												</td>
 											</tr>
 										
@@ -504,31 +502,9 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.</div>
 											>
 												<td class="attributes">&lt;static&gt; &nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.removeEvent">removeEvent</a></b>(element, eventName, handler, useCapture)
-													</div>
-													<div class="description"></div>
-												</td>
-											</tr>
-										
-											<tr
-												 class='item22'
-											>
-												<td class="attributes">&lt;static&gt; &nbsp;</td>
-												<td class="nameDescription">
-													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.setElementOpacity">setElementOpacity</a></b>(element, opacity, usesAlpha)
-													</div>
-													<div class="description"></div>
-												</td>
-											</tr>
-										
-											<tr
-												 class='item23'
-											>
-												<td class="attributes">&lt;static&gt; &nbsp;</td>
-												<td class="nameDescription">
 													<div class="fixedFont">OpenSeadragon.<b><a href="../symbols/OpenSeadragon.html#.stopEvent">stopEvent</a></b>(event)
 													</div>
-													<div class="description"></div>
+													<div class="description">Stops the propagation of the event up the DOM.</div>
 												</td>
 											</tr>
 										
@@ -707,28 +683,6 @@ The anchoring is always relative to the container
 								
 								<div class="hr"></div>
 							
-								<div class="fixedFont heading" id=".DziTileSourceHelper">
-									<span class='lighter'>
-									&lt;static&gt; 
-									</span>
-									
-									
-									
-									<span class="light">OpenSeadragon.</span><b>DziTileSourceHelper</b>							
-								</div>
-								
-								<div class="description">
-									
-									
-									
-									
-								</div>
-								
-								
-									
-								
-								<div class="hr"></div>
-							
 								<div class="fixedFont heading" id=".OverlayPlacement">
 									<span class='lighter'>
 									&lt;static&gt; 
@@ -785,7 +739,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Adds an event listener for the given element, eventName and handler.
 											
 											
 											
@@ -867,7 +821,8 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Cancels the default browser behavior had the event propagated all
+the way up the DOM to the window object.
 											
 											
 											
@@ -907,7 +862,11 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Similar to OpenSeadragon.delegate, but it does not immediately call 
+the method on the object, returning a function which can be called
+repeatedly to delegate the method. It also allows additonal arguments
+to be passed during construction which will be added during each
+invocation, and each invocation can add additional arguments as well.
 											
 											
 											
@@ -936,7 +895,8 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 														<b>args</b>
 														<i>Optional</i>
 													</dt>
-													<dd>any additional arguments are passed as arguments to the created callback</dd>
+													<dd>any additional arguments are passed as arguments to the 
+ created callback</dd>
 												
 											</dl>
 										
@@ -968,6 +928,59 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 								
 									<li 
 										 class='item3'
+									>
+										<div class="fixedFont heading" id=".createFromDZI">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">OpenSeadragon.</span><b>createFromDZI</b>(xmlUrl, xmlString, callback)
+										</div>
+										
+										<div class="description">
+											Loads a Deep Zoom Image description from a url or XML string and
+provides a callback hook for the resulting Document
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{String}</span> <b>xmlUrl</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<span class="light fixedFont">{String}</span> <b>xmlString</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item4'
 									>
 										<div class="fixedFont heading" id=".delegate">
 											<span class='lighter'>
@@ -1013,7 +1026,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 									</li>
 								
 									<li 
-										 class='item4'
+										 class='item5'
 									>
 										<div class="fixedFont heading" id=".extend">
 											<span class='lighter'>
@@ -1042,7 +1055,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 									</li>
 								
 									<li 
-										 class='item5'
+										 class='item6'
 									>
 										<div class="fixedFont heading" id=".getElement">
 											<span class='lighter'>
@@ -1103,7 +1116,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 									</li>
 								
 									<li 
-										 class='item6'
+										 class='item7'
 									>
 										<div class="fixedFont heading" id=".getElementPosition">
 											<span class='lighter'>
@@ -1116,68 +1129,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
-											
-											
-											
-											
-										</div>
-										
-										
-										
-										
-											<dl class="detailList params">
-												<dt class="heading">Parameters:</dt>
-												
-													<dt>
-														<span class="light fixedFont">{Element|String}</span> <b>element</b>
-														
-													</dt>
-													<dd></dd>
-												
-											</dl>
-										
-										
-										
-											<dl class="detailList nomargin">
-											
-												
-												
-												
-												
-												
-												
-												
-													<dt class="heading">Returns:</dt>
-													
-														<dd><span class="light fixedFont">{Point}</span> </dd>
-													
-												
-												
-												
-												
-												
-											
-											</dl>
-										
-										<div class="hr"></div>
-									</li>
-								
-									<li 
-										 class='item7'
-									>
-										<div class="fixedFont heading" id=".getElementSize">
-											<span class='lighter'>
-											&lt;static&gt; 
-											</span>
-											
-											<span class="light">{Point}</span>
-											
-											<span class="light">OpenSeadragon.</span><b>getElementSize</b>(element)
-										</div>
-										
-										<div class="description">
-											
+											Determines the position of the upper-left corner of the element.
 											
 											
 											
@@ -1194,7 +1146,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 														<span class="light fixedFont">{Element|String}</span> <b>element</b>
 														
 													</dt>
-													<dd></dd>
+													<dd>- the elemenet we want the position for.</dd>
 												
 											</dl>
 										
@@ -1211,7 +1163,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 												
 													<dt class="heading">Returns:</dt>
 													
-														<dd><span class="light fixedFont">{Point}</span> </dd>
+														<dd><span class="light fixedFont">{Point}</span> - the position of the upper left corner of the element.</dd>
 													
 												
 												
@@ -1227,6 +1179,67 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 									<li 
 										 class='item8'
 									>
+										<div class="fixedFont heading" id=".getElementSize">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											<span class="light">{Point}</span>
+											
+											<span class="light">OpenSeadragon.</span><b>getElementSize</b>(element)
+										</div>
+										
+										<div class="description">
+											Determines the height and width of the given element.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{Element|String}</span> <b>element</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{Point}</span> </dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item9'
+									>
 										<div class="fixedFont heading" id=".getElementStyle">
 											<span class='lighter'>
 											&lt;static&gt; 
@@ -1238,7 +1251,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Returns the CSSStyle object for the given element.
 											
 											
 											
@@ -1286,7 +1299,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 									</li>
 								
 									<li 
-										 class='item9'
+										 class='item10'
 									>
 										<div class="fixedFont heading" id=".getEvent">
 											<span class='lighter'>
@@ -1299,7 +1312,9 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Gets the latest event, really only useful internally since its 
+specific to IE behavior.  TODO: Deprecate this from the api and
+use it internally.
 											
 											
 											
@@ -1347,7 +1362,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 									</li>
 								
 									<li 
-										 class='item10'
+										 class='item11'
 									>
 										<div class="fixedFont heading" id=".getMousePosition">
 											<span class='lighter'>
@@ -1360,7 +1375,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Gets the position of the mouse on the screen for a given event.
 											
 											
 											
@@ -1408,73 +1423,6 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 									</li>
 								
 									<li 
-										 class='item11'
-									>
-										<div class="fixedFont heading" id=".getOffsetParent">
-											<span class='lighter'>
-											&lt;static&gt; 
-											</span>
-											
-											<span class="light">{Element}</span>
-											
-											<span class="light">OpenSeadragon.</span><b>getOffsetParent</b>(element, isFixed)
-										</div>
-										
-										<div class="description">
-											
-											
-											
-											
-											
-										</div>
-										
-										
-										
-										
-											<dl class="detailList params">
-												<dt class="heading">Parameters:</dt>
-												
-													<dt>
-														<span class="light fixedFont">{Element}</span> <b>element</b>
-														
-													</dt>
-													<dd></dd>
-												
-													<dt>
-														<span class="light fixedFont">{Boolean}</span> <b>isFixed</b>
-														<i>Optional</i>
-													</dt>
-													<dd></dd>
-												
-											</dl>
-										
-										
-										
-											<dl class="detailList nomargin">
-											
-												
-												
-												
-												
-												
-												
-												
-													<dt class="heading">Returns:</dt>
-													
-														<dd><span class="light fixedFont">{Element}</span> </dd>
-													
-												
-												
-												
-												
-												
-											
-											</dl>
-										
-										<div class="hr"></div>
-									</li>
-								
-									<li 
 										 class='item12'
 									>
 										<div class="fixedFont heading" id=".getPageScroll">
@@ -1488,7 +1436,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Determines the pages current scroll position.
 											
 											
 											
@@ -1538,7 +1486,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Retreives the value of a url parameter from the window.location string.
 											
 											
 											
@@ -1599,7 +1547,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Determines the size of the browsers window.
 											
 											
 											
@@ -1638,67 +1586,6 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 									<li 
 										 class='item15'
 									>
-										<div class="fixedFont heading" id=".imageFormatSupported">
-											<span class='lighter'>
-											&lt;static&gt; 
-											</span>
-											
-											<span class="light">{Boolean}</span>
-											
-											<span class="light">OpenSeadragon.</span><b>imageFormatSupported</b>(extension)
-										</div>
-										
-										<div class="description">
-											
-											
-											
-											
-											
-										</div>
-										
-										
-										
-										
-											<dl class="detailList params">
-												<dt class="heading">Parameters:</dt>
-												
-													<dt>
-														<span class="light fixedFont">{String}</span> <b>extension</b>
-														<i>Optional</i>
-													</dt>
-													<dd></dd>
-												
-											</dl>
-										
-										
-										
-											<dl class="detailList nomargin">
-											
-												
-												
-												
-												
-												
-												
-												
-													<dt class="heading">Returns:</dt>
-													
-														<dd><span class="light fixedFont">{Boolean}</span> </dd>
-													
-												
-												
-												
-												
-												
-											
-											</dl>
-										
-										<div class="hr"></div>
-									</li>
-								
-									<li 
-										 class='item16'
-									>
 										<div class="fixedFont heading" id=".makeAjaxRequest">
 											<span class='lighter'>
 											&lt;static&gt; 
@@ -1710,7 +1597,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Makes an AJAX request.
 											
 											
 											
@@ -1727,23 +1614,47 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 														<span class="light fixedFont">{String}</span> <b>url</b>
 														
 													</dt>
-													<dd></dd>
+													<dd>- the url to request</dd>
 												
 													<dt>
 														<span class="light fixedFont">{Function}</span> <b>callback</b>
 														<i>Optional</i>
 													</dt>
-													<dd></dd>
+													<dd>- a function to call when complete</dd>
 												
 											</dl>
 										
 										
 										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+													<dt class="heading">Throws:</dt>
+													
+														<dt>
+															<span class="light fixedFont">{Error}</span>  <b></b>
+														</dt>
+														<dd></dd>
+													
+												
+												
+												
+												
+												
+												
+												
+											
+											</dl>
+										
 										<div class="hr"></div>
 									</li>
 								
 									<li 
-										 class='item17'
+										 class='item16'
 									>
 										<div class="fixedFont heading" id=".makeCenteredNode">
 											<span class='lighter'>
@@ -1756,7 +1667,8 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Wraps the given element in a nest of divs so that the element can
+be easily centered.
 											
 											
 											
@@ -1804,7 +1716,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 									</li>
 								
 									<li 
-										 class='item18'
+										 class='item17'
 									>
 										<div class="fixedFont heading" id=".makeNeutralElement">
 											<span class='lighter'>
@@ -1817,7 +1729,8 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Creates an easily positionable element of the given type that therefor
+serves as an excellent container element.
 											
 											
 											
@@ -1865,7 +1778,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 									</li>
 								
 									<li 
-										 class='item19'
+										 class='item18'
 									>
 										<div class="fixedFont heading" id=".makeTransparentImage">
 											<span class='lighter'>
@@ -1878,7 +1791,9 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Ensures an image is loaded correctly to support alpha transparency.
+Generally only IE has issues doing this correctly for formats like 
+png.
 											
 											
 											
@@ -1926,68 +1841,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 									</li>
 								
 									<li 
-										 class='item20'
-									>
-										<div class="fixedFont heading" id=".parseXml">
-											<span class='lighter'>
-											&lt;static&gt; 
-											</span>
-											
-											<span class="light">{Document}</span>
-											
-											<span class="light">OpenSeadragon.</span><b>parseXml</b>(string)
-										</div>
-										
-										<div class="description">
-											Parses an XML string into a DOM Document.
-											
-											
-											
-											
-										</div>
-										
-										
-										
-										
-											<dl class="detailList params">
-												<dt class="heading">Parameters:</dt>
-												
-													<dt>
-														<span class="light fixedFont">{String}</span> <b>string</b>
-														
-													</dt>
-													<dd></dd>
-												
-											</dl>
-										
-										
-										
-											<dl class="detailList nomargin">
-											
-												
-												
-												
-												
-												
-												
-												
-													<dt class="heading">Returns:</dt>
-													
-														<dd><span class="light fixedFont">{Document}</span> </dd>
-													
-												
-												
-												
-												
-												
-											
-											</dl>
-										
-										<div class="hr"></div>
-									</li>
-								
-									<li 
-										 class='item21'
+										 class='item19'
 									>
 										<div class="fixedFont heading" id=".removeEvent">
 											<span class='lighter'>
@@ -2000,7 +1854,8 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Remove a given event listener for the given element, event type and 
+handler.
 											
 											
 											
@@ -2069,7 +1924,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 									</li>
 								
 									<li 
-										 class='item22'
+										 class='item20'
 									>
 										<div class="fixedFont heading" id=".setElementOpacity">
 											<span class='lighter'>
@@ -2082,7 +1937,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Sets the opacity of the specified element.
 											
 											
 											
@@ -2121,7 +1976,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 									</li>
 								
 									<li 
-										 class='item23'
+										 class='item21'
 									>
 										<div class="fixedFont heading" id=".stopEvent">
 											<span class='lighter'>
@@ -2134,7 +1989,7 @@ RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, and LEFT.
 										</div>
 										
 										<div class="description">
-											
+											Stops the propagation of the event up the DOM.
 											
 											
 											
