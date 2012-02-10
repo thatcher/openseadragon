@@ -81,7 +81,7 @@
 			Documentation generator: <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0<br />
 			Template: <a href="http://www.thebrightlines.com/2010/05/06/new-template-for-jsdoctoolkit-codeview/" target="_blank">Codeview</a> 1.2<br />
 			Generated on:
-			<time datetime='2012-0-31' pubdate>2012-0-31 8:28</time>
+			<time datetime='2012-1-2' pubdate>2012-1-2 19:07</time>
 		</footer>
 	</div>
 </div>
@@ -131,9 +131,11 @@
 									<td class="attributes">&nbsp;</td>
 									<td class="nameDescription" >
 										<div class="fixedFont">
-											<b><a href="../symbols/OpenSeadragon.MouseTracker.html#constructor">OpenSeadragon.MouseTracker</a></b>(elmt, clickTimeThreshold, clickDistThreshold)
+											<b><a href="../symbols/OpenSeadragon.MouseTracker.html#constructor">OpenSeadragon.MouseTracker</a></b>(options)
 										</div>
-										<div class="description"></div>
+										<div class="description">The MouseTracker allows other classes to set handlers for common mouse 
+events on a specific element like, 'enter', 'exit', 'press', 'release',
+'scroll', 'click', and 'drag'.</div>
 									</td>
 								</tr>
 							</tbody>
@@ -142,6 +144,74 @@
 				</section>
 			
 			
+			
+				
+				<section>
+					
+						<nav>
+							<div class="props">
+								<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class OpenSeadragon.MouseTracker.">
+									<caption class="sectionTitle">Field Summary</caption>
+									
+									<thead>
+										<tr>
+											<th scope="col">Field Attributes</th>
+											<th scope="col">Field Name and Description</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/OpenSeadragon.MouseTracker.html#clickDistThreshold">clickDistThreshold</a></b>
+													</div>
+													<div class="description">The distance between mouse click within multiple mouse clicks 
+     will be treated as a single event.</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/OpenSeadragon.MouseTracker.html#clickTimeThreshold">clickTimeThreshold</a></b>
+													</div>
+													<div class="description">The number of milliseconds within which mutliple mouse clicks 
+     will be treated as a single event.</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/OpenSeadragon.MouseTracker.html#element">element</a></b>
+													</div>
+													<div class="description">The element for which mouse event are being monitored.</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/OpenSeadragon.MouseTracker.html#hash">hash</a></b>
+													</div>
+													<div class="description">An unique hash for this tracker.</div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</div>
+						</nav>
+					
+					
+					
+				</section>
 			
 	<!--
 	#### METHODS SUMMARY
@@ -169,37 +239,106 @@
 											<tr
 												 class='item0'
 											>
-												<td class="attributes">&lt;inner&gt; &nbsp;</td>
+												<td class="attributes">&nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.MouseTracker.html#-onMouseMoveIE">onMouseMoveIE</a></b>(event)
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.MouseTracker.html#clickHandler">clickHandler</a></b>(tracker, position, quick, shift)
 													</div>
-													<div class="description">Only triggered once by the deepest element that initially received
-the mouse down event.</div>
+													<div class="description">Implement or assign implmentation to these handlers during or after
+calling the constructor.</div>
 												</td>
 											</tr>
 										
 											<tr
 												 class='item1'
 											>
-												<td class="attributes">&lt;inner&gt; &nbsp;</td>
+												<td class="attributes">&nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.MouseTracker.html#-onMouseUpIE">onMouseUpIE</a></b>(event)
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.MouseTracker.html#dragHandler">dragHandler</a></b>(tracker, position, delta, shift)
 													</div>
-													<div class="description">Only triggered once by the deepest element that initially received
-the mouse down event.</div>
+													<div class="description">Implement or assign implmentation to these handlers during or after
+calling the constructor.</div>
 												</td>
 											</tr>
 										
 											<tr
 												 class='item2'
 											>
-												<td class="attributes">&lt;inner&gt; &nbsp;</td>
+												<td class="attributes">&nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.MouseTracker.html#-onMouseUpWindow">onMouseUpWindow</a></b>(event)
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.MouseTracker.html#enterHandler">enterHandler</a></b>(tracker, position, buttonDown, buttonDownAny)
 													</div>
-													<div class="description">Only triggered in W3C browsers by elements within which the mouse was
-initially pressed, since they are now listening to the window for
-mouseup during the capture phase.</div>
+													<div class="description">Implement or assign implmentation to these handlers during or after
+calling the constructor.</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item3'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.MouseTracker.html#exitHandler">exitHandler</a></b>(tracker, position, buttonDown, buttonDownAny)
+													</div>
+													<div class="description">Implement or assign implmentation to these handlers during or after
+calling the constructor.</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item4'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.MouseTracker.html#isTracking">isTracking</a></b>()
+													</div>
+													<div class="description">Are we currently tracking events on this element.</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item5'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.MouseTracker.html#pressHandler">pressHandler</a></b>(tracker, position)
+													</div>
+													<div class="description">Implement or assign implmentation to these handlers during or after
+calling the constructor.</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item6'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.MouseTracker.html#releaseHandler">releaseHandler</a></b>(tracker, position, buttonDown, insideElementRelease)
+													</div>
+													<div class="description">Implement or assign implmentation to these handlers during or after
+calling the constructor.</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item7'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.MouseTracker.html#scrollHandler">scrollHandler</a></b>(tracker, position, scroll, shift)
+													</div>
+													<div class="description">Implement or assign implmentation to these handlers during or after
+calling the constructor.</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item8'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.MouseTracker.html#setTracking">setTracking</a></b>(track)
+													</div>
+													<div class="description">Enable or disable whether or not we are tracking events on this element.</div>
 												</td>
 											</tr>
 										
@@ -229,11 +368,13 @@ mouseup during the capture phase.</div>
 							</h2>
 							
 							<div class="fixedFont">
-								<b>OpenSeadragon.MouseTracker</b>(elmt, clickTimeThreshold, clickDistThreshold)
+								<b>OpenSeadragon.MouseTracker</b>(options)
 							</div>
 							
 							<div class="description">
-								
+								The MouseTracker allows other classes to set handlers for common mouse 
+events on a specific element like, 'enter', 'exit', 'press', 'release',
+'scroll', 'click', and 'drag'.
 								
 							</div>
 							
@@ -244,22 +385,76 @@ mouseup during the capture phase.</div>
 									<dt class="heading">Parameters:</dt>
 									
 										<dt>
-											 <b>elmt</b>
+											<span class="light fixedFont">{Object}</span>  <b>options</b>
 											
 										</dt>
-										<dd></dd>
+										<dd>Allows configurable properties to be entirely specified by passing
+     an options object to the constructor.  The constructor also supports 
+     the original positional arguments 'elements', 'clickTimeThreshold',
+     and 'clickDistThreshold' in that order.</dd>
 									
 										<dt>
-											 <b>clickTimeThreshold</b>
+											<span class="light fixedFont">{Element|String}</span>  <b>options.element</b>
 											
 										</dt>
-										<dd></dd>
+										<dd>A reference to an element or an element id for which the mouse 
+     events will be monitored.</dd>
 									
 										<dt>
-											 <b>clickDistThreshold</b>
+											<span class="light fixedFont">{Number}</span>  <b>options.clickTimeThreshold</b>
 											
 										</dt>
-										<dd></dd>
+										<dd>The number of milliseconds within which mutliple mouse clicks 
+     will be treated as a single event.</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Number}</span>  <b>options.clickDistThreshold</b>
+											
+										</dt>
+										<dd>The distance between mouse click within multiple mouse clicks 
+     will be treated as a single event.</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Function}</span>  <b>options.enterHandler</b>
+											
+										</dt>
+										<dd>An optional handler for mouse enter.</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Function}</span>  <b>options.exitHandler</b>
+											
+										</dt>
+										<dd>An optional handler for mouse exit.</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Function}</span>  <b>options.pressHandler</b>
+											
+										</dt>
+										<dd>An optional handler for mouse press.</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Function}</span>  <b>options.releaseHandler</b>
+											
+										</dt>
+										<dd>An optional handler for mouse release.</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Function}</span>  <b>options.scrollHandler</b>
+											
+										</dt>
+										<dd>An optional handler for mouse scroll.</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Function}</span>  <b>options.clickHandler</b>
+											
+										</dt>
+										<dd>An optional handler for mouse click.</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Function}</span>  <b>options.dragHandler</b>
+											
+										</dt>
+										<dd>An optional handler for mouse drag.</dd>
 									
 								</dl>
 							
@@ -272,6 +467,108 @@ mouseup during the capture phase.</div>
 	<!--
 	#### FIELD DETAILS
 	-->
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								Field Detail
+							</h2>
+							
+							
+								<div class="fixedFont heading" id="clickDistThreshold">
+									<span class='lighter'>
+									
+									</span>
+									
+									<span class="light">{Number}</span>
+									
+									<b>clickDistThreshold</b>							
+								</div>
+								
+								<div class="description">
+									The distance between mouse click within multiple mouse clicks 
+     will be treated as a single event.
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="clickTimeThreshold">
+									<span class='lighter'>
+									
+									</span>
+									
+									<span class="light">{Number}</span>
+									
+									<b>clickTimeThreshold</b>							
+								</div>
+								
+								<div class="description">
+									The number of milliseconds within which mutliple mouse clicks 
+     will be treated as a single event.
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="element">
+									<span class='lighter'>
+									
+									</span>
+									
+									<span class="light">{Element}</span>
+									
+									<b>element</b>							
+								</div>
+								
+								<div class="description">
+									The element for which mouse event are being monitored.
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="hash">
+									<span class='lighter'>
+									
+									</span>
+									
+									<span class="light">{Number}</span>
+									
+									<b>hash</b>							
+								</div>
+								
+								<div class="description">
+									An unique hash for this tracker.
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								
+							
+						</div>
+					</div>
+				</section>
 			
 	<!--
 	#### METHOD DETAILS
@@ -290,21 +587,19 @@ mouseup during the capture phase.</div>
 									<li 
 										 class='item0'
 									>
-										<div class="fixedFont heading" id="-onMouseMoveIE">
+										<div class="fixedFont heading" id="clickHandler">
 											<span class='lighter'>
-											&lt;inner&gt; 
+											
 											</span>
 											
 											
 											
-											<b>onMouseMoveIE</b>(event)
+											<b>clickHandler</b>(tracker, position, quick, shift)
 										</div>
 										
 										<div class="description">
-											Only triggered once by the deepest element that initially received
-the mouse down event. Since no other element has captured the mouse,
-we want to trigger the elements that initially received the mouse
-down event (including this one).
+											Implement or assign implmentation to these handlers during or after
+calling the constructor.
 											
 											
 											
@@ -318,10 +613,29 @@ down event (including this one).
 												<dt class="heading">Parameters:</dt>
 												
 													<dt>
-														<b>event</b>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.MouseTracker.html">OpenSeadragon.MouseTracker</a>}</span> <b>tracker</b>
 														
 													</dt>
-													<dd></dd>
+													<dd>A reference to the tracker instance.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.Point.html">OpenSeadragon.Point</a>}</span> <b>position</b>
+														
+													</dt>
+													<dd>The poistion of the event on the screen.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>quick</b>
+														
+													</dt>
+													<dd>True only if the clickDistThreshold and clickDeltaThreshold are 
+     both pased. Useful for ignoring events.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>shift</b>
+														
+													</dt>
+													<dd>Was the shift key being pressed during this event?</dd>
 												
 											</dl>
 										
@@ -333,23 +647,19 @@ down event (including this one).
 									<li 
 										 class='item1'
 									>
-										<div class="fixedFont heading" id="-onMouseUpIE">
+										<div class="fixedFont heading" id="dragHandler">
 											<span class='lighter'>
-											&lt;inner&gt; 
+											
 											</span>
 											
 											
 											
-											<b>onMouseUpIE</b>(event)
+											<b>dragHandler</b>(tracker, position, delta, shift)
 										</div>
 										
 										<div class="description">
-											Only triggered once by the deepest element that initially received
-the mouse down event. We want to make sure THIS event doesn't bubble.
-Instead, we want to trigger the elements that initially received the
-mouse down event (including this one) only if the mouse is no longer
-inside them. Then, we want to release capture, and emulate a regular
-mouseup on the event that this event was meant for.
+											Implement or assign implmentation to these handlers during or after
+calling the constructor.
 											
 											
 											
@@ -363,10 +673,29 @@ mouseup on the event that this event was meant for.
 												<dt class="heading">Parameters:</dt>
 												
 													<dt>
-														<b>event</b>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.MouseTracker.html">OpenSeadragon.MouseTracker</a>}</span> <b>tracker</b>
 														
 													</dt>
-													<dd></dd>
+													<dd>A reference to the tracker instance.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.Point.html">OpenSeadragon.Point</a>}</span> <b>position</b>
+														
+													</dt>
+													<dd>The poistion of the event on the screen.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.Point.html">OpenSeadragon.Point</a>}</span> <b>delta</b>
+														
+													</dt>
+													<dd>The x,y components of the difference between start drag and
+     end drag.  Usefule for ignoring or weighting the events.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>shift</b>
+														
+													</dt>
+													<dd>Was the shift key being pressed during this event?</dd>
 												
 											</dl>
 										
@@ -378,22 +707,19 @@ mouseup on the event that this event was meant for.
 									<li 
 										 class='item2'
 									>
-										<div class="fixedFont heading" id="-onMouseUpWindow">
+										<div class="fixedFont heading" id="enterHandler">
 											<span class='lighter'>
-											&lt;inner&gt; 
+											
 											</span>
 											
 											
 											
-											<b>onMouseUpWindow</b>(event)
+											<b>enterHandler</b>(tracker, position, buttonDown, buttonDownAny)
 										</div>
 										
 										<div class="description">
-											Only triggered in W3C browsers by elements within which the mouse was
-initially pressed, since they are now listening to the window for
-mouseup during the capture phase. We shouldn't handle the mouseup
-here if the mouse is still inside this element, since the regular
-mouseup handler will still fire.
+											Implement or assign implmentation to these handlers during or after
+calling the constructor.
 											
 											
 											
@@ -407,14 +733,376 @@ mouseup handler will still fire.
 												<dt class="heading">Parameters:</dt>
 												
 													<dt>
-														<b>event</b>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.MouseTracker.html">OpenSeadragon.MouseTracker</a>}</span> <b>tracker</b>
 														
 													</dt>
-													<dd></dd>
+													<dd>A reference to the tracker instance.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.Point.html">OpenSeadragon.Point</a>}</span> <b>position</b>
+														
+													</dt>
+													<dd>The poistion of the event on the screen.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>buttonDown</b>
+														
+													</dt>
+													<dd>True if the left mouse button is currently being pressed and was 
+     initiated inside the tracked element, otherwise false.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>buttonDownAny</b>
+														
+													</dt>
+													<dd>Was the button down anywhere in the screen during the event.</dd>
 												
 											</dl>
 										
 										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item3'
+									>
+										<div class="fixedFont heading" id="exitHandler">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>exitHandler</b>(tracker, position, buttonDown, buttonDownAny)
+										</div>
+										
+										<div class="description">
+											Implement or assign implmentation to these handlers during or after
+calling the constructor.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.MouseTracker.html">OpenSeadragon.MouseTracker</a>}</span> <b>tracker</b>
+														
+													</dt>
+													<dd>A reference to the tracker instance.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.Point.html">OpenSeadragon.Point</a>}</span> <b>position</b>
+														
+													</dt>
+													<dd>The poistion of the event on the screen.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>buttonDown</b>
+														
+													</dt>
+													<dd>True if the left mouse button is currently being pressed and was 
+     initiated inside the tracked element, otherwise false.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>buttonDownAny</b>
+														
+													</dt>
+													<dd>Was the button down anywhere in the screen during the event.</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item4'
+									>
+										<div class="fixedFont heading" id="isTracking">
+											<span class='lighter'>
+											
+											</span>
+											
+											<span class="light">{Boolean}</span>
+											
+											<b>isTracking</b>()
+										</div>
+										
+										<div class="description">
+											Are we currently tracking events on this element.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+											<dl class="detailList nomargin">
+											
+												
+													<dt class="heading">Deprecated:</dt>
+													<dt>
+														Just use this.tracking
+													</dt>
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{Boolean}</span> Are we currently tracking events on this element.</dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item5'
+									>
+										<div class="fixedFont heading" id="pressHandler">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>pressHandler</b>(tracker, position)
+										</div>
+										
+										<div class="description">
+											Implement or assign implmentation to these handlers during or after
+calling the constructor.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.MouseTracker.html">OpenSeadragon.MouseTracker</a>}</span> <b>tracker</b>
+														
+													</dt>
+													<dd>A reference to the tracker instance.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.Point.html">OpenSeadragon.Point</a>}</span> <b>position</b>
+														
+													</dt>
+													<dd>The poistion of the event on the screen.</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item6'
+									>
+										<div class="fixedFont heading" id="releaseHandler">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>releaseHandler</b>(tracker, position, buttonDown, insideElementRelease)
+										</div>
+										
+										<div class="description">
+											Implement or assign implmentation to these handlers during or after
+calling the constructor.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.MouseTracker.html">OpenSeadragon.MouseTracker</a>}</span> <b>tracker</b>
+														
+													</dt>
+													<dd>A reference to the tracker instance.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.Point.html">OpenSeadragon.Point</a>}</span> <b>position</b>
+														
+													</dt>
+													<dd>The poistion of the event on the screen.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>buttonDown</b>
+														
+													</dt>
+													<dd>True if the left mouse button is currently being pressed and was 
+     initiated inside the tracked element, otherwise false.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>insideElementRelease</b>
+														
+													</dt>
+													<dd>Was the mouse still inside the tracked element when the button
+     was released.</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item7'
+									>
+										<div class="fixedFont heading" id="scrollHandler">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>scrollHandler</b>(tracker, position, scroll, shift)
+										</div>
+										
+										<div class="description">
+											Implement or assign implmentation to these handlers during or after
+calling the constructor.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.MouseTracker.html">OpenSeadragon.MouseTracker</a>}</span> <b>tracker</b>
+														
+													</dt>
+													<dd>A reference to the tracker instance.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.Point.html">OpenSeadragon.Point</a>}</span> <b>position</b>
+														
+													</dt>
+													<dd>The poistion of the event on the screen.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Number}</span> <b>scroll</b>
+														
+													</dt>
+													<dd>The scroll delta for the event.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>shift</b>
+														
+													</dt>
+													<dd>Was the shift key being pressed during this event?</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item8'
+									>
+										<div class="fixedFont heading" id="setTracking">
+											<span class='lighter'>
+											
+											</span>
+											
+											<span class="light">{<a href="../symbols/OpenSeadragon.MouseTracker.html">OpenSeadragon.MouseTracker</a>}</span>
+											
+											<b>setTracking</b>(track)
+										</div>
+										
+										<div class="description">
+											Enable or disable whether or not we are tracking events on this element.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>track</b>
+														
+													</dt>
+													<dd>True to start tracking, false to stop tracking.</dd>
+												
+											</dl>
+										
+										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{<a href="../symbols/OpenSeadragon.MouseTracker.html">OpenSeadragon.MouseTracker</a>}</span> Chainable.</dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
 										
 										
 									</li>
