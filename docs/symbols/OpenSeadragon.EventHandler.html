@@ -81,7 +81,7 @@
 			Documentation generator: <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0<br />
 			Template: <a href="http://www.thebrightlines.com/2010/05/06/new-template-for-jsdoctoolkit-codeview/" target="_blank">Codeview</a> 1.2<br />
 			Generated on:
-			<time datetime='2012-1-2' pubdate>2012-1-2 19:07</time>
+			<time datetime='2012-1-15' pubdate>2012-1-15 14:47</time>
 		</footer>
 	</div>
 </div>
@@ -133,7 +133,7 @@
 										<div class="fixedFont">
 											<b><a href="../symbols/OpenSeadragon.EventHandler.html#constructor">OpenSeadragon.EventHandler</a></b>()
 										</div>
-										<div class="description"></div>
+										<div class="description">For use by classes which want to support custom, non-browser events.</div>
 									</td>
 								</tr>
 							</tbody>
@@ -146,6 +146,78 @@
 	<!--
 	#### METHODS SUMMARY
 	-->
+			
+				<section>
+					
+					
+					<div class="props">
+						<h2 class="sectionTitle">Method Summary</h2>
+						
+						
+							<nav>
+								<table class="summaryTable" id="MethodsList" cellspacing="0" summary="A summary of the methods documented in the class OpenSeadragon.EventHandler.">
+									<thead>
+										<tr>
+											<th scope="col">Method Attributes</th>
+											<th scope="col">Method Name and Description</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+										
+											<tr
+												 class='item0'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.EventHandler.html#addHandler">addHandler</a></b>(eventName, handler)
+													</div>
+													<div class="description">Add an event handler for a given event.</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item1'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.EventHandler.html#getHandler">getHandler</a></b>(eventName)
+													</div>
+													<div class="description">Retrive the list of all handlers registered for a given event.</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item2'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.EventHandler.html#raiseEvent">raiseEvent</a></b>(eventName, handler)
+													</div>
+													<div class="description">Trigger an event, optionally passing additional information.</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item3'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.EventHandler.html#removeHandler">removeHandler</a></b>(eventName, handler)
+													</div>
+													<div class="description">Remove a specific event handler for a given event.</div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</nav>
+						
+					
+						
+					</div>
+				</section>
 			
 			
 	<!--
@@ -168,7 +240,7 @@
 							</div>
 							
 							<div class="description">
-								
+								For use by classes which want to support custom, non-browser events.
 								
 							</div>
 							
@@ -188,6 +260,199 @@
 	<!--
 	#### METHOD DETAILS
 	-->		
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								Method Detail
+							</h2>
+							
+							<ul class="methodDetail" id="MethodDetail">
+								
+								
+									<li 
+										 class='item0'
+									>
+										<div class="fixedFont heading" id="addHandler">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>addHandler</b>(eventName, handler)
+										</div>
+										
+										<div class="description">
+											Add an event handler for a given event.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{String}</span> <b>eventName</b>
+														
+													</dt>
+													<dd>- Name of event to register.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>handler</b>
+														
+													</dt>
+													<dd>- Function to call when event is triggered.</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item1'
+									>
+										<div class="fixedFont heading" id="getHandler">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>getHandler</b>(eventName)
+										</div>
+										
+										<div class="description">
+											Retrive the list of all handlers registered for a given event.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{String}</span> <b>eventName</b>
+														
+													</dt>
+													<dd>- Name of event to get handlers for.</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item2'
+									>
+										<div class="fixedFont heading" id="raiseEvent">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>raiseEvent</b>(eventName, handler)
+										</div>
+										
+										<div class="description">
+											Trigger an event, optionally passing additional information.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{String}</span> <b>eventName</b>
+														
+													</dt>
+													<dd>- Name of event to register.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>handler</b>
+														
+													</dt>
+													<dd>- Function to call when event is triggered.</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item3'
+									>
+										<div class="fixedFont heading" id="removeHandler">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>removeHandler</b>(eventName, handler)
+										</div>
+										
+										<div class="description">
+											Remove a specific event handler for a given event.
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{String}</span> <b>eventName</b>
+														
+													</dt>
+													<dd>- Name of event for which the handler is to be removed.</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>handler</b>
+														
+													</dt>
+													<dd>- Function to be removed.</dd>
+												
+											</dl>
+										
+										
+										
+										
+									</li>
+								
+							</ul>
+						</div>
+					</div>
+				</section>
 			
 			
 	<!--
