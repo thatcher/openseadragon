@@ -8,10 +8,10 @@
   <link rel='stylesheet' 
         type='text/css'
         media='screen'
-        href='css/style.css'/>
+        href='/openseadragon/css/style.css'/>
   </style>
 
-  <script src="openseadragon.js"></script>
+  <script src="/openseadragon/openseadragon.js"></script>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
     <h1>
         <a href="https://github.com/thatcher/openseadragon">OpenSeadragon</a>
         <span class="small">
-            <a href="https://github.com/thatcher">refactored</a>
+            <a href="https://github.com/thatcher">example: legacy image pyramids</a>
         </span>
     </h1>
 
@@ -41,8 +41,8 @@
 
     <div class="demoarea">
         <div class="demoheading">
-            Seadragon control with default properties
-            <span id='consolelog'></span>
+            Legacy Tile Sources<br/>
+            <span >Known Issue: Image flicker on level transition.  Work is in progress to resolve</span>
         </div>
         <div id="contentDiv" class="openseadragon"></div>
     </div>
@@ -54,17 +54,23 @@
                 config: {
                     prefixURL: '/openseadragon'
                 }
-            }).openDzi("examples/highsmith/highsmith.dzi");
+            }),
+            tilesource = new OpenSeadragon.LegacyTileSource([{
+                url: '/openseadragon/examples/legacy-tile-source/0001q.jpg',
+                height: 889,
+                width:  600
+            },{
+                url: '/openseadragon/examples/legacy-tile-source/0001r.jpg',
+                height: 2201,
+                width:  1485
+            },{
+                url: '/openseadragon/examples/legacy-tile-source/0001v.jpg',
+                height: 4402,
+                width:  2970
+                
+            }]);
+            viewer.open( tilesource );
     </script>
-
-    <h2>Additional Examples</h2>
-    <p>
-      <ul>
-        <li><a href='/openseadragon/examples/legacy-tile-source/'>
-          <strong>Support for legacy image pyramids!</strong>
-        </a></li>
-      </ul>
-    </p>
     
     
     <h2>Dependencies</h2>
