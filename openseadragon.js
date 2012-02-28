@@ -1,5 +1,5 @@
 /**
- * @version  OpenSeadragon 0.9.13
+ * @version  OpenSeadragon 0.9.15
  *
  * @fileOverview 
  * <h2>
@@ -90,6 +90,58 @@ OpenSeadragon = window.OpenSeadragon || (function(){
     indexOf     = Array.prototype.indexOf;
 
     return {
+
+        DEFAULT_SETTINGS: {
+            debugMode:          true,
+            animationTime:      1.5,
+            blendTime:          0.5,
+            alwaysBlend:        false,
+            autoHideControls:   true,
+            immediateRender:    false,
+            wrapHorizontal:     false,
+            wrapVertical:       false,
+            minZoomImageRatio:  0.8,
+            maxZoomPixelRatio:  2,
+            visibilityRatio:    0.5,
+            springStiffness:    5.0,
+            imageLoaderLimit:   0,
+            clickTimeThreshold: 200,
+            clickDistThreshold: 5,
+            zoomPerClick:       2.0,
+            zoomPerScroll:      1.2,
+            zoomPerSecond:      2.0,
+            showNavigationControl: true,
+            maxImageCacheCount: 100,
+            minPixelRatio:      0.5,
+            mouseNavEnabled:    true,
+            navImages: {
+                zoomIn: {
+                    REST:   '/images/zoomin_rest.png',
+                    GROUP:  '/images/zoomin_grouphover.png',
+                    HOVER:  '/images/zoomin_hover.png',
+                    DOWN:   '/images/zoomin_pressed.png'
+                },
+                zoomOut: {
+                    REST:   '/images/zoomout_rest.png',
+                    GROUP:  '/images/zoomout_grouphover.png',
+                    HOVER:  '/images/zoomout_hover.png',
+                    DOWN:   '/images/zoomout_pressed.png'
+                },
+                home: {
+                    REST:   '/images/home_rest.png',
+                    GROUP:  '/images/home_grouphover.png',
+                    HOVER:  '/images/home_hover.png',
+                    DOWN:   '/images/home_pressed.png'
+                },
+                fullpage: {
+                    REST:   '/images/fullpage_rest.png',
+                    GROUP:  '/images/fullpage_grouphover.png',
+                    HOVER:  '/images/fullpage_hover.png',
+                    DOWN:   '/images/fullpage_pressed.png'
+                }
+            }
+        },
+        
         // See test/unit/core.js for details concerning isFunction.
         // Since version 1.3, DOM methods and functions like alert
         // aren't supported. They return false on IE (#2968).
@@ -1239,7 +1291,9 @@ $.EventHandler.prototype = {
         if( !events ){
             this.events[ eventName ] = events = [];
         }
-        events[ events.length ] = handler;
+        if( handler && $.isFunction( handler ) ){
+            events[ events.length ] = handler;
+        }
     },
 
     /**
@@ -1276,7 +1330,9 @@ $.EventHandler.prototype = {
             var i, 
                 length = events.length;
             for ( i = 0; i < length; i++ ) {
-                events[ i ]( source, args );
+                if( events[ i ] ){
+                    events[ i ]( source, args );
+                }
             }
         };
     },
@@ -2445,7 +2501,7 @@ $.Viewer = function( options ) {
 
     $.EventHandler.call( this );
 
-    if( typeof( options ) != 'object' ){
+    if( !$.isPlainObject( options ) ){
         options = {
             id:                 args[ 0 ],
             xmlPath:            args.length > 1 ? args[ 1 ] : undefined,
@@ -2462,60 +2518,11 @@ $.Viewer = function( options ) {
         id:                 options.id,
         xmlPath:            null,
         tileSources:        null, 
-        prefixUrl:          '',
+        prefixUrl:          null,
         controls:           [],
         overlays:           [],
         overlayControls:    [],
-        config: {
-            debugMode:          true,
-            animationTime:      1.5,
-            blendTime:          0.5,
-            alwaysBlend:        false,
-            autoHideControls:   true,
-            immediateRender:    false,
-            wrapHorizontal:     false,
-            wrapVertical:       false,
-            minZoomImageRatio:  0.8,
-            maxZoomPixelRatio:  2,
-            visibilityRatio:    0.5,
-            springStiffness:    5.0,
-            imageLoaderLimit:   0,
-            clickTimeThreshold: 200,
-            clickDistThreshold: 5,
-            zoomPerClick:       2.0,
-            zoomPerScroll:      1.2,
-            zoomPerSecond:      2.0,
-            showNavigationControl: true,
-            maxImageCacheCount: 100,
-            minPixelRatio:      0.5,
-            mouseNavEnabled:    true,
-            navImages: {
-                zoomIn: {
-                    REST:   '/images/zoomin_rest.png',
-                    GROUP:  '/images/zoomin_grouphover.png',
-                    HOVER:  '/images/zoomin_hover.png',
-                    DOWN:   '/images/zoomin_pressed.png'
-                },
-                zoomOut: {
-                    REST:   '/images/zoomout_rest.png',
-                    GROUP:  '/images/zoomout_grouphover.png',
-                    HOVER:  '/images/zoomout_hover.png',
-                    DOWN:   '/images/zoomout_pressed.png'
-                },
-                home: {
-                    REST:   '/images/home_rest.png',
-                    GROUP:  '/images/home_grouphover.png',
-                    HOVER:  '/images/home_hover.png',
-                    DOWN:   '/images/home_pressed.png'
-                },
-                fullpage: {
-                    REST:   '/images/fullpage_rest.png',
-                    GROUP:  '/images/fullpage_grouphover.png',
-                    HOVER:  '/images/fullpage_hover.png',
-                    DOWN:   '/images/fullpage_pressed.png'
-                }
-            }
-        },
+        config:             $.DEFAULT_SETTINGS,
 
         //These were referenced but never defined
         controlsFadeDelay:  2000,
@@ -2643,12 +2650,13 @@ $.Viewer = function( options ) {
         onFullPageHandler       = $.delegate( this, onFullPage ),
         navImages               = this.config.navImages,
         zoomIn = new $.Button({ 
-            config:     this.config, 
+            clickTimeThreshold: this.config.clickTimeThreshold,
+            clickDistThreshold: this.config.clickDistThreshold,
             tooltip:    $.getString( "Tooltips.ZoomIn" ), 
-            srcRest:    resolveUrl( this.urlPrefix, navImages.zoomIn.REST ),
-            srcGroup:   resolveUrl( this.urlPrefix, navImages.zoomIn.GROUP ),
-            srcHover:   resolveUrl( this.urlPrefix, navImages.zoomIn.HOVER ),
-            srcDown:    resolveUrl( this.urlPrefix, navImages.zoomIn.DOWN ),
+            srcRest:    resolveUrl( this.config.prefixUrl, navImages.zoomIn.REST ),
+            srcGroup:   resolveUrl( this.config.prefixUrl, navImages.zoomIn.GROUP ),
+            srcHover:   resolveUrl( this.config.prefixUrl, navImages.zoomIn.HOVER ),
+            srcDown:    resolveUrl( this.config.prefixUrl, navImages.zoomIn.DOWN ),
             onPress:    beginZoomingInHandler,
             onRelease:  endZoomingHandler,
             onClick:    doSingleZoomInHandler,
@@ -2656,12 +2664,13 @@ $.Viewer = function( options ) {
             onExit:     endZoomingHandler
         }),
         zoomOut = new $.Button({ 
-            config:     this.config, 
+            clickTimeThreshold: this.config.clickTimeThreshold,
+            clickDistThreshold: this.config.clickDistThreshold,
             tooltip:    $.getString( "Tooltips.ZoomOut" ), 
-            srcRest:    resolveUrl( this.urlPrefix, navImages.zoomOut.REST ), 
-            srcGroup:   resolveUrl( this.urlPrefix, navImages.zoomOut.GROUP ), 
-            srcHover:   resolveUrl( this.urlPrefix, navImages.zoomOut.HOVER ), 
-            srcDown:    resolveUrl( this.urlPrefix, navImages.zoomOut.DOWN ),
+            srcRest:    resolveUrl( this.config.prefixUrl, navImages.zoomOut.REST ), 
+            srcGroup:   resolveUrl( this.config.prefixUrl, navImages.zoomOut.GROUP ), 
+            srcHover:   resolveUrl( this.config.prefixUrl, navImages.zoomOut.HOVER ), 
+            srcDown:    resolveUrl( this.config.prefixUrl, navImages.zoomOut.DOWN ),
             onPress:    beginZoomingOutHandler, 
             onRelease:  endZoomingHandler, 
             onClick:    doSingleZoomOutHandler, 
@@ -2669,27 +2678,35 @@ $.Viewer = function( options ) {
             onExit:     endZoomingHandler 
         }),
         goHome = new $.Button({ 
-            config:     this.config, 
+            clickTimeThreshold: this.config.clickTimeThreshold,
+            clickDistThreshold: this.config.clickDistThreshold,
             tooltip:    $.getString( "Tooltips.Home" ), 
-            srcRest:    resolveUrl( this.urlPrefix, navImages.home.REST ), 
-            srcGroup:   resolveUrl( this.urlPrefix, navImages.home.GROUP ), 
-            srcHover:   resolveUrl( this.urlPrefix, navImages.home.HOVER ), 
-            srcDown:    resolveUrl( this.urlPrefix, navImages.home.DOWN ),
+            srcRest:    resolveUrl( this.config.prefixUrl, navImages.home.REST ), 
+            srcGroup:   resolveUrl( this.config.prefixUrl, navImages.home.GROUP ), 
+            srcHover:   resolveUrl( this.config.prefixUrl, navImages.home.HOVER ), 
+            srcDown:    resolveUrl( this.config.prefixUrl, navImages.home.DOWN ),
             onRelease:  onHomeHandler 
         }),
         fullPage = new $.Button({ 
-            config:     this.config, 
+            clickTimeThreshold: this.config.clickTimeThreshold,
+            clickDistThreshold: this.config.clickDistThreshold,
             tooltip:    $.getString( "Tooltips.FullPage" ),
-            srcRest:    resolveUrl( this.urlPrefix, navImages.fullpage.REST ),
-            srcGroup:   resolveUrl( this.urlPrefix, navImages.fullpage.GROUP ),
-            srcHover:   resolveUrl( this.urlPrefix, navImages.fullpage.HOVER ),
-            srcDown:    resolveUrl( this.urlPrefix, navImages.fullpage.DOWN ),
+            srcRest:    resolveUrl( this.config.prefixUrl, navImages.fullpage.REST ),
+            srcGroup:   resolveUrl( this.config.prefixUrl, navImages.fullpage.GROUP ),
+            srcHover:   resolveUrl( this.config.prefixUrl, navImages.fullpage.HOVER ),
+            srcDown:    resolveUrl( this.config.prefixUrl, navImages.fullpage.DOWN ),
             onRelease:  onFullPageHandler 
         });
 
     this.buttons = new $.ButtonGroup({ 
-        config:     this.config, 
-        buttons:    [ zoomIn, zoomOut, goHome, fullPage ] 
+        clickTimeThreshold: this.config.clickTimeThreshold,
+        clickDistThreshold: this.config.clickDistThreshold,
+        buttons: [ 
+            zoomIn, 
+            zoomOut, 
+            goHome, 
+            fullPage 
+        ] 
     });
 
     this.navControl  = this.buttons.element;
@@ -2882,11 +2899,13 @@ $.extend( $.Viewer.prototype, $.EventHandler.prototype, {
         if( source ){
             this.source = source;
         }
-        this.viewport = new $.Viewport( 
-            THIS[ this.hash ].prevContainerSize, 
-            this.source.dimensions, 
-            this.config
-        );
+
+        this.viewport = new $.Viewport({
+            containerSize:  THIS[ this.hash ].prevContainerSize, 
+            contentSize:    this.source.dimensions, 
+            config:         this.config
+        });
+
         this.drawer = new $.Drawer(
             this.source, 
             this.viewport, 
@@ -4146,7 +4165,7 @@ $.ButtonState = {
  * @property {String} srcGroup URL of image to use in 'up' state
  * @property {String} srcHover URL of image to use in 'hover' state
  * @property {String} srcDown URL of image to use in 'domn' state
- * @property {Object} config Configurable settings for this button.
+ * @property {Object} config Configurable settings for this button. DEPRECATED.
  * @property {Element} [element] Element to use as a container for the 
  *  button.
  * @property {Number} fadeDelay How long to wait before fading
@@ -4165,48 +4184,45 @@ $.Button = function( options ) {
 
     $.EventHandler.call( this );
 
-    this.tooltip   = options.tooltip;
-    this.srcRest   = options.srcRest;
-    this.srcGroup  = options.srcGroup;
-    this.srcHover  = options.srcHover;
-    this.srcDown   = options.srcDown;
+    $.extend( true, this, {
+        
+        tooltip:            null,
+        srcRest:            null,
+        srcGroup:           null,
+        srcHover:           null,
+        srcDown:            null,
+        clickTimeThreshold: $.DEFAULT_SETTINGS.clickTimeThreshold,
+        clickDistThreshold: $.DEFAULT_SETTINGS.clickDistThreshold,
+        // begin fading immediately
+        fadeDelay:          0,  
+        // fade over a period of 2 seconds    
+        fadeLength:         2000,
+        onPress:            null,
+        onRelease:          null,
+        onClick:            null,
+        onEnter:            null,
+        onExit:             null
+
+    }, options );
 
     //TODO: make button elements accessible by making them a-tags
     //      maybe even consider basing them on the element and adding
     //      methods jquery-style.
-    this.element    = options.element || $.makeNeutralElement( "a" );
-    this.element.href = '#';
-    this.config     = options.config;
+    this.element        = options.element || $.makeNeutralElement( "a" );
+    this.element.href   = '#';
 
-    if ( options.onPress ){
-        this.addHandler( "onPress", options.onPress );
-    }
-    if ( options.onRelease ){
-        this.addHandler( "onRelease", options.onRelease );
-    }
-    if ( options.onClick ){
-        this.addHandler( "onClick", options.onClick );
-    }
-    if ( options.onEnter ){
-        this.addHandler( "onEnter", options.onEnter );
-    }
-    if ( options.onExit ){
-        this.addHandler( "onExit", options.onExit );
-    }
+    this.addHandler( "onPress",     this.onPress );
+    this.addHandler( "onRelease",   this.onRelease );
+    this.addHandler( "onClick",     this.onClick );
+    this.addHandler( "onEnter",     this.onEnter );
+    this.addHandler( "onExit",      this.onExit );
 
     this.currentState = $.ButtonState.GROUP;
-    this.tracker    = new $.MouseTracker(
-        this.element, 
-        this.config.clickTimeThreshold, 
-        this.config.clickDistThreshold
-    );
-    this.imgRest    = $.makeTransparentImage( this.config.prefixUrl + this.srcRest );
-    this.imgGroup   = $.makeTransparentImage( this.config.prefixUrl + this.srcGroup );
-    this.imgHover   = $.makeTransparentImage( this.config.prefixUrl + this.srcHover );
-    this.imgDown    = $.makeTransparentImage( this.config.prefixUrl + this.srcDown );
+    this.imgRest      = $.makeTransparentImage( this.srcRest );
+    this.imgGroup     = $.makeTransparentImage( this.srcGroup );
+    this.imgHover     = $.makeTransparentImage( this.srcHover );
+    this.imgDown      = $.makeTransparentImage( this.srcDown );
 
-    this.fadeDelay      = 0;      // begin fading immediately
-    this.fadeLength     = 2000;   // fade over a period of 2 seconds
     this.fadeBeginTime  = null;
     this.shouldFade     = false;
 
@@ -4219,40 +4235,38 @@ $.Button = function( options ) {
     this.element.appendChild( this.imgHover );
     this.element.appendChild( this.imgDown );
 
-    var styleRest   = this.imgRest.style,
-        styleGroup  = this.imgGroup.style,
-        styleHover  = this.imgHover.style,
-        styleDown   = this.imgDown.style;
+    this.imgGroup.style.position = 
+    this.imgHover.style.position = 
+    this.imgDown.style.position  = 
+        "absolute";
 
-    styleGroup.position = 
-        styleHover.position = 
-        styleDown.position = 
-            "absolute";
+    this.imgGroup.style.top = 
+    this.imgHover.style.top = 
+    this.imgDown.style.top  = 
+        "0px";
 
-    styleGroup.top = 
-        styleHover.top = 
-        styleDown.top = 
-            "0px";
+    this.imgGroup.style.left = 
+    this.imgHover.style.left = 
+    this.imgDown.style.left  = 
+        "0px";
 
-    styleGroup.left = 
-        styleHover.left = 
-        styleDown.left = 
-            "0px";
+    this.imgHover.style.visibility = 
+    this.imgDown.style.visibility  = 
+        "hidden";
 
-    styleHover.visibility = 
-        styleDown.visibility = 
-            "hidden";
-
-    if ( $.Browser.vendor == $.BROWSERS.FIREFOX 
-         && $.Browser.version < 3 ){
-
-        styleGroup.top = 
-            styleHover.top = 
-            styleDown.top = "";
+    if ( $.Browser.vendor == $.BROWSERS.FIREFOX  && $.Browser.version < 3 ){
+        this.imgGroup.style.top = 
+        this.imgHover.style.top = 
+        this.imgDown.style.top  = 
+            "";
     }
 
-    //TODO - refactor mousetracer next to avoid this extension
-    $.extend( this.tracker, {
+    this.tracker = new $.MouseTracker({
+
+        element:            this.element, 
+        clickTimeThreshold: this.clickTimeThreshold, 
+        clickDistThreshold: this.clickDistThreshold,
+
         enterHandler: function( tracker, position, buttonDownElement, buttonDownAny ) {
             if ( buttonDownElement ) {
                 inTo( _this, $.ButtonState.DOWN );
@@ -4261,16 +4275,19 @@ $.Button = function( options ) {
                 inTo( _this, $.ButtonState.HOVER );
             }
         },
+
         exitHandler: function( tracker, position, buttonDownElement, buttonDownAny ) {
             outTo( _this, $.ButtonState.GROUP );
             if ( buttonDownElement ) {
                 _this.raiseEvent( "onExit", _this );
             }
         },
+
         pressHandler: function( tracker, position ) {
             inTo( _this, $.ButtonState.DOWN );
             _this.raiseEvent( "onPress", _this );
         },
+
         releaseHandler: function( tracker, position, insideElementPress, insideElementRelease ) {
             if ( insideElementPress && insideElementRelease ) {
                 outTo( _this, $.ButtonState.HOVER );
@@ -4281,14 +4298,15 @@ $.Button = function( options ) {
                 inTo( _this, $.ButtonState.HOVER );
             }
         },
+
         clickHandler: function( tracker, position, quick, shift ) {
             if ( quick ) {
                 _this.raiseEvent("onClick", _this);
             }
         }
-    });
 
-    this.tracker.setTracking( true );
+    }).setTracking( true );
+
     outTo( this, $.ButtonState.REST );
 };
 
@@ -4330,11 +4348,11 @@ function updateFade( button ) {
 
     if ( button.shouldFade ) {
         currentTime = +new Date();
-        deltaTime   = currentTime - this.fadeBeginTime;
-        opacity     = 1.0 - deltaTime / this.fadeLength;
+        deltaTime   = currentTime - button.fadeBeginTime;
+        opacity     = 1.0 - deltaTime / button.fadeLength;
         opacity     = Math.min( 1.0, opacity );
         opacity     = Math.max( 0.0, opacity );
-
+        
         $.setElementOpacity( button.imgGroup, opacity, true );
         if ( opacity > 0 ) {
             // fade again
@@ -4345,7 +4363,7 @@ function updateFade( button ) {
 
 function beginFading( button ) {
     button.shouldFade = true;
-    button.fadeBeginTime = new Date().getTime() + button.fadeDelay;
+    button.fadeBeginTime = +new Date() + button.fadeDelay;
     window.setTimeout( function(){ 
         scheduleFade( button );
     }, button.fadeDelay );
@@ -4390,9 +4408,9 @@ function outTo( button, newState ) {
         button.currentState = $.ButtonState.GROUP;
     }
 
-    if ( button.newState <= $.ButtonState.REST && 
+    if ( newState <= $.ButtonState.REST && 
          button.currentState == $.ButtonState.GROUP ) {
-        button.beginFading();
+        beginFading( button );
         button.currentState = $.ButtonState.REST;
     }
 };
@@ -4425,54 +4443,57 @@ function outTo( button, newState ) {
  **/
 $.ButtonGroup = function( options ) {
 
-    this.buttons = options.buttons;
-    this.element = options.group || $.makeNeutralElement( "span" );
-    this.config  = options.config;
-    this.tracker = new $.MouseTracker(
-        this.element, 
-        this.config.clickTimeThreshold, 
-        this.config.clickDistThreshold
-    );
-    
+    $.extend( true, this, {
+        buttons:            null,
+        clickTimeThreshold: $.DEFAULT_SETTINGS.clickTimeThreshold,
+        clickDistThreshold: $.DEFAULT_SETTINGS.clickDistThreshold
+    }, options );
+
     // copy the botton elements
     var buttons = this.buttons.concat([]),   
         _this = this,
         i;
 
+    this.element = options.group || $.makeNeutralElement( "span" );
     this.element.style.display = "inline-block";
     for ( i = 0; i < buttons.length; i++ ) {
         this.element.appendChild( buttons[ i ].element );
     }
 
 
-    this.tracker.enter =  options.enter || function() {
-        var i;
-        for ( i = 0; i < _this.buttons.length; i++ ) {
-            _this.buttons[ i ].notifyGroupEnter();
-        }
-    };
-
-    this.tracker.exit = options.exit || function() {
-        var i,
-            buttonDownElement = arguments.length > 2 ? arguments[ 2 ] : null;
-        if ( !buttonDownElement ) {
+    this.tracker = new $.MouseTracker({
+        element:            this.element, 
+        clickTimeThreshold: this.clickTimeThreshold, 
+        clickDistThreshold: this.clickDistThreshold,
+        enterHandler: function() {
+            var i;
             for ( i = 0; i < _this.buttons.length; i++ ) {
-                _this.buttons[ i ].notifyGroupExit();
+                _this.buttons[ i ].notifyGroupEnter();
+            }
+        },
+        exitHandler: function() {
+            var i,
+                buttonDownElement = arguments.length > 2 ? 
+                    arguments[ 2 ] : 
+                    null;
+            if ( !buttonDownElement ) {
+                for ( i = 0; i < _this.buttons.length; i++ ) {
+                    _this.buttons[ i ].notifyGroupExit();
+                }
+            }
+        },
+        releaseHandler: function() {
+            var i,
+                insideElementRelease = arguments.length > 3 ? 
+                    arguments[ 3 ] : 
+                    null;
+            if ( !insideElementRelease ) {
+                for ( i = 0; i < _this.buttons.length; i++ ) {
+                    _this.buttons[ i ].notifyGroupExit();
+                }
             }
         }
-    };
-
-    this.tracker.release = options.release || function() {
-        var i,
-            insideElementRelease = arguments.length > 3 ? arguments[ 3 ] : null;
-        if ( !insideElementRelease ) {
-            for ( i = 0; i < _this.buttons.length; i++ ) {
-                _this.buttons[ i ].notifyGroupExit();
-            }
-        }
-    };
-
-    this.tracker.setTracking( true );
+    }).setTracking( true );
 };
 
 $.ButtonGroup.prototype = {
@@ -4484,7 +4505,7 @@ $.ButtonGroup.prototype = {
      * @name OpenSeadragon.ButtonGroup.prototype.emulateEnter
      */
     emulateEnter: function() {
-        this.tracker.enter();
+        this.tracker.enterHandler();
     },
 
     /**
@@ -4494,7 +4515,7 @@ $.ButtonGroup.prototype = {
      * @name OpenSeadragon.ButtonGroup.prototype.emulateExit
      */
     emulateExit: function() {
-        this.tracker.exit();
+        this.tracker.exitHandler();
     }
 };
 
@@ -5995,7 +6016,6 @@ function drawTiles( drawer, lastDrawn ){
  */
 $.Viewport = function( options ) {
 
-    var options;
 
     if(  arguments.length && arguments[ 0 ] instanceof $.Point ){
         options = {
@@ -6003,8 +6023,6 @@ $.Viewport = function( options ) {
             contentSize:        arguments[ 1 ],
             config:             arguments[ 2 ]
         };
-    } else {
-        options = arguments[ 0 ];
     }
 
     //TODO: this.config is something that should go away but currently the 
@@ -6025,7 +6043,7 @@ $.Viewport = function( options ) {
         springStiffness: this.config.springStiffness,
         animationTime:   this.config.animationTime
     });
-    this.zoomSpring = new $.Spring({
+    this.zoomSpring    = new $.Spring({
         initial: 1, 
         springStiffness: this.config.springStiffness,
         animationTime:   this.config.animationTime
@@ -6035,7 +6053,8 @@ $.Viewport = function( options ) {
     this.visibilityRatio   = this.config.visibilityRatio;
     this.wrapHorizontal    = this.config.wrapHorizontal;
     this.wrapVertical      = this.config.wrapVertical;
-    this.homeBounds = new $.Rect( 0, 0, 1, this.contentHeight );
+    this.homeBounds        = new $.Rect( 0, 0, 1, this.contentHeight );
+
     this.goHome( true );
     this.update();
 };
