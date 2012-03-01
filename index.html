@@ -49,21 +49,24 @@
 
     <script type="text/javascript">
         // Example
-        var viewer = new OpenSeadragon.Viewer({
-                id: "contentDiv",
-                config: {
-                    prefixUrl: '/openseadragon'
-                }
-            }).openDzi("examples/highsmith/highsmith.dzi");
+        OpenSeadragon({
+            id:              "contentDiv",
+            prefixUrl:       "/openseadragon",
+            tileSources:     "examples/highsmith/highsmith.dzi"/*,
+            wrapHorizontal:  true,
+            visibilityRatio: 0,
+            minPixelRatio:   1.618
+            */
+        });
     </script>
 
     <h2>Additional Examples</h2>
     <p>
-      <ul>
-        <li><a href='/openseadragon/examples/legacy-tile-source/'>
-          <strong>Support for legacy image pyramids!</strong>
-        </a></li>
-      </ul>
+        <ul>
+            <li><a href='/openseadragon/examples/legacy-tile-source/'>
+              <strong>Support for legacy image pyramids!</strong>
+            </a></li>
+        </ul>
     </p>
     
     

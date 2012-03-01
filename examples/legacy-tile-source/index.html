@@ -79,30 +79,28 @@
             viewer.open( tilesource );
 
         // Example 2 Demonstrates the shorthand configuration.
-        var viewer2 = new OpenSeadragon.Viewer({
-                id: "contentDiv2",
-                config: {
-                    prefixUrl: '/openseadragon'
-                },
-                tileSources: [{
-                    url: '/openseadragon/examples/legacy-tile-source/090801t.gif',
-                    height: 150,
-                    width:  116
-                },{
-                    url: '/openseadragon/examples/legacy-tile-source/090801q.jpg',
-                    height: 400,
-                    width:  310
-                },{
-                    url: '/openseadragon/examples/legacy-tile-source/090801r.jpg',
-                    height: 860,
-                    width:  667
-                },{
-                    url: '/openseadragon/examples/legacy-tile-source/090801v.jpg',
-                    height: 1650,
-                    width:  1279
-                    
-                }]
-            });
+        OpenSeadragon({
+            id: "contentDiv2",
+            prefixUrl: '/openseadragon',
+            tileSources: [{
+                url: '/openseadragon/examples/legacy-tile-source/090801t.gif',
+                height: 150,
+                width:  116
+            },{
+                url: '/openseadragon/examples/legacy-tile-source/090801q.jpg',
+                height: 400,
+                width:  310
+            },{
+                url: '/openseadragon/examples/legacy-tile-source/090801r.jpg',
+                height: 860,
+                width:  667
+            },{
+                url: '/openseadragon/examples/legacy-tile-source/090801v.jpg',
+                height: 1650,
+                width:  1279
+                
+            }]
+        });
     </script>
     
     
