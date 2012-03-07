@@ -1,5 +1,5 @@
 /**
- * @version  OpenSeadragon 0.9.20
+ * @version  OpenSeadragon 0.9.21
  *
  * @fileOverview 
  * <h2>
@@ -3263,10 +3263,6 @@ $.extend( $.Viewer.prototype, $.EventHandler.prototype, {
             minPixelRatio:      this.minPixelRatio
         });
 
-        //if( this.navigator ){
-        //    this.navigator.monitorViewport( this.viewport );
-        //}
-
         //this.profiler = new $.Profiler();
 
         THIS[ this.hash ].animating = false;
@@ -3942,18 +3938,6 @@ $.Navigator = function( options ){
 };
 
 $.extend( $.Navigator.prototype, $.EventHandler.prototype, $.Viewer.prototype, {
-
-    monitorViewport: function( viewport ){
-        var _this          = this,
-            viewportUpdate = viewport.update;
-
-        //Use a simple AOP style 'After' to syncronize the navigator
-        //update with the viewport update.
-        viewport.update = function(){
-            viewportUpdate.apply( viewport, arguments );
-            _this.update( viewport );
-        };
-    },
 
     update: function( viewport ){
         
