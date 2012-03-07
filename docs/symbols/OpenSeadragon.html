@@ -83,7 +83,7 @@
 			Documentation generator: <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0<br />
 			Template: <a href="http://www.thebrightlines.com/2010/05/06/new-template-for-jsdoctoolkit-codeview/" target="_blank">Codeview</a> 1.2<br />
 			Generated on:
-			<time datetime='2012-2-1' pubdate>2012-2-1 8:11</time>
+			<time datetime='2012-2-1' pubdate>2012-2-1 17:44</time>
 		</footer>
 	</div>
 </div>
@@ -711,33 +711,40 @@ and classes are defined on or below this namespace.
 											<span class="light fixedFont">{Boolean}</span>  <b>options.immediateRender</b>
 											<i>Optional, Default: false</i>
 										</dt>
-										<dd></dd>
+										<dd>Render the best closest level first, ignoring the lowering levels which
+    provide the effect of very blurry to sharp. It is recommended to change 
+    setting to true for mobile devices.</dd>
 									
 										<dt>
 											<span class="light fixedFont">{Boolean}</span>  <b>options.wrapHorizontal</b>
 											<i>Optional, Default: false</i>
 										</dt>
-										<dd>Should the image wrap horizontally within the viewport.  Useful for
-    maps or images representing the surface of a sphere or cylinder.</dd>
+										<dd>Set to true to force the image to wrap horizontally within the viewport.
+    Useful for maps or images representing the surface of a sphere or cylinder.</dd>
 									
 										<dt>
 											<span class="light fixedFont">{Boolean}</span>  <b>options.wrapVertical</b>
 											<i>Optional, Default: false</i>
 										</dt>
-										<dd>Should the image wrap vertically within the viewport.  Useful for
-    maps or images representing the surface of a sphere or cylinder.</dd>
+										<dd>Set to true to force the image to wrap vertically within the viewport.
+    Useful for maps or images representing the surface of a sphere or cylinder.</dd>
 									
 										<dt>
 											<span class="light fixedFont">{Number}</span>  <b>options.minZoomImageRatio</b>
 											<i>Optional, Default: 0.8</i>
 										</dt>
-										<dd></dd>
+										<dd>The minimum percentage ( expressed as a number between 0 and 1 ) of 
+    the viewport height or width at which the zoom out will be constrained.
+    Setting it to 0, for example will allow you to zoom out infinitly.</dd>
 									
 										<dt>
 											<span class="light fixedFont">{Number}</span>  <b>options.maxZoomPixelRatio</b>
 											<i>Optional, Default: 2</i>
 										</dt>
-										<dd></dd>
+										<dd>The maximum ratio to allow a zoom-in to affect the highest level pixel
+    ratio. This can be set to Infinity to allow 'infinite' zooming into the
+    image though it is less effective visually if the HTML5 Canvas is not 
+    availble on the viewing device.</dd>
 									
 										<dt>
 											<span class="light fixedFont">{Number}</span>  <b>options.visibilityRatio</b>
@@ -759,43 +766,47 @@ and classes are defined on or below this namespace.
 											<span class="light fixedFont">{Number}</span>  <b>options.imageLoaderLimit</b>
 											<i>Optional, Default: 0</i>
 										</dt>
-										<dd></dd>
+										<dd>The maximum number of image requests to make concurrently.  By default
+    it is set to 0 allowing the browser to make the maximum number of
+    image requests in parallel as allowed by the browsers policy.</dd>
 									
 										<dt>
 											<span class="light fixedFont">{Number}</span>  <b>options.clickTimeThreshold</b>
 											<i>Optional, Default: 200</i>
 										</dt>
-										<dd></dd>
+										<dd>If multiple mouse clicks occurs within less than this number of 
+    milliseconds, treat them as a single click.</dd>
 									
 										<dt>
 											<span class="light fixedFont">{Number}</span>  <b>options.clickDistThreshold</b>
 											<i>Optional, Default: 5</i>
 										</dt>
-										<dd></dd>
+										<dd>If a mouse or touch drag occurs and the distance to the starting drag
+    point is less than this many pixels, ignore the drag event.</dd>
 									
 										<dt>
 											<span class="light fixedFont">{Number}</span>  <b>options.zoomPerClick</b>
 											<i>Optional, Default: 2.0</i>
 										</dt>
-										<dd></dd>
+										<dd>The "zoom distance" per mouse click or touch tap.</dd>
 									
 										<dt>
 											<span class="light fixedFont">{Number}</span>  <b>options.zoomPerScroll</b>
 											<i>Optional, Default: 1.2</i>
 										</dt>
-										<dd></dd>
+										<dd>The "zoom distance" per mouse scroll or touch pinch.</dd>
 									
 										<dt>
 											<span class="light fixedFont">{Number}</span>  <b>options.zoomPerSecond</b>
 											<i>Optional, Default: 2.0</i>
 										</dt>
-										<dd></dd>
+										<dd>The number of seconds to animate a single zoom event over.</dd>
 									
 										<dt>
 											<span class="light fixedFont">{Boolean}</span>  <b>options.showNavigationControl</b>
 											<i>Optional, Default: true</i>
 										</dt>
-										<dd></dd>
+										<dd>Set to false to prevent the appearance of the default navigation controls.</dd>
 									
 										<dt>
 											<span class="light fixedFont">{Number}</span>  <b>options.controlsFadeDelay</b>

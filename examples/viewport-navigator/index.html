@@ -3,7 +3,7 @@
 <head>
   <meta charset='utf-8'>
 
-  <title>Legacy Tile Sources | OpenSeadragon</title>
+  <title>Viewport Navigator | OpenSeadragon</title>
 
   <link rel='stylesheet' 
         type='text/css'
@@ -29,17 +29,15 @@
     <h1>
         <a href="/openseadragon">OpenSeadragon</a>
         <span class="small">
-            <a href="#">example: legacy image pyramids</a>
+            <a href="#">example: viewport navigator</a>
         </span>
     </h1>
 
     <div class="description">
         <p>
-        A "legacy image pyramid" just means we can finally make use of our
-        existing images. Web developers have commonly created derivatives of various sizes
-        that are intended for use for different web presentations or for download, 
-        like "thumbnail",  "detail", and "best" etc.  This is already a simple pyramid 
-        and you can use them to create a simple deep zoom presenation with OpenSeadragon!
+        A viewport navigator allows the user to see the source image displayed
+        as a reference image with a highlighted area showing which portion of
+        the image they are currently viewing in the viewport.
         <br/><br/>
         <strong>Try it on the iPad! (new since 0.9)</strong>
         </p>
@@ -47,61 +45,17 @@
 
     <div class="demoarea">
         <div class="demoheading">
-            Legacy Tile Sources
+            Viewport Navigator
         </div>
         <div id="contentDiv" class="openseadragon"></div>
-        <hr/>
-        <div id="contentDiv2" 
-             class="openseadragon" 
-        ></div>
     </div>
 
     <script type="text/javascript">
-        // Example
-        var viewer = new OpenSeadragon.Viewer({
-                id: "contentDiv",
-                config: {
-                    prefixUrl: '/openseadragon'
-                }
-            }),
-            tilesource = new OpenSeadragon.LegacyTileSource([{
-                url: '/openseadragon/examples/legacy-tile-source/0001q.jpg',
-                height: 889,
-                width:  600
-            },{
-                url: '/openseadragon/examples/legacy-tile-source/0001r.jpg',
-                height: 2201,
-                width:  1485
-            },{
-                url: '/openseadragon/examples/legacy-tile-source/0001v.jpg',
-                height: 4402,
-                width:  2970
-                
-            }]);
-            viewer.open( tilesource );
-
-        // Example 2 Demonstrates the newer shorthand configuration.
         OpenSeadragon({
-            id: "contentDiv2",
-            prefixUrl: '/openseadragon',
-            tileSources: [{
-                url: '/openseadragon/examples/legacy-tile-source/090801t.gif',
-                height: 150,
-                width:  116
-            },{
-                url: '/openseadragon/examples/legacy-tile-source/090801q.jpg',
-                height: 400,
-                width:  310
-            },{
-                url: '/openseadragon/examples/legacy-tile-source/090801r.jpg',
-                height: 860,
-                width:  667
-            },{
-                url: '/openseadragon/examples/legacy-tile-source/090801v.jpg',
-                height: 1650,
-                width:  1279
-                
-            }]
+            id:            "contentDiv",
+            prefixUrl:     "/openseadragon",
+            tileSources:   "/openseadragon/examples/highsmith/highsmith.dzi",
+            showNavigator: true
         });
     </script>
     
