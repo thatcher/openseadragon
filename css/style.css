@@ -36,6 +36,23 @@ hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     border: 1px solid black;
     color: white; /* text color for messages */
 }
+.toolbar
+{
+    width: 800px;
+    height: 33px;
+    background-color: #222;
+    border: 2px solid #333;
+    color: white;
+}
+.toolbar.fullpage{
+    width: 100%;
+    background-color: transparent;
+    border:     none;
+    position:   fixed;
+    z-index:    999999;
+    left:       0;
+    top:        0;
+}
 .overlay
 {
     background-color: white;
