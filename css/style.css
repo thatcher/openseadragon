@@ -40,8 +40,8 @@ hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
 {
     width: 800px;
     height: 33px;
-    background-color: #222;
-    border: 2px solid #333;
+    background-color: transparent;
+    border: none;
     color: white;
 }
 .toolbar.fullpage{

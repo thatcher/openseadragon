@@ -39,14 +39,18 @@
         there are many use cases where the presentation may require a more traditional
         'toolbar'.  OpenSeadragon now allows you to very simply bind your navigation to
         any element on the page which the end user has presentation control over.
-        <br/><br/>
+        <br/>
+        Most importantly the toolbar has additional logic which supports transitions between
+        fullpage and normal mode.  The user can style, including hiding, the toolbar in fullpage
+        mode, even though its not otherwise related to the viewer / viewport DOM.
+        <br/>
         <strong>Try it on the iPad! (new since 0.9)</strong>
         </p>
     </div>
 
     <div class="demoarea">
         <div class="demoheading">
-            Viewport Navigator
+            Toolbar
         </div>
         <div id="toolbarDiv" class="toolbar"></div>
         <div id="contentDiv" class="openseadragon"></div>
