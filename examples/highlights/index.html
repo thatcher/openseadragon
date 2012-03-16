@@ -3,7 +3,7 @@
 <head>
   <meta charset='utf-8'>
 
-  <title>Legacy Tile Sources | OpenSeadragon</title>
+  <title>Highlights | OpenSeadragon</title>
 
   <link rel='stylesheet' 
         type='text/css'
@@ -29,80 +29,71 @@
     <h1>
         <a href="/openseadragon">OpenSeadragon</a>
         <span class="small">
-            <a href="#">example: legacy image pyramids</a>
+            <a href="#">example: highlights</a>
         </span>
     </h1>
 
     <div class="description">
         <p>
-        A "legacy image pyramid" just means we can finally make use of our
-        existing images. Web developers have commonly created derivatives of various sizes
-        that are intended for use for different web presentations or for download, 
-        like "thumbnail",  "detail", and "best" etc.  This is already a simple pyramid 
-        and you can use them to create a simple deep zoom presenation with OpenSeadragon!
-        <br/><br/>
+        &nbsp;Highlighted overlays are very useful for directing users attention to
+        specific areas of interest, though the style is often decided based
+        on the specific content being presented.  
+        <br/>
+        <br/>
+        &nbsp;OpenSeadragon makes it easy to declare highlighted areas and control 
+        the presentation through simple css mechanisms.
+        <br/>
+        <br/>
         <strong>Try it on the iPad! (new since 0.9)</strong>
         </p>
     </div>
 
     <div class="demoarea">
         <div class="demoheading">
-            Legacy Tile Sources
+            Highlights
         </div>
-        <div id="contentDiv" 
-             class="openseadragon"></div>
-        <hr/>
-        <div id="contentDiv2" 
-             class="openseadragon" ></div>
+        <div id="toolbarDiv" class="toolbar">
+            <span style='float:right;margin:10px 20px 0 0'>
+            | <a href="#">show highlights</a> 
+            | <a href="#">hide highlights</a> 
+            </span>
+        </div>
+        <div id="contentDiv" class="openseadragon"></div>
     </div>
 
     <script type="text/javascript">
-        // Example
         OpenSeadragon({
-            id: "contentDiv",
-            prefixUrl: '/openseadragon',
+            id:            "contentDiv",
+            prefixUrl:     "/openseadragon",
+            tileSources:   "/openseadragon/examples/highsmith/highsmith.dzi",
+            toolbar:       "toolbarDiv",
             showNavigator: true,
-            tileSources: [{
-                url: '/openseadragon/examples/legacy-tile-source/0001q.jpg',
-                height: 889,
-                width:  600
+            overlays: [{
+              x: 0.45, 
+              y: 0.35, 
+              width: 0.08, 
+              height: 0.05,
+              class: 'highlight'
             },{
-                url: '/openseadragon/examples/legacy-tile-source/0001r.jpg',
-                height: 2201,
-                width:  1485
+              x: 0.22, 
+              y: 0.38, 
+              width: 0.1, 
+              height: 0.15,
+              class: 'highlight'
             },{
-                url: '/openseadragon/examples/legacy-tile-source/0001v.jpg',
-                height: 4402,
-                width:  2970
-                
+              x: 0.65, 
+              y: 0.38, 
+              width: 0.1, 
+              height: 0.15,
+              class: 'highlight'
+            },{
+              x: 0.45, 
+              y: 0.50, 
+              width: 0.08, 
+              height: 0.15,
+              class: 'highlight'
             }]
         });
-
-        // Example 2 Demonstrates the newer shorthand configuration.
-        OpenSeadragon({
-            id: "contentDiv2",
-            prefixUrl: '/openseadragon',
-            showNavigator: true,
-            tileSources: [{
-                url: '/openseadragon/examples/legacy-tile-source/090801t.gif',
-                height: 150,
-                width:  116
-            },{
-                url: '/openseadragon/examples/legacy-tile-source/090801q.jpg',
-                height: 400,
-                width:  310
-            },{
-                url: '/openseadragon/examples/legacy-tile-source/090801r.jpg',
-                height: 860,
-                width:  667
-            },{
-                url: '/openseadragon/examples/legacy-tile-source/090801v.jpg',
-                height: 1650,
-                width:  1279
-                
-            }]
-        });
-
     </script>
     
     <h2>Additional Examples</h2>

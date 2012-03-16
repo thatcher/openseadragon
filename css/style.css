@@ -43,6 +43,7 @@ hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     background-color: transparent;
     border: none;
     color: white;
+    padding: 4px;
 }
 .toolbar.fullpage{
     width: 100%;
@@ -53,10 +54,26 @@ hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     left:       0;
     top:        0;
 }
-.overlay
+.navigator .highlight
+{
+    background-color: #900;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    border: 2px solid #900;
+    outline: none;
+    
+}
+.highlight
 {
     background-color: white;
-    opacity: 0.7;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    border: 2px solid #0A7EbE;
+    outline: 10px auto #0A7EbE;
+}
+.highlight:hover, .highlight:focus
+{
+    background-color: transparent;
     filter: alpha(opacity=70);
-    border: 1px solid red;
+    opacity: 0.7;
 }
