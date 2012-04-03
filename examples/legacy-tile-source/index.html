@@ -54,6 +54,9 @@
         <hr/>
         <div id="contentDiv2" 
              class="openseadragon" ></div>
+        <hr/>
+        <div id="contentDiv3" 
+             class="openseadragon" ></div>
     </div>
 
     <script type="text/javascript">
@@ -102,6 +105,44 @@
                 
             }]
         });
+        
+
+        // Example 3 Demonstrates a current issue with legacy tile source.
+        // This is likely a simple issue but images which have greater width
+        // that height are not displaying correctly
+        
+        OpenSeadragon({
+            id: "contentDiv3",
+            prefixUrl: '/openseadragon',
+            showNavigator: true,
+            maxZoomPixelRatio: 2,
+            tileSources: [{
+                "mimetype": "image/jpg",
+                "url": "/openseadragon/examples/legacy-tile-source/09250_150px.jpg",
+                "height": 100,
+                "width": 150,
+                "reason": "Success",
+                "path": "/home/www/data/service/pnp/highsm/09200/09250_150px.jpg",
+                "size": 14081
+            },{
+                "mimetype": "image/jpg",
+                "url": "/openseadragon/examples/legacy-tile-source/09250r.jpg",
+                "height": 427,
+                "width": 640,
+                "reason": "Success",
+                "path": "/home/www/data/service/pnp/highsm/09200/09250r.jpg",
+                "size": 74040
+            },{
+                "mimetype": "image/jpg",
+                "url": "/openseadragon/examples/legacy-tile-source/09250v.jpg",
+                "height": 683,
+                "width": 1024,
+                "reason": "Success",
+                "path": "/home/www/data/service/pnp/highsm/09200/09250v.jpg",
+                "size": 185783
+            }]
+        });
+        
 
     </script>
     
