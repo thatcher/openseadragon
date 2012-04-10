@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
-		<title>OpenSeadragon.Overlay | JsDoc Reference</title>
+		<title>OpenSeadragon.Navigator | JsDoc Reference</title>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 		<meta name="mobileoptimized" content="0" />
@@ -100,7 +100,7 @@
 			<header>
 				<h1 class="classTitle">
 					
-					Class <span>OpenSeadragon.Overlay</span>
+					Class <span>OpenSeadragon.Navigator</span>
 				</h1>
 				
 				<div class="intro">
@@ -115,6 +115,8 @@
 							
 								<li>Defined in: <a href="../symbols/src/openseadragon.js.html">openseadragon.js</a></li>
 							
+							<li>Extends <span class="fixedFont">
+								<a href="../symbols/OpenSeadragon.EventHandler.html">OpenSeadragon.EventHandler</a>, <a href="../symbols/OpenSeadragon.Viewer.html">OpenSeadragon.Viewer</a></span></li>
 							
 						</ul>
 					
@@ -124,7 +126,7 @@
 			
 				<section>
 					<div class="props">
-						<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class OpenSeadragon.Overlay.">
+						<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class OpenSeadragon.Navigator.">
 							<caption class="sectionTitle">Class Summary</caption>
 							<thead>
 								<tr>
@@ -137,9 +139,12 @@
 									<td class="attributes">&nbsp;</td>
 									<td class="nameDescription" >
 										<div class="fixedFont">
-											<b><a href="../symbols/OpenSeadragon.Overlay.html#constructor">OpenSeadragon.Overlay</a></b>(element, location, placement)
+											<b><a href="../symbols/OpenSeadragon.Navigator.html#constructor">OpenSeadragon.Navigator</a></b>(options)
 										</div>
-										<div class="description">An Overlay provides a</div>
+										<div class="description">The Navigator provides a small view of the current image as fixed
+while representing the viewport as a moving box serving as a frame
+of reference in the larger viewport as to which portion of the image
+is currently being examined.</div>
 									</td>
 								</tr>
 							</tbody>
@@ -161,7 +166,7 @@
 						
 						
 							<nav>
-								<table class="summaryTable" id="MethodsList" cellspacing="0" summary="A summary of the methods documented in the class OpenSeadragon.Overlay.">
+								<table class="summaryTable" id="MethodsList" cellspacing="0" summary="A summary of the methods documented in the class OpenSeadragon.Navigator.">
 									<thead>
 										<tr>
 											<th scope="col">Method Attributes</th>
@@ -177,40 +182,7 @@
 											>
 												<td class="attributes">&nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Overlay.html#adjust">adjust</a></b>(position, size)
-													</div>
-													<div class="description"></div>
-												</td>
-											</tr>
-										
-											<tr
-												 class='item1'
-											>
-												<td class="attributes">&nbsp;</td>
-												<td class="nameDescription">
-													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Overlay.html#destroy">destroy</a></b>()
-													</div>
-													<div class="description"></div>
-												</td>
-											</tr>
-										
-											<tr
-												 class='item2'
-											>
-												<td class="attributes">&nbsp;</td>
-												<td class="nameDescription">
-													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Overlay.html#drawHTML">drawHTML</a></b>(container)
-													</div>
-													<div class="description"></div>
-												</td>
-											</tr>
-										
-											<tr
-												 class='item3'
-											>
-												<td class="attributes">&nbsp;</td>
-												<td class="nameDescription">
-													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Overlay.html#update">update</a></b>(location, position)
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Navigator.html#update">update</a></b>()
 													</div>
 													<div class="description"></div>
 												</td>
@@ -221,6 +193,12 @@
 							</nav>
 						
 					
+						
+							<nav>
+								<dl class="inheritsList" id="MethodsListInherited">
+								<dt>Methods borrowed from class <span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html">OpenSeadragon.Viewer</a></span>: </dt><dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html#close">close</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html#isDashboardEnabled">isDashboardEnabled</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html#isFullPage">isFullPage</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html#isMouseNavEnabled">isMouseNavEnabled</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html#isOpen">isOpen</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html#isVisible">isVisible</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html#open">open</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html#openDzi">openDzi</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html#openTileSource">openTileSource</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html#setDashboardEnabled">setDashboardEnabled</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html#setFullPage">setFullPage</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html#setMouseNavEnabled">setMouseNavEnabled</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.Viewer.html#setVisible">setVisible</a></span></dd><dt>Methods borrowed from class <span class='fixedFont'><a href="../symbols/OpenSeadragon.EventHandler.html">OpenSeadragon.EventHandler</a></span>: </dt><dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.EventHandler.html#addHandler">addHandler</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.EventHandler.html#getHandler">getHandler</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.EventHandler.html#raiseEvent">raiseEvent</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.EventHandler.html#removeHandler">removeHandler</a></span></dd><dt>Methods borrowed from class <span class='fixedFont'><a href="../symbols/OpenSeadragon.ControlDock.html">OpenSeadragon.ControlDock</a></span>: </dt><dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.ControlDock.html#addControl">addControl</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.ControlDock.html#areControlsEnabled">areControlsEnabled</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.ControlDock.html#clearControls">clearControls</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.ControlDock.html#removeControl">removeControl</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/OpenSeadragon.ControlDock.html#setControlsEnabled">setControlsEnabled</a></span></dd>
+								</dl>
+							</nav>
 						
 					</div>
 				</section>
@@ -242,11 +220,15 @@
 							</h2>
 							
 							<div class="fixedFont">
-								<b>OpenSeadragon.Overlay</b>(element, location, placement)
+								<b>OpenSeadragon.Navigator</b>(options)
 							</div>
 							
 							<div class="description">
-								An Overlay provides a
+								The Navigator provides a small view of the current image as fixed
+while representing the viewport as a moving box serving as a frame
+of reference in the larger viewport as to which portion of the image
+is currently being examined.  The navigators viewport can be interacted
+with using the keyboard or the mouse.
 								
 							</div>
 							
@@ -257,19 +239,13 @@
 									<dt class="heading">Parameters:</dt>
 									
 										<dt>
-											 <b>element</b>
+											<span class="light fixedFont">{Object}</span>  <b>options</b>
 											
 										</dt>
 										<dd></dd>
 									
 										<dt>
-											 <b>location</b>
-											
-										</dt>
-										<dd></dd>
-									
-										<dt>
-											 <b>placement</b>
+											<span class="light fixedFont">{String}</span>  <b>options.viewerId</b>
 											
 										</dt>
 										<dd></dd>
@@ -303,121 +279,6 @@
 									<li 
 										 class='item0'
 									>
-										<div class="fixedFont heading" id="adjust">
-											<span class='lighter'>
-											
-											</span>
-											
-											
-											
-											<b>adjust</b>(position, size)
-										</div>
-										
-										<div class="description">
-											
-											
-											
-											
-											
-										</div>
-										
-										
-										
-										
-											<dl class="detailList params">
-												<dt class="heading">Parameters:</dt>
-												
-													<dt>
-														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.html#.OverlayPlacement">OpenSeadragon.OverlayPlacement</a>}</span> <b>position</b>
-														
-													</dt>
-													<dd></dd>
-												
-													<dt>
-														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.Point.html">OpenSeadragon.Point</a>}</span> <b>size</b>
-														
-													</dt>
-													<dd></dd>
-												
-											</dl>
-										
-										
-										
-										<div class="hr"></div>
-									</li>
-								
-									<li 
-										 class='item1'
-									>
-										<div class="fixedFont heading" id="destroy">
-											<span class='lighter'>
-											
-											</span>
-											
-											
-											
-											<b>destroy</b>()
-										</div>
-										
-										<div class="description">
-											
-											
-											
-											
-											
-										</div>
-										
-										
-										
-										
-										
-										
-										<div class="hr"></div>
-									</li>
-								
-									<li 
-										 class='item2'
-									>
-										<div class="fixedFont heading" id="drawHTML">
-											<span class='lighter'>
-											
-											</span>
-											
-											
-											
-											<b>drawHTML</b>(container)
-										</div>
-										
-										<div class="description">
-											
-											
-											
-											
-											
-										</div>
-										
-										
-										
-										
-											<dl class="detailList params">
-												<dt class="heading">Parameters:</dt>
-												
-													<dt>
-														<span class="light fixedFont">{Element}</span> <b>container</b>
-														
-													</dt>
-													<dd></dd>
-												
-											</dl>
-										
-										
-										
-										<div class="hr"></div>
-									</li>
-								
-									<li 
-										 class='item3'
-									>
 										<div class="fixedFont heading" id="update">
 											<span class='lighter'>
 											
@@ -425,7 +286,7 @@
 											
 											
 											
-											<b>update</b>(location, position)
+											<b>update</b>()
 										</div>
 										
 										<div class="description">
@@ -438,23 +299,6 @@
 										
 										
 										
-										
-											<dl class="detailList params">
-												<dt class="heading">Parameters:</dt>
-												
-													<dt>
-														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.Point.html">OpenSeadragon.Point</a>|<a href="../symbols/OpenSeadragon.Rect.html">OpenSeadragon.Rect</a>}</span> <b>location</b>
-														
-													</dt>
-													<dd></dd>
-												
-													<dt>
-														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.html#.OverlayPlacement">OpenSeadragon.OverlayPlacement</a>}</span> <b>position</b>
-														
-													</dt>
-													<dd></dd>
-												
-											</dl>
 										
 										
 										

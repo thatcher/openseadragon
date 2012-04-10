@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
-		<title>OpenSeadragon.Overlay | JsDoc Reference</title>
+		<title>OpenSeadragon.ControlDock | JsDoc Reference</title>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 		<meta name="mobileoptimized" content="0" />
@@ -100,7 +100,7 @@
 			<header>
 				<h1 class="classTitle">
 					
-					Class <span>OpenSeadragon.Overlay</span>
+					Class <span>OpenSeadragon.ControlDock</span>
 				</h1>
 				
 				<div class="intro">
@@ -124,7 +124,7 @@
 			
 				<section>
 					<div class="props">
-						<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class OpenSeadragon.Overlay.">
+						<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class OpenSeadragon.ControlDock.">
 							<caption class="sectionTitle">Class Summary</caption>
 							<thead>
 								<tr>
@@ -137,9 +137,9 @@
 									<td class="attributes">&nbsp;</td>
 									<td class="nameDescription" >
 										<div class="fixedFont">
-											<b><a href="../symbols/OpenSeadragon.Overlay.html#constructor">OpenSeadragon.Overlay</a></b>(element, location, placement)
+											<b><a href="../symbols/OpenSeadragon.ControlDock.html#constructor">OpenSeadragon.ControlDock</a></b>(options)
 										</div>
-										<div class="description">An Overlay provides a</div>
+										<div class="description"></div>
 									</td>
 								</tr>
 							</tbody>
@@ -161,7 +161,7 @@
 						
 						
 							<nav>
-								<table class="summaryTable" id="MethodsList" cellspacing="0" summary="A summary of the methods documented in the class OpenSeadragon.Overlay.">
+								<table class="summaryTable" id="MethodsList" cellspacing="0" summary="A summary of the methods documented in the class OpenSeadragon.ControlDock.">
 									<thead>
 										<tr>
 											<th scope="col">Method Attributes</th>
@@ -177,7 +177,7 @@
 											>
 												<td class="attributes">&nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Overlay.html#adjust">adjust</a></b>(position, size)
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.ControlDock.html#addControl">addControl</a></b>(element, anchor)
 													</div>
 													<div class="description"></div>
 												</td>
@@ -188,7 +188,7 @@
 											>
 												<td class="attributes">&nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Overlay.html#destroy">destroy</a></b>()
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.ControlDock.html#areControlsEnabled">areControlsEnabled</a></b>()
 													</div>
 													<div class="description"></div>
 												</td>
@@ -199,7 +199,7 @@
 											>
 												<td class="attributes">&nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Overlay.html#drawHTML">drawHTML</a></b>(container)
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.ControlDock.html#clearControls">clearControls</a></b>()
 													</div>
 													<div class="description"></div>
 												</td>
@@ -210,7 +210,18 @@
 											>
 												<td class="attributes">&nbsp;</td>
 												<td class="nameDescription">
-													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.Overlay.html#update">update</a></b>(location, position)
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.ControlDock.html#removeControl">removeControl</a></b>(element)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item4'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/OpenSeadragon.ControlDock.html#setControlsEnabled">setControlsEnabled</a></b>(enabled)
 													</div>
 													<div class="description"></div>
 												</td>
@@ -242,11 +253,11 @@
 							</h2>
 							
 							<div class="fixedFont">
-								<b>OpenSeadragon.Overlay</b>(element, location, placement)
+								<b>OpenSeadragon.ControlDock</b>(options)
 							</div>
 							
 							<div class="description">
-								An Overlay provides a
+								
 								
 							</div>
 							
@@ -257,19 +268,7 @@
 									<dt class="heading">Parameters:</dt>
 									
 										<dt>
-											 <b>element</b>
-											
-										</dt>
-										<dd></dd>
-									
-										<dt>
-											 <b>location</b>
-											
-										</dt>
-										<dd></dd>
-									
-										<dt>
-											 <b>placement</b>
+											 <b>options</b>
 											
 										</dt>
 										<dd></dd>
@@ -303,14 +302,14 @@
 									<li 
 										 class='item0'
 									>
-										<div class="fixedFont heading" id="adjust">
+										<div class="fixedFont heading" id="addControl">
 											<span class='lighter'>
 											
 											</span>
 											
 											
 											
-											<b>adjust</b>(position, size)
+											<b>addControl</b>(element, anchor)
 										</div>
 										
 										<div class="description">
@@ -328,13 +327,13 @@
 												<dt class="heading">Parameters:</dt>
 												
 													<dt>
-														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.html#.OverlayPlacement">OpenSeadragon.OverlayPlacement</a>}</span> <b>position</b>
+														<b>element</b>
 														
 													</dt>
 													<dd></dd>
 												
 													<dt>
-														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.Point.html">OpenSeadragon.Point</a>}</span> <b>size</b>
+														<b>anchor</b>
 														
 													</dt>
 													<dd></dd>
@@ -349,14 +348,14 @@
 									<li 
 										 class='item1'
 									>
-										<div class="fixedFont heading" id="destroy">
+										<div class="fixedFont heading" id="areControlsEnabled">
 											<span class='lighter'>
 											
 											</span>
 											
+											<span class="light">{Boolean}</span>
 											
-											
-											<b>destroy</b>()
+											<b>areControlsEnabled</b>()
 										</div>
 										
 										<div class="description">
@@ -371,6 +370,27 @@
 										
 										
 										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{Boolean}</span> </dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
 										
 										<div class="hr"></div>
 									</li>
@@ -378,14 +398,14 @@
 									<li 
 										 class='item2'
 									>
-										<div class="fixedFont heading" id="drawHTML">
+										<div class="fixedFont heading" id="clearControls">
 											<span class='lighter'>
 											
 											</span>
 											
+											<span class="light">{<a href="../symbols/OpenSeadragon.ControlDock.html">OpenSeadragon.ControlDock</a>}</span>
 											
-											
-											<b>drawHTML</b>(container)
+											<b>clearControls</b>()
 										</div>
 										
 										<div class="description">
@@ -399,18 +419,28 @@
 										
 										
 										
-											<dl class="detailList params">
-												<dt class="heading">Parameters:</dt>
+										
+										
+											<dl class="detailList nomargin">
+											
 												
-													<dt>
-														<span class="light fixedFont">{Element}</span> <b>container</b>
-														
-													</dt>
-													<dd></dd>
 												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{<a href="../symbols/OpenSeadragon.ControlDock.html">OpenSeadragon.ControlDock</a>}</span> Chainable.</dd>
+													
+												
+												
+												
+												
+												
+											
 											</dl>
-										
-										
 										
 										<div class="hr"></div>
 									</li>
@@ -418,14 +448,14 @@
 									<li 
 										 class='item3'
 									>
-										<div class="fixedFont heading" id="update">
+										<div class="fixedFont heading" id="removeControl">
 											<span class='lighter'>
 											
 											</span>
 											
+											<span class="light">{<a href="../symbols/OpenSeadragon.ControlDock.html">OpenSeadragon.ControlDock</a>}</span>
 											
-											
-											<b>update</b>(location, position)
+											<b>removeControl</b>(element)
 										</div>
 										
 										<div class="description">
@@ -443,13 +473,7 @@
 												<dt class="heading">Parameters:</dt>
 												
 													<dt>
-														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.Point.html">OpenSeadragon.Point</a>|<a href="../symbols/OpenSeadragon.Rect.html">OpenSeadragon.Rect</a>}</span> <b>location</b>
-														
-													</dt>
-													<dd></dd>
-												
-													<dt>
-														<span class="light fixedFont">{<a href="../symbols/OpenSeadragon.html#.OverlayPlacement">OpenSeadragon.OverlayPlacement</a>}</span> <b>position</b>
+														<b>element</b>
 														
 													</dt>
 													<dd></dd>
@@ -457,6 +481,88 @@
 											</dl>
 										
 										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{<a href="../symbols/OpenSeadragon.ControlDock.html">OpenSeadragon.ControlDock</a>}</span> Chainable.</dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item4'
+									>
+										<div class="fixedFont heading" id="setControlsEnabled">
+											<span class='lighter'>
+											
+											</span>
+											
+											<span class="light">{<a href="../symbols/OpenSeadragon.ControlDock.html">OpenSeadragon.ControlDock</a>}</span>
+											
+											<b>setControlsEnabled</b>(enabled)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>enabled</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{<a href="../symbols/OpenSeadragon.ControlDock.html">OpenSeadragon.ControlDock</a>}</span> Chainable.</dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
 										
 										
 									</li>

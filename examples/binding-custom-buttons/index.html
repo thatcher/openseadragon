@@ -3,7 +3,7 @@
 <head>
   <meta charset='utf-8'>
 
-  <title>Toolbar | OpenSeadragon</title>
+  <title>Binding Custom Buttons | OpenSeadragon</title>
 
   <link rel='stylesheet' 
         type='text/css'
@@ -29,21 +29,16 @@
     <h1>
         <a href="/openseadragon">OpenSeadragon</a>
         <span class="small">
-            <a href="#">example: toolbar</a>
+            <a href="#">example: binding custom butoms</a>
         </span>
     </h1>
 
     <div class="description">
         <p>
-        Although OpenSeadragon provides default buttons which are overlayed on the Viewport,
-        there are many use cases where the presentation may require a more traditional
-        'toolbar'.  OpenSeadragon now allows you to very simply dock your controls 
-        inside any element on the page which the end user has presentation control over.
-        </p>
-        <p>
-        Most importantly the toolbar has additional logic which supports transitions between
-        fullpage and normal mode.  The user can style, including hiding, the toolbar in fullpage
-        mode, even though its not otherwise related to the viewer / viewport DOM.
+        You can now bind to an entirely custom user interface by just passing
+        the id of the elements you want treated as buttons!  This is especially useful
+        when you need to fully control the look and feel of the user interface.
+        (* new since 0.9.50)  See the "Binding custom buttons" example below.
         </p>
         <p>
         <strong>Try it on the iPad! (new since 0.9)</strong>
@@ -52,24 +47,74 @@
 
     <div class="demoarea">
         <div class="demoheading">
-            Toolbar
+            Binding custom buttons.
         </div>
         <div id="toolbarDiv" class="toolbar">
             <span style='float:right;margin:10px 20px 0 0'>
-            | <a href="#">other tools</a> 
-            | <a href="#">other tools</a> 
+            | <a id="zoom-in" href="#zoom-in">Zoom In</a> 
+            | <a id="zoom-out" href="#zoom-out">Zoom 0ut</a> 
+            | <a id="home" href="#home">Home</a> 
+            | <a id="full-page" href="#full-page">Full Page</a> 
+            </span>
+            <span style='float:left;margin:10px 0 0 20px'>
+            &lt;&nbsp;
+              <a id="previous" href="#previous-page">Previous</a> 
+            | <a id="next" href="#next-page">Next</a> 
+            &nbsp;&gt;
             </span>
         </div>
-        <div id="contentDiv" class="openseadragon"></div>
+        <div id="contentDiv" 
+             class="openseadragon"></div>
     </div>
 
     <script type="text/javascript">
+
         OpenSeadragon({
-            id:            "contentDiv",
-            prefixUrl:     "/openseadragon",
-            tileSources:   "/openseadragon/examples/highsmith/highsmith.dzi",
-            toolbar:       "toolbarDiv",
-            showNavigator: true
+            id:             "contentDiv",
+            prefixUrl:      "/openseadragon",
+            toolbar:        "toolbarDiv",
+            zoomInButton:   "zoom-in",
+            zoomOutButton:  "zoom-out",
+            homeButton:     "home",
+            fullPageButton: "full-page",
+            nextButton:     "next",
+            previousButton: "previous",
+            showNavigator:  true,
+            tileSources:    [
+                [{
+                    url: '/openseadragon/examples/legacy-tile-source/0001q.jpg',
+                    height: 889,
+                    width:  600
+                },{
+                    url: '/openseadragon/examples/legacy-tile-source/0001r.jpg',
+                    height: 2201,
+                    width:  1485
+                },{
+                    url: '/openseadragon/examples/legacy-tile-source/0001v.jpg',
+                    height: 4402,
+                    width:  2970
+                    
+                }],
+                [{
+                    url: '/openseadragon/examples/legacy-tile-source/090801t.gif',
+                    height: 150,
+                    width:  116
+                },{
+                    url: '/openseadragon/examples/legacy-tile-source/090801q.jpg',
+                    height: 400,
+                    width:  310
+                },{
+                    url: '/openseadragon/examples/legacy-tile-source/090801r.jpg',
+                    height: 860,
+                    width:  667
+                },{
+                    url: '/openseadragon/examples/legacy-tile-source/090801v.jpg',
+                    height: 1650,
+                    width:  1279
+                    
+                }],
+                "/openseadragon/examples/highsmith/highsmith.dzi"
+            ]
         });
     </script>
     
