@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+
+    <title>Legacy Tile Sources |  OpenSeadragon</title>
+
+    <link rel='stylesheet' 
+          type='text/css'
+          media='screen'
+          href='/openseadragon/css/style.css'/>
+
+    <script src="/openseadragon/openseadragon.js"></script>
+</head>
+
+<body>
+    <a href="https://github.com/thatcher/openseadragon"><img 
+       style="position: absolute; top: 0; right: 0; border: 0;" 
+       src="/openseadragon/images/forkme_right_darkblue_121621.png" 
+       alt="Fork me on GitHub" /></a>
+  <div id="container">
+    <div class="download">
+        <a href="https://github.com/thatcher/openseadragon/zipball/master">
+            <img border="0" width="90" src="/openseadragon/images/zip.png"></a>
+        <a href="https://github.com/thatcher/openseadragon/tarball/master">
+            <img border="0" width="90" src="/openseadragon/images/tar.png"></a>
+    </div>
+    <h1>
+        <a href="/openseadragon">OpenSeadragon</a>
+        <span style='font-size:12px;float:left;margin-left:10px;'>
+        Try it on the iPad! (new since 0.9)
+        </span>
+    </h1>
+
+    <div class='navigation'>
+        <ul>
+            <li><a href='#additional-examples-and-features'
+                >Additional Examples &amp; Features</a></li>
+            <li><a href='#dependencies'
+                >Dependencies</a></li>
+            <li><a href='#installing'
+                >Installing</a></li>
+            <li><a href='#api-documentation'
+                >API Documentation</a></li>
+            <li><a href='#download'
+                >Download</a></li>
+            <li><a href='#license'
+                >License</a></li>
+        </ul>
+    </div>
+
+    <h2>example: legacy image pyramids</h2>
+
+<p>
+    A "legacy image pyramid" (LIP) just means you can finally make use of your
+    existing images without pregenerating or dynamically creating image tiles. 
+    Web developers have commonly created derivatives of various sizes
+    that are intended for use for different web presentations or for download, 
+    like "thumbnail",  "detail", and "best" etc.  This is already a simple pyramid 
+    and you can use them to create a simple deep zoom presenation with OpenSeadragon!
+</p>
+
+<div class="description">
+    <h3>XMLHTTPRequest for LIP JSON</h3>
+    <p>
+        The LIP format is implied by a tile source specified as a string
+        and which does not have the </em>.js</em> extension.  The legacy image 
+        pyramid format does not currently have an xml serialization.
+    </p>
+</div>
+<div class="demoarea">
+    <div class="demoheading">
+        Example XMLHTTPRequest for LIP ( XML or JSON )
+    </div>
+    <div id="example-xmlhttprequest" 
+         class="openseadragon">
+        <script type="text/javascript">
+            OpenSeadragon({
+                id:            "example-xmlhttprequest",
+                prefixUrl:     "/openseadragon",
+                tileSources:   "/openseadragon/examples/images/rbc/rbc0001/2003/rosen.xml",
+                showNavigator:  true
+            });
+        </script>
+        <noscript>
+            <p>Deep zoom is not available unless javascript is enabled.</p>
+            <img src='/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001v.jpg'
+                 height='600'/>
+        </noscript>
+    </div>
+    <p>
+        Below is a sample LIP file formatted as JSON.
+    </p>
+<pre>
+{
+    type: 'legacy-image-pyramid',
+    levels:[{
+        url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001q.jpg',
+        height: 889,
+        width:  600
+    },{
+        url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001r.jpg',
+        height: 2201,
+        width:  1485
+    },{
+        url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001v.jpg',
+        height: 4402,
+        width:  2970
+    }]
+}
+</pre>
+<p>
+ Or the equivalent XML:
+</p>
+<pre>
+&lt;image type='legacy-image-pyramid'>
+    &lt;level
+        url='/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001q.jpg'
+        height='889'
+        width='600'/>
+    &lt;level
+        url='/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001r.jpg'
+        height='2201'
+        width='1485'/>
+    &lt;level
+        url='/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001v.jpg'
+        height='4402'
+        width='2970'/>
+&lt;/image>
+</pre>
+<p>
+    Configuration is done via the 'tileSources' option ( or programatically ).
+</p>
+<pre>
+OpenSeadragon({
+    ...
+    tileSources:   "/openseadragon/examples/images/rbc/rbc0001/2003/rosen.xml",
+    ...
+});</pre>
+</div>
+
+
+
+<div class="description">
+    <h3>JSONP Request for LIP JSON</h3>
+    <p>
+        The LIP JSONP format is implied by a tile source specified as a string
+        and which has the </em>.js</em> extension.  The remainder of the
+        file name is expected to match the jsonp callback 
+        the example below illustrates
+    </p>
+</div>
+<div class="demoarea">
+    <div class="demoheading">
+        Example JSONPRequest for DZI JSON
+    </div>
+    <div id="example-jsonprequest" 
+         class="openseadragon">
+        <script type="text/javascript">
+            OpenSeadragon({
+                id:            "example-jsonprequest",
+                prefixUrl:     "/openseadragon",
+                tileSources:   "/openseadragon/examples/images/rbc/rbc0001/2003/rosen.js",
+                showNavigator:  true
+            });
+        </script>
+        <noscript>
+            <p>Deep zoom is not available unless javascript is enabled.</p>
+            <img src='/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001v.jpg'
+                 height='600'/>
+        </noscript>
+    </div>
+    <p>
+        Below is a sample DZI file formatted as JSONP.
+    </p>
+<pre>
+rosen({
+    type: 'legacy-image-pyramid',
+    levels:[{
+        url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001q.jpg',
+        height: 889,
+        width:  600
+    },{
+        url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001r.jpg',
+        height: 2201,
+        width:  1485
+    },{
+        url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001v.jpg',
+        height: 4402,
+        width:  2970
+    }]
+});</pre>
+    <p>
+        Configuration is done via the 'tileSources' option ( or programatically ).
+    </p>
+<pre>
+OpenSeadragon({
+    ...
+    tileSources:   "/openseadragon/examples/images/rbc/rbc0001/2003/rosen.js",
+    ...
+});</pre>
+</div>
+
+
+
+<div class="description">
+    <h3>Inline Configuration for Legacy Tile Sources</h3>
+    <p>
+    We currently only support Legacy Tile Sources configured inline as the example
+    below demonstrates.  
+    </p>
+</div>
+
+<div class="demoarea">
+    <div class="demoheading">
+        Example Inline Configuration for Legacy Tile Sources
+    </div>
+    <div id="inline-configuration" 
+         class="openseadragon"></div>
+</div>
+
+<script type="text/javascript">
+    // Example
+    OpenSeadragon({
+        id: "inline-configuration",
+        prefixUrl: '/openseadragon',
+        showNavigator: true,
+        tileSources: {
+            type: 'legacy-image-pyramid',
+            levels:[{
+                url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001q.jpg',
+                height: 889,
+                width:  600
+            },{
+                url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001r.jpg',
+                height: 2201,
+                width:  1485
+            },{
+                url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001v.jpg',
+                height: 4402,
+                width:  2970
+            }]
+        }
+    });
+
+</script>
+
+<p>
+   The Legacy Tile Source has not been described as an official 'specification',
+   though we would like to eventually create a specification for it because
+   of how useful it can be to create interactive zoom interfaces using existing 
+   web derivatives.  <em> As such it may change though the goal is to keep it very
+   simple and similar to the examples provided below.</em>
+</p>
+
+<pre>
+OpenSeadragon({
+    ...
+    tileSources: {
+        type: 'legacy-image-pyramid',
+        levels:[{
+            url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001q.jpg',
+            height: 889,
+            width:  600
+        },{
+            url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001r.jpg',
+            height: 2201,
+            width:  1485
+        },{
+            url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001v.jpg',
+            height: 4402,
+            width:  2970
+            
+        }]
+    }
+    ...
+});
+</pre>
+
+    <h2 id='additional-examples-and-features'>
+        Additional Examples &amp; Features
+    </h2>
+    <ul>
+        <li>
+            <h3>Supported Tile Sources</h3>
+            <p>
+            OpenSeadragon supports several image serving protocols out of 
+            the box and is actively adding support for more.  If the image
+            serving protocol you need is not supported, you can always
+            add support for yours using a custom tile source. <em>(Please help
+            us add built-in support for your reqiured image serving 
+            protocol.)</em> Each supported protocol aims to allow configuration
+            via XMLHTTPRequest, JSONP, as well as direct inline configuration.
+            </p>
+            <ul>
+                <li><a href='/openseadragon/examples/tilesource-dzi/'>
+                    <span>DZI (Deep Zoom Images)</span>
+                </a></li>
+                <li><a href='/openseadragon/examples/tilesource-legacy/'>
+                    <span>Legacy Image Pyramids</span>
+                </a></li>
+                <li><a href='/openseadragon/examples/tilesource-custom/'>
+                    <span>Custom Tile Sources</span>
+                </a></li>
+            </ul>
+        </li>
+
+        <li>
+            <h3>Interface Elements and UI Customization</h3>
+            <p>
+            OpenSeadragon provides many optional interface elements which
+            can be easily enabled via simple configuration settings.  
+            Additionally, OpenSeadragon aims to enable you to bind it's
+            controls to entirely custom interfaces.
+            </p>
+            <ul>
+                <li><a href='/openseadragon/examples/ui-viewport-navigator/'>
+                    <span>Viewport Navigator</span>
+                </a></li>
+                <li><a href='/openseadragon/examples/ui-toolbar/'>
+                    <span>Toolbar</span>
+                </a></li>
+                <li><a href='/openseadragon/examples/ui-binding-custom-buttons/'>
+                    <span>Binding Custom Buttons</span>
+                </a></li>
+            </ul>
+        </li>
+
+        <li>
+            <h3>Image Set Visualization Features</h3>
+            <p>
+            Visualizing image sets may be the most fertile area of future 
+            development in OpenSeadragon.  It's very common that sets of 
+            related images are required to be presented in a way that 
+            allows a user to easily navigate through them.
+            </p>
+            <ul>
+                <li><a href='/openseadragon/examples/tilesource-sequence/'>
+                    <span>Image Sequence</span>
+                </a></li>
+            </ul>
+        </li>
+    </ul>
+    
+    
+    <h2 id='dependencies'>Dependencies</h2>
+    <p>Currently there are no additional dependencies.</p>
+    
+    <h2 id='installing'>Install</h2>
+    <p>
+    You can examine the source of this page to see how it's included in the page.
+    </p>
+
+
+    <h2 id='api-documentation'>API Documentation</h2>
+    <p>Is available <a href='/openseadragon/docs/'>here</a>.  The API 
+    documentation has not yet been closely aligned with our build / release cycle.
+    We try to minimize backward incompatible API changes but during the 0.X 
+    release cycle are taking some liberty to do so when it makes sense.  Please
+    keep both of these caveats in mind when referencing the API documentation.</p>
+
+    <h2 id='download'>Download</h2>
+    <p>
+        You can download this project in either
+        <a href="https://github.com/thatcher/openseadragon/zipball/master">zip</a> or
+        <a href="https://github.com/thatcher/openseadragon/tarball/master">tar formats.
+    </p>
+    <p>
+        You can also clone the project with <a href="http://git-scm.com">Git</a>
+        by running:
+        <pre>$ git clone git://github.com/thatcher/openseadragon</pre>
+    </p>
+
+
+    
+    <h2 id='license'>License</h2>
+    <p>The original license is a 
+        <a href='https://raw.github.com/thatcher/openseadragon/master/licenses/new-bsd.txt'
+        >New BSD</a> style license.</p>
+        <p>This project adds an 
+        <a href='https://raw.github.com/thatcher/openseadragon/master/licenses/mit.txt'
+        >MIT</a> style license.
+    </p>
+
+    <div class="footer">
+        get the source code on GitHub : <a href="https://github.com/thatcher/openseadragon">thatcher/openseadragon</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
