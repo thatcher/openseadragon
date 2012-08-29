@@ -16,6 +16,16 @@ body {
     background-color: #EEE; 
 
 }
+div noscript{
+    text-align:center;
+}
+noscript p{
+    position: absolute;
+    z-index: 99;
+    color: red;
+    text-align: center;
+    width: 700px;
+}
 
 h1 { font-size: 3.8em; color: #700; margin: 0 3px 0.5em 3px; }
 h1 .small { font-size: 0.4em; }
