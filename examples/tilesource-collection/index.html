@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
 
-    <title>Tile Source Sequence |  OpenSeadragon 0.9.90</title>
+    <title>Tile Source Collections |  OpenSeadragon 0.9.90</title>
 
     <link rel='stylesheet' 
           type='text/css'
@@ -49,58 +49,76 @@
         </ul>
     </div>
 
-    <h2>example: image sequence</h2>
+    <h2>
+    example: tilesource-collection *NOTE* UNDER DEVELOPMENT
+</h2>
+<p>
+    The image collection is a major hurdle for OpenSeadragon. It allows arbitrarily 
+    large sets of tile sources, of mixed types, to be used to easily visualize the
+    group as 'wall' or 'grid'.  Many core features are available for preview now, though
+    they may change soon. Many additional features are under development.
+</p>
+<p>
+    KNOWN ISSUE:<br/>
+    This implementation does not support plain html rendering techniques, eg canvas 
+    is required for smooth, regular rendering.  The plain html image rendering support, 
+    for IE and small mobile devices should be done soon.
+</p>
 
 <div class="description">
+    <h3>A basic single row tile source collection.</h3>
     <p>
-    It is not uncommon to have a sequence of images to present, and although
-    it's easy enough to add a 'previous' and 'next' link on your page, it's 
-    especially nice to allow the user to navigate the image sequence without
-    having leave the page.
-    <br/><br/>
-    OpenSeadragon now has support for an array of tile sources, including
-    a previous and next button!
+        Just a simple row of tile sources visualized as a collection.
     </p>
 </div>
-
 <div class="demoarea">
     <div class="demoheading">
-        Basic Example w/ Default Settings ( Using Legacy Image Pyramid Example )
+        One row, mixed tile sources..
     </div>
-    <div id="contentDiv1" 
-         class="openseadragon"></div>
-    <hr/>
-    <div class="demoheading">
-        Preset Zoom Level ( Resets on Page Turn )<br/>
-        Click on the navigator and alternate pressing keys 'w' and 's' to 
-        reproduce the effect of the referenced 'overlay' (depends on screen hertz
-        refresh rate, most screens will display the effect).
+    <div id="example-tilesource-collection" 
+         class="openseadragon" >
     </div>
-    <div id="contentDiv2" 
-         class="openseadragon"></div>
-    <hr/>
-    <div class="demoheading">
-        Preserving the Viewport Zoom Level and Position for Image Sequences
-    </div>
-    <div id="contentDiv3" 
-         class="openseadragon"></div>
-    <hr/>
-    <div class="demoheading">
-        Mixed Tile Source Example ( w/ Default Settings )
-    </div>
-    <div id="contentDiv4" 
-         class="openseadragon"></div>
+    <p>
+        No doubt this makes OpenSeadragon into a whole new platform for deepzoom
+        image visualization.
+    </p>
+<pre>
+OpenSeadragon({
+    ...
+    collectionMode:     true,
+    collectionRows:     1, 
+    collectionTileSize: 1024,
+    collectionTileMargin: 256,
+    ...
+});</pre>
 </div>
-
 <script type="text/javascript">
-
-
-    // Example
     OpenSeadragon({
-        id: "contentDiv1",
-        prefixUrl: '/openseadragon',
-        showNavigator: true,
-        tileSources: [{
+        id:                 "example-tilesource-collection",
+        prefixUrl:          "/openseadragon",
+        //debugMode:          true,
+        showNavigator:      false,
+        minPixelRatio:      0.0,
+        collectionMode:     true,
+        collectionRows:     1, 
+        collectionTileSize: 1024,
+        collectionTileMargin: 256,
+        //collectionLayout:   'vertical',
+        //defaultZoomLevel:   1,
+        //wrapHorizontal: true,
+        //wrapVertical: true,
+        tileSources: [
+            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05954.dzi",
+            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05955.dzi",
+            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05956.dzi",
+            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05957.dzi",
+            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05958.dzi",
+            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05959.dzi",
+            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05960.dzi",
+            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05961.dzi",
+            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05962.dzi",
+            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05963.dzi", 
+        {
             type: 'legacy-image-pyramid',
             levels: [{
                 url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001q.jpg',
@@ -260,7 +278,7 @@
                 width:  2970
                 
             }]
-        },{
+        }/*,{
             type: 'legacy-image-pyramid',
             levels: [{
                 url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0011q.jpg',
@@ -532,268 +550,11 @@
                 width:  2970
                 
             }]
-        }]
-    });
-
-    // Example
-    OpenSeadragon({
-        id: "contentDiv2",
-        prefixUrl: '/openseadragon',
-        showNavigator: true,
-        defaultZoomLevel: 1.05,
-        tileSources: [
-            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05954.dzi",
-            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05955.dzi",
-            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05956.dzi",
-            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05957.dzi",
-            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05958.dzi",
-            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05959.dzi",
-            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05960.dzi",
-            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05961.dzi",
-            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05962.dzi",
-            "/openseadragon/examples/images/pnp/ppmsca/05900/05954/05963.dzi"
-        ]
-    });
-
-    // Example
-    OpenSeadragon({
-        id: "contentDiv3",
-        prefixUrl: '/openseadragon',
-        showNavigator: true,
-        preserveViewport: true,
-        tileSources: [{
-            type: 'legacy-image-pyramid',
-            levels: [{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090801t.gif',
-                height: 150,
-                width:  116
-            },{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090801q.jpg',
-                height: 400,
-                width:  310
-            },{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090801r.jpg',
-                height: 860,
-                width:  667
-            },{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090801v.jpg',
-                height: 1650,
-                width:  1279
-                
-            }]
-        },{
-            type: 'legacy-image-pyramid',
-            levels: [{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090802q.jpg',
-                height: 400,
-                width:  310
-            },{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090802r.jpg',
-                height: 860,
-                width:  667
-            },{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090802v.jpg',
-                height: 1650,
-                width:  1279
-                
-            }]
-        },{
-            type: 'legacy-image-pyramid',
-            levels: [{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090803q.jpg',
-                height: 400,
-                width:  310
-            },{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090803r.jpg',
-                height: 860,
-                width:  667
-            },{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090803v.jpg',
-                height: 1650,
-                width:  1279
-                
-            }]
-        },{
-            type: 'legacy-image-pyramid',
-            levels: [{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090804q.jpg',
-                height: 400,
-                width:  310
-            },{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090804r.jpg',
-                height: 860,
-                width:  667
-            },{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090804v.jpg',
-                height: 1650,
-                width:  1279
-                
-            }]
-        }]
-    });
-
-
-    // Example
-    OpenSeadragon({
-        id: "contentDiv4",
-        prefixUrl: '/openseadragon',
-        showNavigator: true,
-        tileSources: [{
-            type: 'legacy-image-pyramid',
-            levels: [{
-                url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001q.jpg',
-                height: 889,
-                width:  600
-            },{
-                url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001r.jpg',
-                height: 2201,
-                width:  1485
-            },{
-                url: '/openseadragon/examples/images/rbc/rbc0001/2003/2003rosen1799/0001v.jpg',
-                height: 4402,
-                width:  2970
-                
-            }]
-        },{
-            type: 'legacy-image-pyramid',
-            levels: [{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090801t.gif',
-                height: 150,
-                width:  116
-            },{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090801q.jpg',
-                height: 400,
-                width:  310
-            },{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090801r.jpg',
-                height: 860,
-                width:  667
-            },{
-                url: '/openseadragon/examples/images/rpbaasm/0900/0908/090801v.jpg',
-                height: 1650,
-                width:  1279
-                
-            }]
-        },
-        "/openseadragon/examples/images/highsmith/highsmith.dzi" ]
+        }*/]
     });
 </script>
 
 
-<!--
-
-/*
-// Example
-OpenSeadragon({
-    id:                 "contentDiv0",
-    prefixUrl:          '/openseadragon',
-    showNavigator:      true,
-    minPixelRatio:      0.7,
-    maxImageCacheCount: 0,
-    tileSources: [
-
-        "/openseadragon/examples/demo/pnp/ppmsca/31000/31018/0001.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/31000/31018/0002.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/31000/31018/0003.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/31000/31018/0004.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/31000/31018/0005.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/31000/31018/0006.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/31000/31018/0007.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/31000/31018/0008.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/31000/31018/0009.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/31000/31018/0010.dzi",
-
-        "/openseadragon/examples/demo/pnp/ppmsca/23700/23762/0001.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/23700/23762/0002.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/23700/23762/0003.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/23700/23762/0004.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/23700/23762/0005.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/23700/23762/0006.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/23700/23762/0007.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/23700/23762/0008.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/23700/23762/0009.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/23700/23762/0010.dzi",
-
-        "/openseadragon/examples/demo/pnp/ppmsca/22200/22293/0001.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/22200/22293/0002.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/22200/22293/0003.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/22200/22293/0004.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/22200/22293/0005.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/22200/22293/0006.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/22200/22293/0007.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/22200/22293/0008.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/22200/22293/0009.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/22200/22293/0010.dzi",
-
-        "/openseadragon/examples/demo/pnp/ppmsca/17800/17808/0001.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/17800/17808/0002.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/17800/17808/0003.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/17800/17808/0004.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/17800/17808/0005.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/17800/17808/0006.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/17800/17808/0007.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/17800/17808/0008.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/17800/17808/0009.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/17800/17808/0010.dzi",
-
-        "/openseadragon/examples/demo/pnp/ppmsca/13700/13705/00001.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/13700/13705/00002.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/13700/13705/00003.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/13700/13705/00004.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/13700/13705/00005.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/13700/13705/00006.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/13700/13705/00007.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/13700/13705/00008.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/13700/13705/00009.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/13700/13705/00010.dzi",
-
-        "/openseadragon/examples/demo/pnp/ppmsca/12800/12834/00001.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/12800/12834/00002.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/12800/12834/00003.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/12800/12834/00004.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/12800/12834/00005.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/12800/12834/00006.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/12800/12834/00007.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/12800/12834/00008.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/12800/12834/00009.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/12800/12834/00010.dzi",
-
-        "/openseadragon/examples/demo/pnp/ppmsca/09900/09924/09924.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/09900/09924/09925.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/09900/09924/09926.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/09900/09924/09927.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/09900/09924/09928.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/09900/09924/09929.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/09900/09924/09930.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/09900/09924/09931.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/09900/09924/09932.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/09900/09924/09933.dzi",
-
-        "/openseadragon/examples/demo/pnp/ppmsca/08700/08729/0001.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/08700/08729/0002.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/08700/08729/0003.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/08700/08729/0004.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/08700/08729/0005.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/08700/08729/0006.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/08700/08729/0007.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/08700/08729/0008.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/08700/08729/0009.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/08700/08729/0010.dzi",
-
-        "/openseadragon/examples/demo/pnp/ppmsca/05900/05954/05954.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/05900/05954/05955.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/05900/05954/05956.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/05900/05954/05957.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/05900/05954/05958.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/05900/05954/05959.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/05900/05954/05960.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/05900/05954/05961.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/05900/05954/05962.dzi",
-        "/openseadragon/examples/demo/pnp/ppmsca/05900/05954/05963.dzi"
-    ]
-});
-*/
--->
 
     <h2 id='additional-examples-and-features'>
         Additional Examples &amp; Features

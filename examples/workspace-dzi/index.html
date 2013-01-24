@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
 
-    <title>IIIF Tile Source |  OpenSeadragon 0.9.90</title>
+    <title>Workspace - DZI |  OpenSeadragon 0.9.90</title>
 
     <link rel='stylesheet' 
           type='text/css'
@@ -49,22 +49,89 @@
         </ul>
     </div>
 
-    <!-- 
-/opt/djakota/target/lib/kdu_compress \
-	-quiet \
-	-i /opt/djakota/src/test/resources/images/01967u.tif \
-	-o /opt/djakota/target/images/01967u.jp2 \
-	-slope 51651,51337,51186,50804,50548,50232 \
-	Clevels=7 \
-	Cprecincts={256,256},{256,256},{128,128} \
-	Clayers=6 \
-	Corder=RPCL \
-	ORGtparts=R \
-	Cblk={32,32} \
-	ORGgen_plt=yes \
-	Creversible=yes \
-	-jp2_space sRGB
--->
+    <h2>
+    example: deep zoom image support
+</h2>
+<p>
+    The DZI (Deep Zoom Image) format is an
+    xml specification maintained by Microsoft and described <a
+    href='http://msdn.microsoft.com/en-us/library/cc645077(v=vs.95).aspx'>here</a>.
+</p>
+<p>
+    OpenSeadragon has added supports for DZI format via AJAX ( XML/JSON ), JSONP,
+    and as inline configuration ( using the json format ). The DZI specification 
+    does not officially describe a JSON format however the 
+    examples below illustrate how DZI xml is mapped to json following some
+    simple conventions.
+</p>
+
+
+
+
+<div class="description">
+    <h3>Inline Configuration for DZI</h3>
+    <p>
+        Inline configuration is convenient as well because it avoids a potentially
+        complicated JSON/XML Ajax request over the network.  Just plop the equivalent
+        json directly into 'tileSources' option.
+    </p>
+</div>
+<div class="demoarea">
+    <div class="demoheading">
+        Example Inline Configuration for DZI
+    </div>
+    <div id="example-inline-configuration-for-dzi" 
+         style="height:200px; width:300px;">
+    </div>
+    <p>
+        Configuration is done via the 'tileSources' option ( or programatically ).
+    </p>
+    <p>
+        Note however the non-standard dzi property 'Url' which we must supply
+        explicitly since this is normally inferred by the path specified
+        for the dzi XML/JSON/JSONP.
+    </p>
+<pre>
+OpenSeadragon({
+    ...
+    tileSources:   {
+        Image: {
+            xmlns:    "http://schemas.microsoft.com/deepzoom/2008",
+            Url:      "/openseadragon/examples/images/highsmith/highsmith_files/",
+            Format:   "jpg", 
+            Overlap:  "2", 
+            TileSize: "256",
+            Size: {
+                Height: "9221",
+                Width:  "7026"
+            }
+        }
+    }
+    ...
+});</pre>
+</div>
+<script type="text/javascript">
+    OpenSeadragon({
+        id:            "example-inline-configuration-for-dzi",
+        prefixUrl:     "/openseadragon",
+        showNavigator:  true,
+        tileSources:   {
+            Image: {
+                xmlns:    "http://schemas.microsoft.com/deepzoom/2008",
+                Url:      "/openseadragon/examples/images/highsmith/highsmith_files/",
+                Format:   "jpg", 
+                Overlap:  "2", 
+                TileSize: "256",
+                Size: {
+                    Height: "9221",
+                    Width:  "7026"
+                }
+            }
+        }
+    });
+</script>
+
+
 
     <h2 id='additional-examples-and-features'>
         Additional Examples &amp; Features
