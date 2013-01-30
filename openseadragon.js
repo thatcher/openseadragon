@@ -1,5 +1,5 @@
 /**
- * @version  OpenSeadragon 0.9.90
+ * @version  OpenSeadragon 0.9.92
  *
  * @fileOverview 
  * <h2>
@@ -222,8 +222,8 @@
   *     position.  If preserveViewport is set to true, then the viewport position
   *     is preserved when navigating between images in the sequence.
   *
-  * @param {String} [options.prefixUrl='']
-  *     Appends the prefixUrl to navImages paths, which is very useful
+  * @param {String} [options.prefixUrl='/images/']
+  *     Prepends the prefixUrl to navImages paths, which is very useful
   *     since the default paths are rarely useful for production
   *     environments.
   *
@@ -485,7 +485,7 @@ OpenSeadragon = window.OpenSeadragon || function( options ){
             zoomPerClick:           2.0,
             zoomPerScroll:          1.2,
             zoomPerSecond:          2.0,
-            
+
             showNavigationControl:  true,
             showSequenceControl:    true,
             controlsFadeDelay:      2000,
@@ -524,45 +524,46 @@ OpenSeadragon = window.OpenSeadragon || function( options ){
             maxImageCacheCount:     200,
             minZoomImageRatio:      0.8,
             maxZoomPixelRatio:      2,
+            timeout:                5000,
 
             //INTERFACE RESOURCE SETTINGS
-            prefixUrl:              null,
+            prefixUrl:              "/images/",
             navImages: {
                 zoomIn: {
-                    REST:   '/images/zoomin_rest.png',
-                    GROUP:  '/images/zoomin_grouphover.png',
-                    HOVER:  '/images/zoomin_hover.png',
-                    DOWN:   '/images/zoomin_pressed.png'
+                    REST:   'zoomin_rest.png',
+                    GROUP:  'zoomin_grouphover.png',
+                    HOVER:  'zoomin_hover.png',
+                    DOWN:   'zoomin_pressed.png'
                 },
                 zoomOut: {
-                    REST:   '/images/zoomout_rest.png',
-                    GROUP:  '/images/zoomout_grouphover.png',
-                    HOVER:  '/images/zoomout_hover.png',
-                    DOWN:   '/images/zoomout_pressed.png'
+                    REST:   'zoomout_rest.png',
+                    GROUP:  'zoomout_grouphover.png',
+                    HOVER:  'zoomout_hover.png',
+                    DOWN:   'zoomout_pressed.png'
                 },
                 home: {
-                    REST:   '/images/home_rest.png',
-                    GROUP:  '/images/home_grouphover.png',
-                    HOVER:  '/images/home_hover.png',
-                    DOWN:   '/images/home_pressed.png'
+                    REST:   'home_rest.png',
+                    GROUP:  'home_grouphover.png',
+                    HOVER:  'home_hover.png',
+                    DOWN:   'home_pressed.png'
                 },
                 fullpage: {
-                    REST:   '/images/fullpage_rest.png',
-                    GROUP:  '/images/fullpage_grouphover.png',
-                    HOVER:  '/images/fullpage_hover.png',
-                    DOWN:   '/images/fullpage_pressed.png'
+                    REST:   'fullpage_rest.png',
+                    GROUP:  'fullpage_grouphover.png',
+                    HOVER:  'fullpage_hover.png',
+                    DOWN:   'fullpage_pressed.png'
                 },
                 previous: {
-                    REST:   '/images/previous_rest.png',
-                    GROUP:  '/images/previous_grouphover.png',
-                    HOVER:  '/images/previous_hover.png',
-                    DOWN:   '/images/previous_pressed.png'
+                    REST:   'previous_rest.png',
+                    GROUP:  'previous_grouphover.png',
+                    HOVER:  'previous_hover.png',
+                    DOWN:   'previous_pressed.png'
                 },
                 next: {
-                    REST:   '/images/next_rest.png',
-                    GROUP:  '/images/next_grouphover.png',
-                    HOVER:  '/images/next_hover.png',
-                    DOWN:   '/images/next_pressed.png'
+                    REST:   'next_rest.png',
+                    GROUP:  'next_grouphover.png',
+                    HOVER:  'next_hover.png',
+                    DOWN:   'next_pressed.png'
                 }
             },
 
@@ -3731,6 +3732,7 @@ $.extend( $.Viewer.prototype, $.EventHandler.prototype, $.ControlDock.prototype,
             blendTime:          this.blendTime,
             alwaysBlend:        this.alwaysBlend,
             minPixelRatio:      this.minPixelRatio,
+            timeout:            this.timeout,
             debugMode:          this.debugMode,
             debugGridColor:     this.debugGridColor
         });
@@ -3933,8 +3935,8 @@ $.extend( $.Viewer.prototype, $.EventHandler.prototype, $.ControlDock.prototype,
             bodyStyle.width     = "100%";
             bodyStyle.height    = "100%";
 
-            canvasStyle.backgroundColor = "black";
-            canvasStyle.color           = "white";
+            //canvasStyle.backgroundColor = "black";
+            //canvasStyle.color           = "white";
 
             //containerStyle.position = "fixed";
 
@@ -4734,7 +4736,7 @@ $.Navigator = function( options ){
     }
 
     options = $.extend( true, {
-        navigatorSizeRatio:     $.DEFAULT_SETTINGS.navigatorSizeRatio
+        sizeRatio:     $.DEFAULT_SETTINGS.navigatorSizeRatio
     }, options, {
         element:                this.element,
         //These need to be overridden to prevent recursion since
@@ -4882,8 +4884,8 @@ $.Navigator = function( options ){
         this.element.style.width  = options.width + 'px';
         this.element.style.height = options.height + 'px';
     } else {
-        this.element.style.width  = ( viewerSize.x * options.navigatorSizeRatio ) + 'px';
-        this.element.style.height = ( viewerSize.y * options.navigatorSizeRatio ) + 'px';
+        this.element.style.width  = ( viewerSize.x * options.sizeRatio ) + 'px';
+        this.element.style.height = ( viewerSize.y * options.sizeRatio ) + 'px';
     }
 
     $.Viewer.apply( this, [ options ] ); 
@@ -4914,8 +4916,12 @@ $.extend( $.Navigator.prototype, $.EventHandler.prototype, $.Viewer.prototype, {
 
                 style.top    = topleft.y + 'px';
                 style.left   = topleft.x + 'px';
-                style.width  = ( Math.abs( topleft.x - bottomright.x ) - 3 ) + 'px';
-                style.height = ( Math.abs( topleft.y - bottomright.y ) - 3 ) + 'px';
+
+                var width = Math.abs( topleft.x - bottomright.x ) - 3; // TODO: What's this magic number mean?
+                var height = Math.abs( topleft.y - bottomright.y ) - 3;
+                // make sure width and height are non-negative so IE doesn't throw
+                style.width  = Math.max( width, 0 ) + 'px';
+                style.height = Math.max( height, 0 ) + 'px';
 
             }( this.displayRegion.style ));  
         } 
@@ -4991,6 +4997,7 @@ function onCanvasScroll( tracker, position, scroll, shift ) {
 
 
 }( OpenSeadragon ));
+
 (function( $ ){
     
 //TODO: I guess this is where the i18n needs to be reimplemented.  I'll look 
@@ -5663,7 +5670,7 @@ $.DziTileSource = function( width, height, tileSize, tileOverlap, tilesUrl, file
             tileOverlap: arguments[ 3 ],
             tilesUrl: arguments[ 4 ],
             fileFormat: arguments[ 5 ],
-            dispRects: arguments[ 6 ]
+            displayRects: arguments[ 6 ]
         };
     }
 
@@ -5743,7 +5750,7 @@ $.extend( $.DziTileSource.prototype, $.TileSource.prototype, {
             }
             dziPath = url.split('/');
             dziName = dziPath.pop();
-            dziName = dziName.substring(0, dziName.indexOf('.'));
+            dziName = dziName.substring(0, dziName.lastIndexOf('.'));
             dziPath = '/' + dziPath.join('/') + '/' + dziName + '_files/';
             tilesUrl = dziPath;
             if( host ){
@@ -5914,7 +5921,7 @@ function configureFromObject( tileSource, configuration ){
         height        = parseInt( sizeData.Height ),
         tileSize      = parseInt( imageData.TileSize ),
         tileOverlap   = parseInt( imageData.Overlap ),
-        dispRects     = [],
+        displayRects  = [],
         rectData,
         i;
 
@@ -5934,7 +5941,7 @@ function configureFromObject( tileSource, configuration ){
     for ( i = 0; i < dispRectData.length; i++ ) {
         rectData = dispRectData[ i ].Rect;
 
-        dispRects.push( new $.DisplayRect(
+        displayRects.push( new $.DisplayRect(
             parseInt( rectData.X ),
             parseInt( rectData.Y ),
             parseInt( rectData.Width ),
@@ -5954,7 +5961,7 @@ function configureFromObject( tileSource, configuration ){
         maxLevel: null, /* maxLevel */
         tilesUrl: tilesUrl, /* tilesUrl */
         fileFormat: fileFormat, /* fileFormat */
-        dispRects: dispRects /* dispRects */
+        displayRects: displayRects /* displayRects */
     };
 
 };
@@ -7656,7 +7663,8 @@ $.Tile.prototype = {
     drawHTML: function( container ) {
 
         var position = this.position.apply( Math.floor ),
-            size     = this.size.apply( Math.ceil );
+            size     = this.size.apply( Math.ceil )
+            containerSize = $.getElementSize( container );
 
         if ( !this.loaded || !this.image ) {
             $.console.warn(
@@ -7680,10 +7688,19 @@ $.Tile.prototype = {
             container.appendChild( this.element );
         }
 
-        this.element.style.left    = position.x + "px";
-        this.element.style.top     = position.y + "px";
-        this.element.style.width   = size.x + "px";
-        this.element.style.height  = size.y + "px";
+        this.style.top     = position.y + "px";
+        this.style.left    = position.x + "px";
+        this.style.height = size.y + "px";
+        this.style.width = size.x + "px";
+
+        //this.style.right   = ( containerSize.x - position.x ) + "px";
+        //this.style.bottom  = ( containerSize.y - position.y ) + "px";
+
+        //when the entire container is filled by a single tile we need
+        //some additional stickyness so when animating container size
+        //the image stays fixed in position
+        //this.element.style.width   =  ( size.x / containerSize.x ) * 100 + "%";
+        //this.element.style.height  =  ( size.y / containerSize.y ) * 100 + "%";
 
         $.setElementOpacity( this.element, this.opacity );
 
@@ -7707,7 +7724,22 @@ $.Tile.prototype = {
             return;
         }
         context.globalAlpha = this.opacity;
+
+        context.save();
+        if( context.globalAlpha == 1 && this.image.src.match('.png') ){
+
+            context.clearRect( 
+                position.x+1, 
+                position.y+1, 
+                size.x-2, 
+                size.y-2 
+            );
+
+        }
+        
         context.drawImage( this.image, position.x, position.y, size.x, size.y );
+
+        context.restore();
     },
 
     /**
@@ -7902,8 +7934,7 @@ $.Tile.prototype = {
 
 (function( $ ){
     
-var TIMEOUT             = 5000,
-    DEVICE_SCREEN       = $.getWindowSize(),
+var DEVICE_SCREEN       = $.getWindowSize(),
     BROWSER             = $.Browser.vendor,
     BROWSER_VERSION     = $.Browser.version,
 
@@ -7972,6 +8003,7 @@ $.Drawer = function( options ) {
         midUpdate:      false,
         updateAgain:    true,
 
+
         //internal state / configurable settings 
         overlays:           [],
         collectionOverlays: {},
@@ -7986,7 +8018,8 @@ $.Drawer = function( options ) {
         blendTime:          $.DEFAULT_SETTINGS.blendTime,
         alwaysBlend:        $.DEFAULT_SETTINGS.alwaysBlend,
         minPixelRatio:      $.DEFAULT_SETTINGS.minPixelRatio,
-        debugMode:          $.DEFAULT_SETTINGS.debugMode
+        debugMode:          $.DEFAULT_SETTINGS.debugMode,
+        timeout:            $.DEFAULT_SETTINGS.timeout
 
     }, options );
 
@@ -8176,10 +8209,10 @@ $.Drawer.prototype = {
      * @method
      * @param {String} src - The url of the image to load.
      * @param {Function} callback - The function that will be called with the
-     *      Image object as the only parameter, whether on 'load' or on 'abort'.
-     *      For now this means the callback is expected to distinguish between
-     *      error and success conditions by inspecting the Image object.
-     * @return {Boolean} loading - Wheter the request was submitted or ignored 
+     *      Image object as the only parameter if it was loaded successfully.
+     *      If an error occured, or the request timed out or was aborted,
+     *      the parameter is null instead.
+     * @return {Boolean} loading - Whether the request was submitted or ignored
      *      based on OpenSeadragon.DEFAULT_SETTINGS.imageLoaderLimit.
      */
     loadImage: function( src, callback ) {
@@ -8196,11 +8229,11 @@ $.Drawer.prototype = {
 
             image = new Image();
 
-            complete = function( imagesrc ){
+            complete = function( imagesrc, resultingImage ){
                 _this.downloading--;
                 if (typeof ( callback ) == "function") {
                     try {
-                        callback( image );
+                        callback( resultingImage );
                     } catch ( e ) {
                         $.console.error(
                             "%s while executing %s callback: %s", 
@@ -8214,16 +8247,16 @@ $.Drawer.prototype = {
             };
 
             image.onload = function(){
-                finishLoadingImage( image, complete, true );
+                finishLoadingImage( image, complete, true, jobid );
             };
 
             image.onabort = image.onerror = function(){
-                finishLoadingImage( image, complete, false );
+                finishLoadingImage( image, complete, false, jobid );
             };
 
             jobid = window.setTimeout( function(){
                 finishLoadingImage( image, complete, false, jobid );
-            }, TIMEOUT );
+            }, this.timeout );
 
             loading   = true;
             image.src = src;
@@ -8287,8 +8320,12 @@ function updateViewport( drawer ) {
     //TODO
     drawer.canvas.innerHTML   = "";
     if ( USE_CANVAS ) {
-        drawer.canvas.width   = viewportSize.x;
-        drawer.canvas.height  = viewportSize.y;
+        if( drawer.canvas.width != viewportSize.x ||
+            drawer.canvas.height != viewportSize.y 
+        ){
+            drawer.canvas.width   = viewportSize.x;
+            drawer.canvas.height  = viewportSize.y;
+        }
         drawer.context.clearRect( 0, 0, viewportSize.x, viewportSize.y );
     }
 
@@ -8893,9 +8930,9 @@ function drawTiles( drawer, lastDrawn ){
                             'below 0px -webkit-gradient('+
                                 'linear,left '+
                                 'top,left '+
-                                'bottom,from(transparent),color-stop(60%,transparent),to(rgba(255,255,255,0.4))'+
+                                'bottom,from(transparent),color-stop(62%,transparent),to(rgba(255,255,255,0.62))'+
                             ')';
-                        style['border'] = '1px solid rgba(255,255,255,0.2)';
+                        style['border'] = '1px solid rgba(255,255,255,0.38)';
                         //style['borderRight'] = '1px solid #fff';
                     }(viewer.element.style));
 
@@ -9067,6 +9104,7 @@ $.Viewport.prototype = {
         this.fitHeightBounds = new $.Rect( 0, 0, 1, this.contentAspectY );
 
         this.homeBounds = this.fitHeightBounds;
+        return this;
     },
 
     /**
@@ -9252,6 +9290,7 @@ $.Viewport.prototype = {
             bounds.y += dy;
             this.fitBounds( bounds, immediately );
         }
+        return this;
     },
 
     /**
@@ -9260,6 +9299,7 @@ $.Viewport.prototype = {
      */
     ensureVisible: function( immediately ) {
         this.applyConstraints( immediately );
+        return this;
     },
 
     /**
@@ -9297,7 +9337,7 @@ $.Viewport.prototype = {
         newZoom   = 1.0 / newBounds.width;
         if ( newZoom == oldZoom || newBounds.width == oldBounds.width ) {
             this.panTo( center, immediately );
-            return;
+            return this;
         }
 
         referencePoint = oldBounds.getTopLeft().times( 
@@ -9312,6 +9352,7 @@ $.Viewport.prototype = {
         );
 
         this.zoomTo( newZoom, referencePoint, immediately );
+        return this;
     },
     
     /**
@@ -9324,6 +9365,7 @@ $.Viewport.prototype = {
         } else {
             return this.fitHorizontally( immediately );
         }
+        return this;
     },
 
     /**
@@ -9348,6 +9390,7 @@ $.Viewport.prototype = {
         }
 
         this.fitBounds( this.homeBounds, immediately );
+        return this;
     },
 
     /**
@@ -9372,6 +9415,7 @@ $.Viewport.prototype = {
         }
 
         this.fitBounds( this.homeBounds, immediately );
+        return this;
     },
 
 
@@ -9386,6 +9430,7 @@ $.Viewport.prototype = {
             this.centerSpringY.target.value
         );
         this.panTo( center.plus( delta ), immediately );
+        return this;
     },
 
     /**
@@ -9401,6 +9446,8 @@ $.Viewport.prototype = {
             this.centerSpringX.springTo( center.x );
             this.centerSpringY.springTo( center.y );
         }
+
+        return this;
     },
 
     /**
@@ -9408,6 +9455,7 @@ $.Viewport.prototype = {
      */
     zoomBy: function( factor, refPoint, immediately ) {
         this.zoomTo( this.zoomSpring.target.value * factor, refPoint, immediately );
+        return this;
     },
 
     /**
@@ -9415,15 +9463,18 @@ $.Viewport.prototype = {
      */
     zoomTo: function( zoom, refPoint, immediately ) {
 
+        this.zoomPoint = refPoint instanceof $.Point ? 
+            refPoint : 
+            null;
+            
         if ( immediately ) {
             this.zoomSpring.resetTo( zoom );
         } else {        
             this.zoomSpring.springTo( zoom );
         }
 
-        this.zoomPoint = refPoint instanceof $.Point ? 
-            refPoint : 
-            null;
+
+        return this;
     },
 
     /**
@@ -9445,6 +9496,8 @@ $.Viewport.prototype = {
         }
 
         this.fitBounds( newBounds, true );
+
+        return this;
     },
 
     /**
