@@ -1,7 +1,7 @@
 /*globals OpenSeadragon */
 
 /**
- * @version  OpenSeadragon 0.9.95
+ * @version  OpenSeadragon 0.9.96
  *
  * @fileOverview 
  * <h2>
@@ -471,8 +471,8 @@ window.OpenSeadragon = window.OpenSeadragon || function( options ){
              
             //INTERFACE FEATURES
             animationTime:          1.5,
-            blendTime:              0.1,
-            alwaysBlend:            false,
+            blendTime:              0.5,
+            alwaysBlend:            true,
             autoHideControls:       true,
             immediateRender:        false,
             wrapHorizontal:         false,
@@ -4723,7 +4723,7 @@ function onNext(){
  * The Navigator provides a small view of the current image as fixed
  * while representing the viewport as a moving box serving as a frame
  * of reference in the larger viewport as to which portion of the image
- * is currently being examined.  The navigators viewport can be interacted
+ * is currently being examined.  The navigator's viewport can be interacted
  * with using the keyboard or the mouse.
  * @class 
  * @name OpenSeadragon.Navigator
@@ -4790,7 +4790,7 @@ $.Navigator = function( options ){
         style.background    = 'transparent';
 
         // We use square bracket notation on the statement below, because float is a keyword.
-        // This is important for the Google Closure compliler, if nothing else.
+        // This is important for the Google Closure compiler, if nothing else.
         /*jshint sub:true */ 
         style['float']      = 'left'; //Webkit
         
@@ -4938,7 +4938,7 @@ $.extend( $.Navigator.prototype, $.EventHandler.prototype, $.Viewer.prototype, {
                 style.top    = topleft.y + 'px';
                 style.left   = topleft.x + 'px';
 
-                var width = Math.abs( topleft.x - bottomright.x ) - 3; // TODO: What's this magic number mean?
+                var width = Math.abs( topleft.x - bottomright.x ) - 3; // TODO: What does this magic number mean?
                 var height = Math.abs( topleft.y - bottomright.y ) - 3;
                 // make sure width and height are non-negative so IE doesn't throw
                 style.width  = Math.max( width, 0 ) + 'px';
@@ -7726,13 +7726,9 @@ $.Tile.prototype = {
         //               content during animation of the container size.
         
         if ( !this.element ) {
-            this.element            = $.makeNeutralElement("div");
-            this.image              = $.makeNeutralElement("img");
-            this.image.src          = this.url;
-            this.image.style.height = '100%';
-            this.image.style.width  = '100%';
-            this.image.style.msInterpolationMode = "nearest-neighbor";
-            this.element.appendChild( this.image );
+            this.element              = $.makeNeutralElement("img");
+            this.element.src          = this.url;
+            this.element.style.msInterpolationMode = "nearest-neighbor";
 
             this.style                     = this.element.style;
             this.style.position            = "absolute";
@@ -7746,7 +7742,7 @@ $.Tile.prototype = {
         this.style.height  = 100 * ( this.size.y / containerSize.y ) + "%";
         this.style.width   = 100 * ( this.size.x / containerSize.x ) + "%";
         
-        $.setElementOpacity( this.image, this.opacity );
+        $.setElementOpacity( this.element, this.opacity );
 
 
     },
@@ -8945,14 +8941,6 @@ function drawTiles( drawer, lastDrawn ){
 
     for ( i = lastDrawn.length - 1; i >= 0; i-- ) {
         tile = lastDrawn[ i ];
-
-        if( drawer.debugMode ){
-            try{
-                drawDebugInfo( drawer, tile, lastDrawn.length, i );
-            }catch(e){
-                $.console.error(e);
-            }
-        }
         
         //We dont actually 'draw' a collection tile, rather its used to house
         //an overlay which does the drawing in its own viewport
@@ -9021,7 +9009,16 @@ function drawTiles( drawer, lastDrawn ){
                 tile.drawHTML( drawer.canvas );
             }
 
+
             tile.beingDrawn = true;
+        }
+
+        if( drawer.debugMode ){
+            try{
+                drawDebugInfo( drawer, tile, lastDrawn.length, i );
+            }catch(e){
+                $.console.error(e);
+            }
         }
     }
 }
@@ -9031,7 +9028,7 @@ function drawDebugInfo( drawer, tile, count, i ){
 
     if ( USE_CANVAS ) {
         drawer.context.lineWidth = 2;
-        drawer.context.font = 'small-caps bold 12px ariel';
+        drawer.context.font = 'small-caps bold 13px ariel';
         drawer.context.strokeStyle = drawer.debugGridColor;
         drawer.context.fillStyle = drawer.debugGridColor;
         drawer.context.strokeRect( 
