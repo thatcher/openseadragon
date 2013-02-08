@@ -94,10 +94,17 @@
         viewport zoom and position when changing pages.
 
     </p>
+    <p>
+       In order to make this feel just a little more like a basic book turner, we are
+       adding a useful combination of other options that help to constrain the viewport.
+    </p>
 <pre>
 OpenSeadragon({
     ...
     preserveViewport: true,
+    visibilityRatio:    1,
+    minZoomLevel:       1,
+    defaultZoomLevel:   1,
     tileSources:   [{
         "tilesUrl":     "http://img.princeton.edu/loris",
         "identifier":   "pudl0001/4609321/s42/00000001",   
@@ -121,7 +128,10 @@ OpenSeadragon({
     OpenSeadragon({
         id:                 "example-inline-configuration-for-iiif",
         prefixUrl:          "/openseadragon/images/",
-        preserveViewport: true,
+        preserveViewport:   true,
+        visibilityRatio:    1,
+        minZoomLevel:       1,
+        defaultZoomLevel:   1,
         tileSources:   [{
             "tilesUrl":     "http://img.princeton.edu/loris",
             "identifier":   "pudl0001/4609321/s42/00000001",   
@@ -224,9 +234,9 @@ OpenSeadragon({
                 <li><a href='/openseadragon/examples/tilesource-legacy/'>
                     <span>Legacy Image Pyramids</span>
                 </a></li>
-                <!--<li><a href='/openseadragon/examples/tilesource-iiif/'>
+                <li><a href='/openseadragon/examples/tilesource-iiif/'>
                     <span>IIIF (International Image Interchange Format)</span>
-                </a></li>-->
+                </a></li>
                 <li><a href='/openseadragon/examples/tilesource-dzi/'>
                     <span>DZI (Deep Zoom Images)</span>
                 </a></li>
