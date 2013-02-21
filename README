@@ -1,0 +1,12 @@
+== OpenSeadragon 
+
+This project has moved!
+
+Thanks to Ian Gilman, one of the original authors of OpenSeadragon, we have a new github organization, better project component seperation to reduce the size of the repo developers need to clone to contibute, a move to Node based build tools, and most importantly more core contributors to respond to issues and feature requests.
+
+I'd also like to thank everyone who has contributed so far, OpenSeadragon is going places!
+
+Please see http://github.com/openseadragon for our new organization. We'll continue to monitor this repo for tickets and forks to help everyone make the move smoothly.
+
+Sincerely,
+Christopher Thatcher
